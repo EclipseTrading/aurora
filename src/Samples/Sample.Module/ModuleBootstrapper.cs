@@ -23,7 +23,7 @@ namespace Aurora.Sample.Module
         {
             Func<SampleViewActivityInfo> f = () => new SampleViewActivityInfo("Sample View" + (viewIndex != 0 ? " (" + viewIndex++ + ")" : ""), isCloseable: true)
             {
-                MessageFormat = "Hello {0}"
+                MessageFormat = "Hello {0}" 
             };
 
             await activityService.StartActivityAsync(f());
