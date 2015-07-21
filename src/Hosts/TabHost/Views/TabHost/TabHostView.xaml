@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Aurora.TabHost.Views.TabHost.TabHostView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:regions="http://www.codeplex.com/CompositeWPF"
+             xmlns:tabHost="clr-namespace:Aurora.TabHost.Views.TabHost"
+             xmlns:tabHost1="clr-namespace:Aurora.TabHost"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             
+             d:DataContext="{d:DesignInstance tabHost:TabHostViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl regions:RegionManager.RegionManager="{Binding Path=RegionManager}" 
+                regions:RegionManager.RegionName="{x:Static tabHost1:TabHostRegion.Default}"
+                Style="{DynamicResource MetroTabControl}">
+        <i:Interaction.Behaviors>
+            <tabHost1:SelectOnAdd/>
+        </i:Interaction.Behaviors>
+        <TabControl.Template>
+
+            <ControlTemplate TargetType="TabControl">
+                <Grid KeyboardNavigation.TabNavigation="Local">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TabPanel x:Name="HeaderPanel"
+                              Grid.Row="0"
+                              Panel.ZIndex="1"
+                              Margin="0,0,4,-1"
+                              IsItemsHost="True"
+                              KeyboardNavigation.TabIndex="1"
+                              Background="Transparent">
+                        
+                    </TabPanel>
+
+                    <Rectangle Grid.Row="1" Fill="{DynamicResource AccentColorBrush}"></Rectangle>
+                    
+                    <ContentPresenter x:Name="PART_SelectedContentHost"
+                                      Grid.Row="2"
+                                      Margin="4"
+                                      ContentSource="SelectedContent" />
+                </Grid>
+            </ControlTemplate>
+        </TabControl.Template>
+
+    </TabControl>
+</UserControl>

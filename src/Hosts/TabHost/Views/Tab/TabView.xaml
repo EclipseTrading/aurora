@@ -1,0 +1,64 @@
+﻿<TabItem x:Class="Aurora.TabHost.Views.Tab.TabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aurora.TabHost.Views.Tab"
+             xmlns:tabHost="clr-namespace:Aurora.TabHost"
+             mc:Ignorable="d" 
+         IsSelected="True"
+         Foreground="White"
+             d:DataContext="{d:DesignInstance local:TabViewModel}"
+         Header="{Binding Path=Header}"
+         Panel.ZIndex="1">
+
+    <TabItem.Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Height="24" Margin="0,0,-24,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="24"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" Grid.ColumnSpan="2"/>
+
+                            <TextBlock Margin="8,1" Foreground="{TemplateBinding Foreground}" FontFamily="Segoe UI" FontSize="12pt">
+                                <Run Typography.Capitals="SmallCaps" Text="{TemplateBinding Header}"/>
+                            </TextBlock>
+
+                            <Path Grid.Column="2" Fill="{TemplateBinding Background}" Data="M0,0V24H24L0,0"></Path>
+
+                            <Button Margin="0,0,8,0" Grid.Column="1" Visibility="{TemplateBinding Property=IsSelected, Converter={tabHost:BoolToVisibilityConverter}}" Foreground="{TemplateBinding Foreground}"
+                                    Command="{Binding Path=CloseCommand}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Rectangle Width="15" Height="15" Fill="Transparent"/>
+                                            <Canvas Width="10" Height="10">
+                                                <Line Stroke="{TemplateBinding Foreground}" X1="0" X2="10" Y1="0" Y2="10" StrokeThickness="3"/>
+                                                <Line Stroke="{TemplateBinding Foreground}" X1="0" X2="10" Y1="10" Y2="0" StrokeThickness="3"/>
+                                            </Canvas>
+                                        </Grid>
+                                    </ControlTemplate>
+
+                                </Button.Template>
+                            </Button>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#708FA4"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Panel.ZIndex" Value="100"/>
+                    <Setter Property="Background" Value="#006DB6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </TabItem.Style>
+</TabItem>
