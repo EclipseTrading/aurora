@@ -5,7 +5,7 @@
     <authors>EclipseTrading</authors>
     <owners>EclipseTrading</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>MVPVM Framework</description>
+    <description>MVPVM Framework Application Host Project</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
 	  <dependency id="Aurora.Core" version="1.0"/>
