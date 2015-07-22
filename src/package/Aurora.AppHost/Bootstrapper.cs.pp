@@ -11,7 +11,7 @@ namespace $rootnamespace$
     {
         public override IEnumerable<Type> GetModules()
         {
-            yield return typeof(Aurora.DockingHost.ModuleBootstrapper);
+            yield return typeof(Aurora.DockingContainer.ModuleBootstrapper);
         }
     }
 }

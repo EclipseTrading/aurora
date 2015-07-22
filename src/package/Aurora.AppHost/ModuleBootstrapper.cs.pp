@@ -1,6 +1,6 @@
-using Aurora.Core.Host;
-using Aurora.CommandBarHost;
-using Aurora.DockingHost;
+using Aurora.Core.Container;
+using Aurora.CommandBarContainer;
+using Aurora.DockingContainer;
 using Microsoft.Practices.Prism.Modularity;
 
 namespace $rootnamespace$
@@ -16,8 +16,8 @@ namespace $rootnamespace$
 
         public void Initialize()
         {
-            activityService.StartActivityAsync(new CommandBarHostActivityInfo(HostLocation.Top));
-            activityService.StartActivityAsync(new DockingHostActivityInfo(HostLocation.Center, true));
+            activityService.StartActivityAsync(new CommandBarContainerActivityInfo(HostLocation.Top));
+            activityService.StartActivityAsync(new DockingContainerActivityInfo(HostLocation.Center, true));
         }
     }
 }

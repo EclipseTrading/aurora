@@ -1,5 +1,4 @@
-﻿<Application xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform"
-         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+﻿<Application xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform" xdt:Transform="RemoveAttributes(StartupUri)" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Application.Resources xdt:Transform="InsertIfMissing">
         <ResourceDictionary xdt:Transform="InsertIfMissing">
            <ResourceDictionary.MergedDictionaries>
