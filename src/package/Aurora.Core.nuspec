@@ -14,7 +14,7 @@
       <dependency id="Unity" version="3.5.1404.0" />
     </dependencies>
     <references>
-      <reference file="Aurora.DockingHost.dll"/>
+      <reference file="Aurora.Core.dll"/>
     </references>
   </metadata>
   <files>

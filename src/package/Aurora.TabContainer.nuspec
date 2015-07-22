@@ -19,7 +19,7 @@
     </references>
   </metadata>
   <files>
-    <file src="..\Hosts\TabContainer\bin\Release\Aurora.TabContainer.dll" target="lib\net45"/>
-    <file src="..\Hosts\TabContainer\bin\Release\Aurora.TabContainer.pdb" target="lib\net45"/>
+    <file src="..\Containers\TabContainer\bin\Release\Aurora.TabContainer.dll" target="lib\net45"/>
+    <file src="..\Containers\TabContainer\bin\Release\Aurora.TabContainer.pdb" target="lib\net45"/>
   </files>
 </package>

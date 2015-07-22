@@ -17,7 +17,7 @@
     </references>
   </metadata>
   <files>
-    <file src="..\Hosts\DockingHost\bin\Release\Aurora.DockingContainer.dll" target="lib\net45"/>
-    <file src="..\Hosts\DockingHost\bin\Release\Aurora.DockingContainer.pdb" target="lib\net45"/>
+    <file src="..\Containers\DockingContainer\bin\Release\Aurora.DockingContainer.dll" target="lib\net45"/>
+    <file src="..\Containers\DockingContainer\bin\Release\Aurora.DockingContainer.pdb" target="lib\net45"/>
   </files>
 </package>
