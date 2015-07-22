@@ -8,12 +8,12 @@
     <description>MVPVM Framework Application Host Project</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
-	  <dependency id="Aurora.Core" version="1.0"/>
-	  <dependency id="Aurora.DockingContainer" version="1.0"/>
-	  <dependency id="Aurora.CommandBarContainer" version="1.0"/>
+      <dependency id="Aurora.Core" version="1.0"/>
+      <dependency id="Aurora.DockingContainer" version="1.0"/>
+      <dependency id="Aurora.CommandBarContainer" version="1.0"/>
       <dependency id="MahApps.Metro" version="1.1.2.0" />
-      <dependency id="Prism" version="5.0.1" />
-      <dependency id="Prism.UnityExtensions" version="5.0.1" />
+      <dependency id="Prism" version="5.0.0" />
+      <dependency id="Prism.UnityExtensions" version="5.0.0" />
     </dependencies>
     <references>
       <reference file="Aurora.Hosting.dll"/>

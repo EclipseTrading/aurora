@@ -8,6 +8,7 @@
     <description>Aurora Framework Container for docked views</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
+      <dependency id="Aurora.Core" version="1.0" />
       <dependency id="AvalonDock" version="2.0.2000" />
       <dependency id="CommonServiceLocator" version="1.2" />
       <dependency id="Prism.Composition" version="5.0.0" />

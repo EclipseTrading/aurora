@@ -8,6 +8,7 @@
     <description>Aurora Framework container for command bars</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
+      <dependency id="Aurora.Core" version="1.0" />
       <dependency id="Unity" version="3.5.1404.0" />
     </dependencies>
     <references>
