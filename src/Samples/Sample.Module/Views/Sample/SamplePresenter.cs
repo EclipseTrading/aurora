@@ -2,10 +2,11 @@
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Aurora.Core;
-using Aurora.Core.Host;
+using Aurora.Core.Container;
 using Aurora.Core.ViewContainer;
 using Aurora.Sample.Module.Shared;
 using Microsoft.Practices.Prism.Commands;
+using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
 
 namespace Aurora.Sample.Module.Views.Sample
 {

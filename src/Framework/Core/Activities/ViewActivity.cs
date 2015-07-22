@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Aurora.Core.Host;
+using Aurora.Core.Container;
 using Microsoft.Practices.Unity;
 
 namespace Aurora.Core.Activities

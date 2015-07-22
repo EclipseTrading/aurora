@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "Framework\Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosting", "Framework\Hosting\Hosting.csproj", "{3A04907D-05BC-4E67-939A-FB5EA0824443}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContainerHosts", "ContainerHosts", "{3981BFFE-7611-4205-A393-AAFC275F2B8F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{3981BFFE-7611-4205-A393-AAFC275F2B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabHost", "Hosts\TabHost\TabHost.csproj", "{34D63D0A-7DA4-41B9-8921-0B5538EC90A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabContainer", "Containers\TabContainer\TabContainer.csproj", "{34D63D0A-7DA4-41B9-8921-0B5538EC90A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockingHost", "Hosts\DockingHost\DockingHost.csproj", "{CEA85A33-0AD2-42A5-9A20-9965B331A5C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockingContainer", "Containers\DockingContainer\DockingContainer.csproj", "{CEA85A33-0AD2-42A5-9A20-9965B331A5C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandBarHost", "Hosts\CommandBarHost\CommandBarHost.csproj", "{F6DF0B4D-2254-454F-B157-CF39EA396780}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandBarContainer", "Containers\CommandBarContainer\CommandBarContainer.csproj", "{F6DF0B4D-2254-454F-B157-CF39EA396780}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{809436AA-5674-4F5B-9200-1A59260F3169}"
 EndProject
@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Host", "Samples\Samp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05A4C4F2-1BA9-48F5-ADB6-2C011A43E508}"
 	ProjectSection(SolutionItems) = preProject
-		Aurora.nuspec = Aurora.nuspec
+		Aurora.AppHost.nuspec = Aurora.AppHost.nuspec
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 	EndProjectSection
 EndProject

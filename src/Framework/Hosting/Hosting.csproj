@@ -161,7 +161,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Hosts\DockingHost\DockingHost.csproj">
+    <ProjectReference Include="..\..\Containers\CommandBarContainer\CommandBarContainer.csproj">
+      <Project>{f6df0b4d-2254-454f-b157-cf39ea396780}</Project>
+      <Name>CommandBarHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Containers\DockingContainer\DockingContainer.csproj">
       <Project>{CEA85A33-0AD2-42A5-9A20-9965B331A5C0}</Project>
       <Name>DockingHost</Name>
     </ProjectReference>

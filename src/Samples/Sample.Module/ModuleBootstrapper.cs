@@ -1,6 +1,6 @@
 ﻿using System;
 using Aurora.Core.Commands;
-using Aurora.Core.Host;
+using Aurora.Core.Container;
 using Aurora.Sample.Module.Shared;
 using Microsoft.Practices.Prism.Modularity;
 

@@ -1,5 +1,5 @@
 ﻿using Aurora.Core.Activities;
-using Aurora.Core.Host;
+using Aurora.Core.Container;
 
 namespace Aurora.Sample.Module.Shared
 {

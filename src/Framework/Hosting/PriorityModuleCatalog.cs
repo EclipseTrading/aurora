@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Aurora.Core.Host;
+using Aurora.Core.Container;
 using Microsoft.Practices.Prism.Modularity;
 
 namespace Aurora.Hosting

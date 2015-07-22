@@ -9,38 +9,9 @@ namespace Aurora.Sample.Host
 {
     public class Bootstrapper : AuroraBootstrapper
     {
-        protected override DependencyObject CreateShell()
+        public override IEnumerable<Type> GetModules()
         {
-            var shell = new Shell();
-
-            Application.Current.MainWindow = shell;
-            shell.Show();
-
-            return shell;
-        }
-
-        protected override IModuleCatalog CreateModuleCatalog()
-        {
-            var catalog = new PriorityModuleCatalog();
-
-            foreach (var type in GetModules())
-            {
-                var attr = type.GetCustomAttributes(typeof(ModuleAttribute), true)
-                    .OfType<ModuleAttribute>()
-                    .FirstOrDefault()
-                           ?? new ModuleAttribute { ModuleName = type.AssemblyQualifiedName, OnDemand = false };
-
-                catalog.AddModule(attr.ModuleName,
-                    type.AssemblyQualifiedName,
-                    attr.OnDemand ? InitializationMode.OnDemand : InitializationMode.WhenAvailable);
-            }
-
-            return catalog;
-        }
-
-        public IEnumerable<Type> GetModules()
-        {
-            yield return typeof(DockingHost.ModuleBootstrapper);
+            yield return typeof(DockingContainer.ModuleBootstrapper);
             yield return typeof(Sample.Host.ModuleBootstrapper);
             yield return typeof(Sample.Module.ModuleBootstrapper);
         }

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:regions="http://www.codeplex.com/CompositeWPF"
-        xmlns:host="clr-namespace:Aurora.Core.Host;assembly=Aurora.Core"
+        xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
@@ -51,10 +51,10 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static host:Regions.TopHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" regions:RegionManager.RegionName="{x:Static host:Regions.LeftHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static host:Regions.CenterHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static host:Regions.RightHost}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static host:Regions.BottomHost}"/>
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.TopHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" regions:RegionManager.RegionName="{x:Static container:Regions.LeftHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static container:Regions.CenterHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static container:Regions.RightHost}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.BottomHost}"/>
     </Grid>
 </controls:MetroWindow>
