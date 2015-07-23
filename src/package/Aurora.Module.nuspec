@@ -13,9 +13,12 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Aurora.AppHost\Bootstrapper.cs.pp" target="content\Bootstrapper.cs.pp"/>
-    <file src="Aurora.AppHost\ModuleBootstrapper.cs.pp" target="content\ModuleBootstrapper.cs.pp"/>
-    <file src="Aurora.AppHost\App.xaml.cs.pp" target="content\App.xaml.cs.pp"/>
-    <file src="Aurora.AppHost\App.xaml.install.xdt" target="content\App.xaml.install.xdt"/>
+    <file src="Aurora.Module\View\Sample.ActivityInfo.cs.pp" target="content\Sample.Activity.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.Activity.cs.pp" target="content\Views\Sample\Sample.Activity.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.View.xaml.cs.pp" target="content\Views\Sample\Sample.View.xaml.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.View.xaml.pp" target="content\Views\Sample\Sample.View.xaml.pp"/>
+    <file src="Aurora.Module\View\Sample.Presenter.cs.pp" target="content\Views\Sample\Sample.Presenter.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.ViewModel.cs.pp" target="content\Views\Sample\Sample.ViewModel.cs.pp"/>
+    <file src="Aurora.Module\ModuleBootstrapper.cs.pp" target="content\ModuleBootstrapper.cs.pp"/>
   </files>
 </package>
