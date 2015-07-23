@@ -1,5 +1,6 @@
 param([String] $commonAssemblyInfo, [String]$build)
 
+"Updating Version Build Number To: " + $build
 
 $assemblyInfo = Get-Content $commonAssemblyInfo
 $version = '$1.' + $build
