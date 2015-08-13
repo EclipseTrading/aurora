@@ -4,7 +4,7 @@ using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer.Views
 {
-    public class CommandBarContainerPresenter : Presenter<CommandBarContainerViewModel, CommandBarContainerView, CommandBarContainerActivityInfo>
+    public class CommandBarContainerPresenter : Presenter<CommandBarContainerViewModel, CommandBarContainerActivityInfo>
     {
         public CommandBarContainerPresenter(CommandBarContainerActivityInfo activityInfo) : base(activityInfo)
         {

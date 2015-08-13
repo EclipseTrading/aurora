@@ -5,7 +5,7 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Aurora.TabContainer.Views.Tab
 {
-    public class TabPresenter : Presenter<TabViewModel, TabView, TabActivityInfo>, IViewContainerService
+    public class TabPresenter : Presenter<TabViewModel, TabActivityInfo>, IViewContainerService
     {
         public event EventHandler RequestClose;
 

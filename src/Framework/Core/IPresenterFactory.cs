@@ -1,13 +1,11 @@
+using System;
 using System.Threading.Tasks;
-using System.Windows;
+using Aurora.Core.Activities;
 
 namespace Aurora.Core
 {
-    public interface IPresenterFactory
+    public interface IViewFactory
     {
-        Task<TPresenter> CreatePresenterAsync<TPresenter, TViewModel, TView>(params object[] parameters)
-            where TViewModel : IViewModel
-            where TView : FrameworkElement
-            where TPresenter : IPresenter<TViewModel, TView>;
+        Task<ActiveView> CreateActiveViewAsync(IActivity activity, Type presenterType, params object[] parameters);
     }
 }

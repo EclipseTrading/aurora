@@ -1,29 +1,27 @@
 using System.Threading.Tasks;
-using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Activities;
-using Aurora.Core.Container;
+using Aurora.Core.ViewContainer;
+using Aurora.DockingContainer.Views.Document;
 using Microsoft.Practices.Prism.Regions;
+using IViewContainerService = Aurora.Core.Container.IViewContainerService;
 
 namespace Aurora.DockingContainer.Views.DockingContainer
 {
     public class DockingViewContainerService : IViewContainerService
     {
-        private readonly IRegionManager hostRegionManager;
+        private readonly IRegionManager regionManager;
 
-        public DockingViewContainerService(IRegionManager hostRegionManager)
+        public DockingViewContainerService(IRegionManager regionManager)
         {
-            this.hostRegionManager = hostRegionManager;
+            this.regionManager = regionManager;
         }
 
-        public Task AddViewAsync<TPresenter, TViewModel, TView, TActivityInfo>(TPresenter presenter, TActivityInfo activityInfo) 
-            where TPresenter : IPresenter<TViewModel, TView> 
-            where TViewModel : IViewModel 
-            where TView : FrameworkElement 
+        public async Task AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo) 
             where TActivityInfo : ViewActivityInfo
         {
-            hostRegionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => presenter);
-            return Task.FromResult(0);
+            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => contentView);
+            await Task.FromResult(0);
         }
     }
 }

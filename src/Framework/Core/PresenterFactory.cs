@@ -1,23 +1,26 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
 
 namespace Aurora.Core
 {
-    public class PresenterFactory : IPresenterFactory
+    public class ViewFactory : IViewFactory
     {
         private readonly IUnityContainer container;
+        private readonly IRelatedTypeResolver<IViewModel> viewModelResolver;
+        private readonly IRelatedTypeResolver<FrameworkElement> viewResolver;
 
-        public PresenterFactory(IUnityContainer container)
+        public ViewFactory(IUnityContainer container, IRelatedTypeResolver<IViewModel> viewModelResolver, IRelatedTypeResolver<FrameworkElement> viewResolver)
         {
             this.container = container;
+            this.viewModelResolver = viewModelResolver;
+            this.viewResolver = viewResolver;
         }
         
-        public async Task<TPresenter> CreatePresenterAsync<TPresenter, TViewModel, TView>(params object[] parameters)
-            where TViewModel : IViewModel
-            where TView : FrameworkElement
-            where TPresenter : IPresenter<TViewModel, TView>
+        public async Task<ActiveView> CreateActiveViewAsync(IActivity activity, Type presenterType, params object[] parameters)
         {
             var overrides =
                 parameters.Select(p =>
@@ -28,13 +31,17 @@ namespace Aurora.Core
                         new DependencyOverride(p.GetType(), p));
                 }).ToArray();
 
-            var presenter = container.Resolve<TPresenter>(overrides);
-            var view = container.Resolve<TView>(overrides);
-            var viewModel = container.Resolve<TViewModel>(overrides);
+            var presenter = (IPresenter)container.Resolve(presenterType, overrides);
+            var viewType = viewResolver.ResolveType(presenterType);
+            var viewModelType = viewModelResolver.ResolveType(presenterType);
+            var view = (FrameworkElement)container.Resolve(viewType, overrides);
+            var viewModel = (IViewModel)container.Resolve(viewModelType, overrides);
 
-            await presenter.InitializeAsync(viewModel, view);
-            
-            return presenter;
+            view.DataContext = viewModel;
+
+            await presenter.InitializeAsync(viewModel);
+
+            return new ActiveView(presenter, viewModel, view, activity);
         }
     }
 }

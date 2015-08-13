@@ -71,6 +71,7 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ActiveView.cs" />
     <Compile Include="Activities\ActivityInfo.cs" />
     <Compile Include="Activities\ActivityInfoAttribute.cs" />
     <Compile Include="Activities\BaseViewActivity.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Activities\ViewActivityInfo.cs" />
     <Compile Include="Activities\ViewContainerActivity.cs" />
     <Compile Include="Commands\StartActivityCommand.cs" />
+    <Compile Include="CompositeTypeResolver.cs" />
     <Compile Include="DefaultModuleProvider.cs" />
     <Compile Include="Container\CommandInfo.cs" />
     <Compile Include="Container\DefaultCommandBarServiceHost.cs" />
@@ -100,9 +102,11 @@
     <Compile Include="Activities\IActivity.cs" />
     <Compile Include="IModuleProvider.cs" />
     <Compile Include="IPresenterFactory.cs" />
+    <Compile Include="IRelatedTypeResolver.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IViewPresenter.cs" />
+    <Compile Include="NamingConventionTypeResolver.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="PresenterFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -114,7 +118,9 @@
     <Compile Include="ViewContainer\IViewContainerAware.cs" />
     <Compile Include="ViewContainer\IViewContainerService.cs" />
     <Compile Include="ViewDefinition.cs" />
+    <Compile Include="ViewFactoryExtensions.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>

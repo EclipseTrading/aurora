@@ -13,12 +13,13 @@ namespace Aurora.Core.Test
         {
             var container = new UnityContainer();
 
-            var factory = new PresenterFactory(container);
-            var presenter = await factory.CreatePresenterAsync<TestPresenter, TestViewModel, TestView>();
+            var factory = new ViewFactory(container, new ViewModelResolver(), new NamingConventionTypeResolver<FrameworkElement>("Presenter", "View"));
+            var activeView = await factory.CreateActiveViewAsync<TestPresenter>();
+            var presenter = activeView.Presenter;
 
             var propertySet = false;
 
-            presenter .OnViewModelPropertyChanged(vm => vm.TestProperty, () => propertySet = true);
+            presenter.OnViewModelPropertyChanged(vm => vm.TestProperty, () => propertySet = true);
 
             Assert.IsFalse(propertySet);
             Assert.IsNull(presenter.ViewModel.TestProperty);
@@ -28,32 +29,32 @@ namespace Aurora.Core.Test
             Assert.IsTrue(propertySet);
             Assert.AreEqual(presenter.ViewModel.TestProperty, "Test");
         }
+    }
 
-        internal class TestPresenter : Presenter<TestViewModel, TestView> 
+    public class TestPresenter : Presenter<TestViewModel>
+    {
+        public TestPresenter(ActivityInfo viewActivityInfo) : base(viewActivityInfo)
         {
-            public TestPresenter(ActivityInfo viewActivityInfo) : base(viewActivityInfo)
+        }
+    }
+
+    public class TestViewModel : ViewModelBase
+    {
+        private string testProperty;
+
+        public string TestProperty
+        {
+            get { return testProperty; }
+            set
             {
+                testProperty = value;
+                this.OnPropertyChanged();
             }
         }
+    }
 
-        internal class TestViewModel : ViewModelBase
-        {
-            private string testProperty;
+    public class TestView : FrameworkElement
+    {
 
-            public string TestProperty
-            {
-                get { return testProperty; }
-                set
-                {
-                    testProperty = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
-        internal class TestView : FrameworkElement
-        {
-
-        }
     }
 }

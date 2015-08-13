@@ -28,14 +28,14 @@
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Message}"/>
         <Button Command="{Binding OkCommand}" Grid.Row="0" Grid.Column="2" Width="50">Ok</Button>
-        <Label Grid.Row="2">Window Title</Label>
+        <Label Grid.Row="2" Grid.Column="0">Window Title</Label>
         <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.ColumnSpan="2"
                  Grid.Column="1" />
-        <Button Command="{Binding NewViewCommand}" Grid.Row="3" Grid.Column="0">New View</Button>
+        <Button Command="{Binding Path=NewViewCommand}" Grid.Row="3" Grid.Column="0">New View</Button>
 
         <Label Grid.Row="5" Grid.Column="0" Content="{Binding Immediate}"/>
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding Delayed}"/>
-        <Slider Grid.Row="6" Grid.ColumnSpan="2"  Minimum="0" Maximum="200" Value="{Binding Delay}" Interval="5"
+        <Slider Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0" Minimum="0" Maximum="200" Value="{Binding Delay}" Interval="5"
                 TickFrequency="10"
                 TickPlacement="BottomRight"
                 />

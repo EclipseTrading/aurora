@@ -2,7 +2,7 @@
 
 namespace Aurora.DockingContainer.Views.DockingContainer
 {
-    public class DockingContainerPresenter : Presenter<DockingContainerViewModel, DockingContainerView, DockingContainerActivityInfo>
+    public class DockingContainerPresenter : Presenter<DockingContainerViewModel, DockingContainerActivityInfo>
     {
         public DockingContainerPresenter(DockingContainerActivityInfo viewActivityInfo) : base(viewActivityInfo)
         {

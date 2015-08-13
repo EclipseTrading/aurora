@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Windows;
 using Aurora.Core;
 using Microsoft.Practices.Prism.Regions;
 using Xceed.Wpf.AvalonDock;
@@ -9,16 +8,6 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Aurora.DockingContainer.Views.DockingContainer
 {
-    public class PresenterLayoutDocument : LayoutDocument
-    {
-        public IPresenter Presenter { get; }
-
-        public PresenterLayoutDocument(IPresenter presenter)
-        {
-            Presenter = presenter;
-        }
-    }
-
     public class AvalonDockRegionAdapter : RegionAdapterBase<DockingManager>
     {
         public AvalonDockRegionAdapter(IRegionBehaviorFactory regionBehaviorFactory) : base(regionBehaviorFactory)
@@ -40,26 +29,14 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         {
             if (e.Action != NotifyCollectionChangedAction.Add) return;
 
-            foreach (IPresenter item in e.NewItems)
+            foreach (ActiveView item in e.NewItems)
             {
-                UIElement view = item.View;
-
-
-                if (view == null) continue;
-
-                var activityInfo = (item as IViewPresenter)?.ViewActivityInfo;
-
-                var title = activityInfo?.Title ?? "Untitled";
-                var canClose = activityInfo?.IsCloseable ?? true;
-
+                var view = item.View;
+                if (view == null)
+                    continue;
+                
                 //Create a new layout document to be included in the LayoutDocuemntPane (defined in xaml)
-                var newLayoutDocument = new PresenterLayoutDocument(item)
-                {
-                    Content = item.View,
-                    Title = title,
-                    CanClose = canClose,
-
-                };
+                var newLayoutDocument = new PresenterLayoutDocument(item);
 
                 //Store all LayoutDocuments already pertaining to the LayoutDocumentPane (defined in xaml)
                 var oldLayoutDocuments = new List<LayoutDocument>();
@@ -124,7 +101,7 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         {
             var presenterLayoutDocument = e.Document as PresenterLayoutDocument;
             if (presenterLayoutDocument != null)
-                region.Remove(presenterLayoutDocument.Presenter);
+                region.Remove(presenterLayoutDocument.View);
         }
     }
 }

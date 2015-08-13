@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Container;
 using Aurora.Core.ViewContainer;
@@ -10,7 +11,8 @@ using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
 
 namespace Aurora.Sample.Module.Views.Sample
 {
-    public class SamplePresenter : Presenter<SampleViewModel, SampleView, SampleViewActivityInfo>, IViewContainerAware
+
+    public class SamplePresenter : ViewPresenter<SampleViewModel, SampleViewActivityInfo>, IViewContainerAware
     {
         private readonly SampleViewActivityInfo activityInfo;
         private readonly IActivityService activityService;

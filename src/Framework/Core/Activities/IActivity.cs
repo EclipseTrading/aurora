@@ -6,11 +6,12 @@ namespace Aurora.Core.Activities
         where TActivityInfo : ActivityInfo
     {
 
-        TActivityInfo ActivityInfo { get;  }
+        new TActivityInfo ActivityInfo { get;  }
     }
 
     public interface IActivity
     {
+        ActivityInfo ActivityInfo { get; }
         Task StartAsync();
     }
 }

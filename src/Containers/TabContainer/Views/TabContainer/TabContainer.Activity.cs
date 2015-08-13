@@ -5,18 +5,18 @@ using Aurora.Core.Container;
 namespace Aurora.TabContainer.Views.TabContainer
 {
     [ActivityInfo(typeof(TabContainerActivityInfo))]
-    public class TabContainerActivity : ViewContainerActivity<TabContainerPresenter, TabContainerViewModel, TabContainerView, TabContainerActivityInfo>
+    public class TabContainerActivity : ViewContainerActivity<TabContainerPresenter, TabContainerActivityInfo>
     {
-        private readonly IPresenterFactory presenterFactory;
+        private readonly IViewFactory viewFactory;
 
-        public TabContainerActivity(TabContainerActivityInfo activityInfo, IPresenterFactory presenterFactory) : base(activityInfo)
+        public TabContainerActivity(TabContainerActivityInfo activityInfo, IViewFactory viewFactory) : base(activityInfo)
         {
-            this.presenterFactory = presenterFactory;
+            this.viewFactory = viewFactory;
         }
 
         protected override IViewContainerService CreateViewContainerService()
         {
-            return new TabViewContainerService(ContainerRegionManager, presenterFactory);
+            return new TabViewContainerService(ContainerRegionManager, viewFactory);
         }
     }
 }

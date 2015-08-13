@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Aurora.Core;
 using Aurora.Core.Activities;
 using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer.Views
 {
     [ActivityInfo(typeof(CommandBarContainerActivityInfo))]
-    public class CommandBarContainerActivity : ContainerActivity<CommandBarContainerPresenter, CommandBarContainerViewModel, CommandBarContainerView, CommandBarContainerActivityInfo>
+    public class CommandBarContainerActivity : ContainerActivity<CommandBarContainerPresenter, CommandBarContainerActivityInfo>
     {
         private readonly ICommandBarServiceHost commandBarServiceHost;
         
@@ -17,13 +18,12 @@ namespace Aurora.CommandBarContainer.Views
 
         public override async Task StartAsync()
         {
-            var presenter = await PresenterFactory
-                .CreatePresenterAsync<CommandBarContainerPresenter, CommandBarContainerViewModel, CommandBarContainerView>(ActivityInfo);
-            var commandBarService = new CommandBarService(presenter);
+            var view = await ViewFactory.CreateActiveViewAsync<CommandBarContainerPresenter>(ActivityInfo);
+            var commandBarService = new CommandBarService(view.Presenter);
 
             commandBarServiceHost.RegisterDefaultCommandBarService(commandBarService);
 
-            ContainerService.SetViewContainer(ActivityInfo.Location, presenter.View);
+            ContainerService.SetViewContainer(ActivityInfo.Location, view.View);
         }
     }
 }

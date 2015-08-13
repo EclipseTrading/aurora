@@ -2,7 +2,7 @@
 
 namespace Aurora.DockingContainer.Views.Document
 {
-    public class DocumentActivity : ViewActivity<DocumentPresenter, DocumentViewModel, DocumentView, DocumentActivityInfo>
+    public class DocumentActivity : ViewActivity<DocumentPresenter, DocumentActivityInfo>
     {
         public DocumentActivity(DocumentActivityInfo activityInfo) : base(activityInfo)
         {

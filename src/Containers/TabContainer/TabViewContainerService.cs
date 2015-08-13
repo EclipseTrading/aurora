@@ -12,41 +12,39 @@ namespace Aurora.TabContainer
     public class TabViewContainerService : IViewContainerService
     {
         private readonly IRegionManager regionManager;
-        private readonly IPresenterFactory presenterFactory;
+        private readonly IViewFactory viewFactory;
 
-        public TabViewContainerService(IRegionManager regionManager, IPresenterFactory presenterFactory)
+        public TabViewContainerService(IRegionManager regionManager, IViewFactory viewFactory)
         {
-            this.presenterFactory = presenterFactory;
+            this.viewFactory = viewFactory;
             this.regionManager = regionManager;
         }
 
-        public async Task AddViewAsync<TPresenter, TViewModel, TView, TActivityInfo>(TPresenter presenter, TActivityInfo activityInfo)
-            where TPresenter : IPresenter<TViewModel, TView>
-            where TViewModel : IViewModel
-            where TView : FrameworkElement
+        public async Task AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo
         {
-            var tabPresenter = await presenterFactory.CreatePresenterAsync<TabPresenter, TabViewModel, TabView>(
+            var activeView = await viewFactory.CreateActiveViewAsync<TabPresenter>(
                 new TabActivityInfo(activityInfo.Title, activityInfo.IsCloseable),
                 new TypeOverride<IRegionManager>(regionManager));
-            tabPresenter.View.Content = presenter.View;
-            tabPresenter.RequestClose +=
+
+            var view = (TabView)activeView.View;
+            view.Content = contentView.View;
+            activeView.Presenter.RequestClose +=
                 (s, e) =>
                 {
-                    var tp = tabPresenter;
                     var region = this.regionManager.Regions[TabContainerRegion.Default];
-                    region.Remove(tp.View);
+                    region.Remove(activeView.View);
                 };
             
             
-            var containedService = presenter as IViewContainerAware;
+            var containedService = contentView.Presenter as IViewContainerAware;
             if (containedService != null)
             {
-                containedService.ViewContainerService = tabPresenter;
+                containedService.ViewContainerService = activeView.Presenter;
             }
 
 
-            regionManager.RegisterViewWithRegion(TabContainerRegion.Default, () => tabPresenter.View);
+            regionManager.RegisterViewWithRegion(TabContainerRegion.Default, () => activeView.View);
         }
     }
 }

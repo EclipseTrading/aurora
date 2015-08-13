@@ -1,4 +1,5 @@
-﻿using Aurora.Core;
+﻿using System.Windows.Input;
+using Aurora.Core;
 using Microsoft.Practices.Prism.Commands;
 
 namespace Aurora.Sample.Module.Views.Sample
@@ -46,7 +47,7 @@ namespace Aurora.Sample.Module.Views.Sample
         public DelegateCommand OkCommand { get; set; }
 
 
-        public DelegateCommand NewViewCommand { get; set; }
+        public ICommand NewViewCommand { get; set; }
 
         public double Immediate
         {

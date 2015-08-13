@@ -1,25 +1,19 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Threading.Tasks;
 using Aurora.Core.Container;
 using Microsoft.Practices.Unity;
 
 namespace Aurora.Core.Activities
 {
-    public class ViewActivity<TPresenter, TViewModel, TView> : ViewActivity<TPresenter, TViewModel, TView, ViewActivityInfo>
-        where TPresenter : IPresenter<TViewModel, TView>
-        where TViewModel : IViewModel
-        where TView : FrameworkElement
+    public class ViewActivity<TPresenter> : ViewActivity<TPresenter, ViewActivityInfo>
+        where TPresenter : IPresenter
     {
         public ViewActivity(ViewActivityInfo activityInfo) : base(activityInfo)
         {
         }
     }
 
-    public class ViewActivity<TPresenter, TViewModel, TView, TActivityInfo> : BaseViewActivity<TPresenter, TViewModel, TView, TActivityInfo>
-        where TView : FrameworkElement
-        where TViewModel : IViewModel
-        where TPresenter : IPresenter<TViewModel, TView>
+    public class ViewActivity<TPresenter, TActivityInfo> : BaseViewActivity<TPresenter, TActivityInfo>
+        where TPresenter : IPresenter
         where TActivityInfo : ViewActivityInfo
 
     {
@@ -30,9 +24,9 @@ namespace Aurora.Core.Activities
         [Dependency]
         public IViewManager ViewManager { get; set; }
 
-        protected async override Task AddPresenterAsync(TPresenter presenter)
+        protected async override Task AddViewAsync(ActiveView view)
         {
-            await ViewManager.AddViewAsync<TPresenter, TViewModel, TView, TActivityInfo>(presenter, ActivityInfo);
+            await ViewManager.AddViewAsync(view, ActivityInfo);
         }
     }
 }

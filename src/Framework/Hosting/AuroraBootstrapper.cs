@@ -57,13 +57,25 @@ namespace Aurora.Hosting
 
             this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
             this.Container.RegisterType(typeof(IActivityService), typeof(DefaultActivityService), new ContainerControlledLifetimeManager());
-            this.Container.RegisterType(typeof(IPresenterFactory), typeof(PresenterFactory), new ContainerControlledLifetimeManager());
             this.Container.RegisterType(typeof(IViewManager), typeof(DefaultViewManager), new ContainerControlledLifetimeManager());
+
+            this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
 
             var commandBarServiceHost = new DefaultCommandBarServiceHost();
 
             this.Container.RegisterInstance<ICommandBarServiceHost>(commandBarServiceHost);
             this.Container.RegisterInstance<ICommandBarService>(commandBarServiceHost);
+
+            // Views are Resolved using convention by default
+            this.Container.RegisterInstance<IRelatedTypeResolver<FrameworkElement>>(
+                new NamingConventionTypeResolver<FrameworkElement>("Presenter", "View"));
+            
+            // View Models are resolved first by looking at the Presenter generic args, then by convention
+            var compositeResolver = new CompositeTypeResolver<IViewModel>(
+                new ViewModelResolver(),
+                new NamingConventionTypeResolver<IViewModel>("Presenter", "ViewModel")
+                );
+            this.Container.RegisterInstance<IRelatedTypeResolver<IViewModel>>(compositeResolver);
         }
 
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()

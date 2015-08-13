@@ -12,7 +12,7 @@ namespace Aurora.Core.Container
             this.regionManager = regionManager;
         }
 
-        public void SetViewContainer<TView>(HostLocation location, TView view) where TView : FrameworkElement
+        public void SetViewContainer<TView>(HostLocation location, TView view) where TView : DependencyObject
         {
             regionManager.AddToRegion(GetRegionName(location), view);
         }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows;
 using Aurora.Core.Activities;
 
 namespace Aurora.Core.Container
@@ -10,14 +9,10 @@ namespace Aurora.Core.Container
     {
         private readonly Dictionary<HostLocation, IViewContainerService> services = new Dictionary<HostLocation, IViewContainerService>();
         private IViewContainerService defaultViewContainerService;
-
-        public async Task AddViewAsync<TPresenter, TViewModel, TView, TActivityInfo>(TPresenter view, TActivityInfo activityInfo) 
-            where TPresenter : IPresenter<TViewModel, TView> 
-            where TViewModel : IViewModel 
-            where TView : FrameworkElement 
+        
+        public async Task AddViewAsync<TActivityInfo>(ActiveView view, TActivityInfo activityInfo) 
             where TActivityInfo : ViewActivityInfo
         {
-
             IViewContainerService viewContainerService;
 
             if (!services.ContainsKey(activityInfo.Location))
@@ -31,11 +26,10 @@ namespace Aurora.Core.Container
             }
             else
             {
-
                 viewContainerService = services[activityInfo.Location];
             }
 
-            await viewContainerService.AddViewAsync<TPresenter, TViewModel, TView, TActivityInfo>(view, activityInfo);
+            await viewContainerService.AddViewAsync(view, activityInfo);
         }
 
         public void RegisterViewContainerService(HostLocation location, IViewContainerService viewContainerService)
@@ -47,5 +41,6 @@ namespace Aurora.Core.Container
         {
             this.defaultViewContainerService = viewContainerService;
         }
+
     }
 }

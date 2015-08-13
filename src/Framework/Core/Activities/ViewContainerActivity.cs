@@ -1,14 +1,11 @@
 ﻿using System.Threading.Tasks;
-using System.Windows;
 using Aurora.Core.Container;
 
 namespace Aurora.Core.Activities
 {
-    public abstract class ViewContainerActivity<TPresenter, TViewModel, TView, TActivityInfo>
-        : ContainerActivity<TPresenter, TViewModel, TView, TActivityInfo>
-        where TView : FrameworkElement
-        where TViewModel : IViewModel
-        where TPresenter : IPresenter<TViewModel, TView>
+    public abstract class ViewContainerActivity<TPresenter, TActivityInfo>
+        : ContainerActivity<TPresenter, TActivityInfo>
+        where TPresenter : IPresenter
         where TActivityInfo : ContainerActivityInfo
     {
         protected ViewContainerActivity(TActivityInfo activityInfo) : base(activityInfo)

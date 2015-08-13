@@ -3,38 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Windows;
 using Aurora.Core.Activities;
 
 namespace Aurora.Core
 {
-    public class Presenter<TViewModel> : Presenter<TViewModel, FrameworkElement, ViewActivityInfo>, IViewPresenter
+   
+    public class Presenter<TViewModel> : Presenter<TViewModel, ActivityInfo>
         where TViewModel : IViewModel
-    {
-        public Presenter(ViewActivityInfo viewActivityInfo) : base(viewActivityInfo)
-        {
-        }
-
-
-        public ViewActivityInfo ViewActivityInfo => this.ActivityInfo;
-    }
-
-    public class Presenter<TViewModel, TView> : Presenter<TViewModel, TView, ActivityInfo>
-        where TView : FrameworkElement where TViewModel : IViewModel
     {
         public Presenter(ActivityInfo viewActivityInfo) : base(viewActivityInfo)
         {
         }
     }
 
-    public class Presenter<TViewModel, TView, TActivityInfo> : IPresenter<TViewModel, TView>
+    public class Presenter<TViewModel, TActivityInfo> : IPresenter<TViewModel>
             where TViewModel : IViewModel
-            where TView : FrameworkElement
             where TActivityInfo : ActivityInfo
     {
         private readonly Dictionary<string, List<Action>> propertyChangeActions = new Dictionary<string, List<Action>>();
         private TViewModel viewModel;
-        private TView view;
 
         public Presenter(TActivityInfo viewActivityInfo)
         {
@@ -52,43 +39,25 @@ namespace Aurora.Core
             }
         }
 
-        FrameworkElement IPresenter.View => this.View;
-
-        public TView View
-        {
-            get { return view; }
-            private set
-            {
-                view = value;
-                OnViewChanged();
-            }
-        }
-
         public TActivityInfo ActivityInfo { get; }
 
-        public virtual Task InitializeAsync(IViewModel vm, FrameworkElement v)
+        public virtual Task InitializeAsync(IViewModel vm)
         {
-            return this.InitializeAsync((TViewModel)vm, (TView)v);
+            return this.InitializeAsync((TViewModel)vm);
         }
 
-        public virtual async Task InitializeAsync(TViewModel vm, TView v)
+        public virtual async Task InitializeAsync(TViewModel vm)
         {
             await Task.Factory.StartNew(() =>
             {
                 this.ViewModel = vm;
-                this.View = v;
                 this.ViewModel.PropertyChanged += ViewModelPropertyChanged;
             });
-
-            this.View.DataContext = this.ViewModel;
-
             this.OnInitialized();
         }
 
         protected virtual void OnViewModelChanged() { }
-
-        protected virtual void OnViewChanged() { }
-
+        
         protected virtual void OnInitialized() { }
 
         public void OnViewModelPropertyChanged<TPropertyType>(Expression<Func<TViewModel, TPropertyType>> property, Action propertyChangedAction, bool suppressInitial = false)
