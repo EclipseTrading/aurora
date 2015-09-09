@@ -46,14 +46,14 @@ namespace Aurora.Core
             return this.InitializeAsync((TViewModel)vm);
         }
 
-        public virtual async Task InitializeAsync(TViewModel vm)
+        public virtual Task InitializeAsync(TViewModel vm)
         {
-            await Task.Factory.StartNew(() =>
-            {
-                this.ViewModel = vm;
-                this.ViewModel.PropertyChanged += ViewModelPropertyChanged;
-            });
+            this.ViewModel = vm;
+            this.ViewModel.PropertyChanged += ViewModelPropertyChanged;
+
             this.OnInitialized();
+
+            return Task.FromResult(false);
         }
 
         protected virtual void OnViewModelChanged() { }

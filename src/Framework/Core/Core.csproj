@@ -101,14 +101,14 @@
     <Compile Include="Container\ViewSettings.cs" />
     <Compile Include="Activities\IActivity.cs" />
     <Compile Include="IModuleProvider.cs" />
-    <Compile Include="IPresenterFactory.cs" />
+    <Compile Include="IViewFactory.cs" />
     <Compile Include="IRelatedTypeResolver.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IViewPresenter.cs" />
     <Compile Include="NamingConventionTypeResolver.cs" />
     <Compile Include="Presenter.cs" />
-    <Compile Include="PresenterFactory.cs" />
+    <Compile Include="ViewFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyExtensions.cs" />

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Microsoft.Practices.Prism.Regions;
 
 namespace Aurora.Core
 {
