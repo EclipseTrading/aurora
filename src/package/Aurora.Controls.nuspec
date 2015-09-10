@@ -1,0 +1,21 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Aurora.Controls</id>
+    <version>1.0</version>
+    <authors>EclipseTrading</authors>
+    <owners>EclipseTrading</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MVPVM Framework Controls Library</description>
+    <tags>WPF MVPVM MVVM</tags>
+    <dependencies>
+      <dependency id="Aurora.Core" version="1.0"/>
+    </dependencies>
+    <references>
+      <reference file="Aurora.Controls.dll"/>
+    </references>
+  </metadata>
+  <files>
+    <file src="..\Framework\Controls\bin\Release\Aurora.Controls.dll" target="lib\net45"/>
+    <file src="..\Framework\Controls\bin\Release\Aurora.Controls.pdb" target="lib\net45"/>
+  </files>
+</package>

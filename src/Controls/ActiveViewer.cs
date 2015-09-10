@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using Aurora.Core;
 
-namespace Controls
+namespace Aurora.Controls
 {
     public class ActiveViewer : Control
     {
