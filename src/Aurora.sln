@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Framework\Controls\Controls.csproj", "{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

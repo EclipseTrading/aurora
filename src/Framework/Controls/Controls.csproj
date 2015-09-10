@@ -52,7 +52,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\CommonAssemblyInfo.cs">
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ActiveViewer.cs">
@@ -82,7 +82,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5CB0CD8B-104F-4483-9926-0B562F5D3486}</Project>
       <Name>Core</Name>
     </ProjectReference>
