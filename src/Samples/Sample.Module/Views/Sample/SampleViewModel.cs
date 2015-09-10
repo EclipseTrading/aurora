@@ -13,6 +13,7 @@ namespace Aurora.Sample.Module.Views.Sample
 
         private double delayed;
         private int delay;
+        private ActiveView childView;
 
         public string Name
         {
@@ -76,6 +77,16 @@ namespace Aurora.Sample.Module.Views.Sample
             set
             {
                 delay = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public ActiveView ChildView
+        {
+            get { return childView; }
+            set
+            {
+                childView = value;
                 this.OnPropertyChanged();
             }
         }

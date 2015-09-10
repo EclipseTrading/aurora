@@ -7,7 +7,13 @@ namespace Aurora.Controls
     public class ActiveViewer : Control
     {
         public static readonly DependencyProperty ActiveViewProperty = DependencyProperty.Register(
-            "ActiveView", typeof(ActiveView), typeof(ActiveViewer), new PropertyMetadata(default(ActiveView)));
+            "ActiveView", typeof(ActiveView), typeof(ActiveViewer), new PropertyMetadata(default(ActiveView), ActiveViewChanged));
+
+
+        private static void ActiveViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var old = e.OldValue as ActiveView;
+        }
 
 
         static ActiveViewer()

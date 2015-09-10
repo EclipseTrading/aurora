@@ -3,9 +3,11 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using Aurora.Core;
+using Aurora.Core.Activities;
 using Aurora.Core.Container;
 using Aurora.Core.ViewContainer;
 using Aurora.Sample.Module.Shared;
+using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
 using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
 
@@ -28,7 +30,7 @@ namespace Aurora.Sample.Module.Views.Sample
         }
         public IViewContainerService ViewContainerService { get; set; }
 
-        protected override void OnViewModelChanged()
+        protected async override void OnViewModelChanged()
         {
             base.OnViewModelChanged();
 
@@ -66,6 +68,7 @@ namespace Aurora.Sample.Module.Views.Sample
 
             ViewModel.Delay = 0;
 
+            ViewModel.ChildView = await this.AddChildViewAsync(typeof (ChildPresenter));
         }
 
         private void InitDelay()

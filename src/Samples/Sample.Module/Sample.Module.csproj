@@ -84,6 +84,11 @@
   <ItemGroup>
     <Compile Include="ModuleBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\ChildView\ChildView.xaml.cs">
+      <DependentUpon>ChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChildView\ChildViewModel.cs" />
+    <Compile Include="Views\ChildView\ChildPresenter.cs" />
     <Compile Include="Views\Sample\SamplePresenter.cs" />
     <Compile Include="Views\Sample\SampleView.xaml.cs">
       <DependentUpon>SampleView.xaml</DependentUpon>
@@ -92,12 +97,20 @@
     <Compile Include="Views\Sample\SampleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ChildView\ChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Sample\SampleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Controls\Controls.csproj">
+      <Project>{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Core\Core.csproj">
       <Project>{5cb0cd8b-104f-4483-9926-0b562f5d3486}</Project>
       <Name>Core</Name>
