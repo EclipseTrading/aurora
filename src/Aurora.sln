@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{22BAAB64-5C15-42EB-A49F-A5073E94913D}"
 EndProject
@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Aurora.AppHost.nuspec = Aurora.AppHost.nuspec
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{C838551E-5904-496B-9F2B-21E28967FA07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C838551E-5904-496B-9F2B-21E28967FA07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C838551E-5904-496B-9F2B-21E28967FA07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +95,6 @@ Global
 		{79034B5D-19B8-483F-BA7D-AD7184BE0566} = {809436AA-5674-4F5B-9200-1A59260F3169}
 		{EA2CBD05-5D1E-4AE6-AC4B-7D2DD124F77B} = {809436AA-5674-4F5B-9200-1A59260F3169}
 		{C838551E-5904-496B-9F2B-21E28967FA07} = {809436AA-5674-4F5B-9200-1A59260F3169}
+		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30} = {22BAAB64-5C15-42EB-A49F-A5073E94913D}
 	EndGlobalSection
 EndGlobal
