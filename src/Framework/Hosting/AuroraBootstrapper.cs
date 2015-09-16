@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using Aurora.Core;
@@ -16,10 +17,17 @@ namespace Aurora.Hosting
 {
     public class AuroraBootstrapper : UnityBootstrapper
     {
+        private readonly IApplicationWindowViewModel windowViewModel = new ApplicationWindowViewModel();
 
         protected override DependencyObject CreateShell()
         {
-            var shell = new Shell();
+            var applicationName = ConfigurationManager.AppSettings["ApplicationName"] ?? "AURORA";
+            var windowName = ConfigurationManager.AppSettings["MainWindowName"] ?? "MAIN WINDOW";
+
+            windowViewModel.ApplicationName = applicationName;
+            windowViewModel.WindowName = windowName;
+
+            var shell = new Shell {DataContext = windowViewModel};
 
             Application.Current.MainWindow = shell;
             shell.Show();
@@ -61,11 +69,13 @@ namespace Aurora.Hosting
 
             this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
 
+            this.Container.RegisterInstance(typeof (IApplicationWindowViewModel), windowViewModel);
+
             var commandBarServiceHost = new DefaultCommandBarServiceHost();
 
             this.Container.RegisterInstance<ICommandBarServiceHost>(commandBarServiceHost);
             this.Container.RegisterInstance<ICommandBarService>(commandBarServiceHost);
-
+            
             // Views are Resolved using convention by default
             this.Container.RegisterInstance<IRelatedTypeResolver<FrameworkElement>>(
                 new NamingConventionTypeResolver<FrameworkElement>("Presenter", "View"));

@@ -6,12 +6,13 @@
         xmlns:regions="http://www.codeplex.com/CompositeWPF"
         xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:core="clr-namespace:Aurora.Core;assembly=Aurora.Core"
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
         TitleForeground="#858585"
         GlowBrush="#858585" Style="{DynamicResource CleanWindowStyleKey}"
         ShowIconOnTitleBar="True"
-        Title="Main Window" Height="800" Width="1000">
+        d:DataContext="{d:DesignInstance d:Type=core:IApplicationWindowViewModel}" Height="800" Width="1000">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,8 +24,10 @@
     <controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <StackPanel Orientation="Horizontal" Margin="-5">
-                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="{StaticResource AccentColorBrush}">AURORA</TextBlock>
-                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="#5E5E5E">DEMO</TextBlock>
+                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="{StaticResource AccentColorBrush}"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.ApplicationName}"/>
+                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="#5E5E5E"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.WindowName}"/>
             </StackPanel>
         </DataTemplate>
     </controls:MetroWindow.TitleTemplate>
