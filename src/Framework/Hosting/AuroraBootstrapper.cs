@@ -23,9 +23,11 @@ namespace Aurora.Hosting
         {
             var applicationName = ConfigurationManager.AppSettings["ApplicationName"] ?? "AURORA";
             var windowName = ConfigurationManager.AppSettings["MainWindowName"] ?? "MAIN WINDOW";
+            var icon = ConfigurationManager.AppSettings["ApplicationIcon"] ?? "pack://application:,,,/Aurora.Hosting;component/appIcon.png";
 
             windowViewModel.ApplicationName = applicationName;
             windowViewModel.WindowName = windowName;
+            windowViewModel.IconPath = icon;
 
             var shell = new Shell {DataContext = windowViewModel};
 

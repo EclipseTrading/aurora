@@ -6,6 +6,7 @@ namespace Aurora.Hosting
     {
         private string windowName;
         private string applicationName;
+        private string iconPath;
 
         public string ApplicationName
         {
@@ -23,6 +24,16 @@ namespace Aurora.Hosting
             set
             {
                 windowName = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public string IconPath
+        {
+            get { return iconPath; }
+            set
+            {
+                iconPath = value;
                 this.OnPropertyChanged();
             }
         }

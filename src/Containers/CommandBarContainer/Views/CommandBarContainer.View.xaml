@@ -6,17 +6,20 @@
              xmlns:views1="clr-namespace:Aurora.CommandBarContainer.Views"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance views1:CommandBarContainerViewModel}"
-             d:DesignHeight="30" d:DesignWidth="300">
-    <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0,0,0,5">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type views1:CommandViewModel}">
-                <Button Command="{Binding Command}" Content="{Binding Title}" Padding="10,0" Margin="0,2,2,2"/>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+             d:DesignHeight="34" d:DesignWidth="300">
+    <Grid Background="#EFEFEF">
+        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="3"  Fill="#006DB6"/>
+        <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0,2">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type views1:CommandViewModel}">
+                    <Button Command="{Binding Command}" Content="{Binding Title}" Padding="10,0" Margin="0,3"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>

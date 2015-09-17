@@ -124,6 +124,7 @@
     <Compile Include="ApplicationWindowViewModel.cs" />
     <Compile Include="AuroraBootstrapper.cs" />
     <Compile Include="DragWindowBehavior.cs" />
+    <Compile Include="ImageSourceConverter.cs" />
     <Compile Include="MaximizeBehavior.cs" />
     <Compile Include="Passthrough.cs" />
     <Compile Include="PriorityModuleCatalog.cs" />
@@ -185,6 +186,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

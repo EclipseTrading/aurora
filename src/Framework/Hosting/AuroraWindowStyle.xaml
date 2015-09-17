@@ -34,19 +34,19 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- icon -->
                     <ContentControl x:Name="PART_Icon"
-                                    Focusable="False"
+                                    Margin="4"
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Panel.ZIndex="1"
+                                    Focusable="False"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Top"
                                     Content="{TemplateBinding Icon}"
                                     ContentTemplate="{TemplateBinding IconTemplate}"
-                                    HorizontalContentAlignment="Stretch"
-                                    VerticalContentAlignment="Stretch"
-                                    MinWidth="{Binding TitlebarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                    Height="{Binding TitlebarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                    Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                    Width="20"
+                                    Height="20"/>
 
                     <!-- the left window commands -->
                     <ContentPresenter x:Name="PART_LeftWindowCommands"
@@ -130,9 +130,6 @@
                     </Controls:MetroContentControl>
 
 
-                    <Rectangle Margin="5,0" VerticalAlignment="Bottom" Height="5" 
-                   HorizontalAlignment="Stretch" Fill="{StaticResource AccentColorBrush}" Grid.Row="1" Grid.ColumnSpan="5"
-                               Grid.Column="0" />
 
                     <!-- disables the main content when a modal flyout is shown -->
                     <Rectangle Grid.Row="0"
