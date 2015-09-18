@@ -9,9 +9,9 @@ namespace Aurora.Core.Activities
             Location = location;
             IsDefault = isDefault;
         }
-        
-        public HostLocation Location { get; }
 
-        public bool IsDefault { get; }
+        public HostLocation Location { get; private set; }
+
+        public bool IsDefault { get; private set; }
     }
 }

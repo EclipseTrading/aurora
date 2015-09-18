@@ -20,14 +20,17 @@ namespace Aurora.Hosting
             { ResizeDirection.TopRight, Cursors.SizeNESW },
             { ResizeDirection.BottomLeft, Cursors.SizeNESW },
             { ResizeDirection.BottomRight, Cursors.SizeNWSE }
-        }; 
+        };
 
         private const int WmSyscommand = 0x112;
         private HwndSource hwndSource;
-        
+
         public ResizeDirection Direction { get; set; }
 
-        public Window Window => Window.GetWindow(AssociatedObject);
+        public Window Window
+        {
+            get { return Window.GetWindow(AssociatedObject); }
+        }
 
         protected override void OnAttached()
         {

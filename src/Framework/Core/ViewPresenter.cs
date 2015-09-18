@@ -20,7 +20,10 @@ namespace Aurora.Core
         [Dependency]
         public IViewFactory ViewFactory { get; set; }
 
-        public ViewActivityInfo ViewActivityInfo => ActivityInfo;
+        public ViewActivityInfo ViewActivityInfo
+        {
+            get { return this.ActivityInfo; }
+        }
 
         protected virtual async Task<ActiveView> AddChildViewAsync<TChildActivityInfo>(Type presenterType, TChildActivityInfo activityInfo, params object[] parameters)
             where TChildActivityInfo : ViewActivityInfo

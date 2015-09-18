@@ -7,7 +7,7 @@
             Title = title;
         }
 
-        public string Title { get; }
+        public string Title { get; private set; }
         public string BarName { get; set; }
     }
 }

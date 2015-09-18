@@ -158,11 +158,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Containers\CommandBarContainer\CommandBarContainer.csproj">
       <Project>{f6df0b4d-2254-454f-b157-cf39ea396780}</Project>
-      <Name>CommandBarHost</Name>
+      <Name>CommandBarContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Containers\DockingContainer\DockingContainer.csproj">
       <Project>{CEA85A33-0AD2-42A5-9A20-9965B331A5C0}</Project>
-      <Name>DockingHost</Name>
+      <Name>DockingContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5CB0CD8B-104F-4483-9926-0B562F5D3486}</Project>

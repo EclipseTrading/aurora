@@ -21,9 +21,10 @@ namespace Aurora.Sample.Module.Views.Sample
 
         private Subject<double> subject;
         private IDisposable delayDisposable;
-         
 
-        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService) : base(activityInfo)
+
+        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService)
+            : base(activityInfo)
         {
             this.activityInfo = activityInfo;
             this.activityService = activityService;
@@ -34,11 +35,17 @@ namespace Aurora.Sample.Module.Views.Sample
         {
             base.OnViewModelChanged();
 
-            ViewContainerService?.SetTitle("Sample View");
-
+            if(ViewContainerService != null) 
+            {
+                ViewContainerService.SetTitle("Sample View");
+            }
+            
             this.ViewModel.Title = activityInfo.Title;
 
-            this.OnViewModelPropertyChanged(vm => vm.Title, () => ViewContainerService?.SetTitle(ViewModel.Title));
+            this.OnViewModelPropertyChanged(vm => vm.Title, () => {
+                if (this.ViewContainerService != null)
+                    ViewContainerService.SetTitle(ViewModel.Title);
+            });
 
             this.ViewModel.OkCommand = 
                 new DelegateCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
@@ -73,7 +80,10 @@ namespace Aurora.Sample.Module.Views.Sample
 
         private void InitDelay()
         {
-            this.delayDisposable?.Dispose();
+            if (delayDisposable != null)
+            {
+                this.delayDisposable.Dispose();
+            }
             this.delayDisposable = subject.Delay(TimeSpan.FromMilliseconds(ViewModel.Delay)).Subscribe(d => ViewModel.Delayed = d);
         }
     }

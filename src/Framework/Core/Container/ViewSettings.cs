@@ -5,7 +5,13 @@ namespace Aurora.Core.Container
     public class ViewSettings : ViewModelBase
     {
         private string title;
-        public HostLocation Location { get; set; } = HostLocation.Center;
+
+        public ViewSettings()
+        {
+            this.Location = HostLocation.Center;
+        }
+
+        public HostLocation Location { get; set; }
 
         public string Title
         {

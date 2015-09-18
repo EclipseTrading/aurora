@@ -10,7 +10,12 @@ namespace Aurora.Core
         {
         }
 
-        public new TPresenter Presenter => (TPresenter)base.Presenter;
+        public new TPresenter Presenter { 
+            get 
+            { 
+                return (TPresenter)base.Presenter; 
+            }  
+        }
     }
 
     public class ActiveView
@@ -23,9 +28,9 @@ namespace Aurora.Core
             Activity = activity;
         }
 
-        public IPresenter Presenter { get; }
-        public IViewModel ViewModel { get; }
-        public FrameworkElement View { get; }
-        public IActivity Activity { get; }
+        public IPresenter Presenter { get; private set; }
+        public IViewModel ViewModel { get; private set; }
+        public FrameworkElement View { get; private set; }
+        public IActivity Activity { get; private set; }
     }
 }

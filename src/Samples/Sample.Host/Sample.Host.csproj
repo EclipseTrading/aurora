@@ -95,6 +95,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -145,11 +148,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Containers\CommandBarContainer\CommandBarContainer.csproj">
       <Project>{f6df0b4d-2254-454f-b157-cf39ea396780}</Project>
-      <Name>CommandBarHost</Name>
+      <Name>CommandBarContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Containers\DockingContainer\DockingContainer.csproj">
       <Project>{cea85a33-0ad2-42a5-9a20-9965b331a5c0}</Project>
-      <Name>DockingHost</Name>
+      <Name>DockingContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sample.Module.Shared\Sample.Module.Shared.csproj">
       <Project>{79034b5d-19b8-483f-ba7d-ad7184be0566}</Project>

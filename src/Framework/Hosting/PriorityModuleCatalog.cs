@@ -23,7 +23,9 @@ namespace Aurora.Hosting
         private static Priority GetPriority(Type type)
         {
             var attr = type.GetCustomAttributes(typeof(ModulePriorityAttribute), true).OfType<ModulePriorityAttribute>().FirstOrDefault();
-            return attr?.Priority ?? Priority.Application;
+            if(attr == null)
+                return Priority.Application;
+            return attr.Priority;
         }
     }
 }

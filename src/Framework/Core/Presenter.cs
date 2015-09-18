@@ -7,18 +7,19 @@ using Aurora.Core.Activities;
 
 namespace Aurora.Core
 {
-   
+
     public class Presenter<TViewModel> : Presenter<TViewModel, ActivityInfo>
         where TViewModel : IViewModel
     {
-        public Presenter(ActivityInfo viewActivityInfo) : base(viewActivityInfo)
+        public Presenter(ActivityInfo viewActivityInfo)
+            : base(viewActivityInfo)
         {
         }
     }
 
     public class Presenter<TViewModel, TActivityInfo> : IPresenter<TViewModel>
-            where TViewModel : IViewModel
-            where TActivityInfo : ActivityInfo
+        where TViewModel : IViewModel
+        where TActivityInfo : ActivityInfo
     {
         private readonly Dictionary<string, List<Action>> propertyChangeActions = new Dictionary<string, List<Action>>();
         private TViewModel viewModel;
@@ -28,7 +29,10 @@ namespace Aurora.Core
             this.ActivityInfo = viewActivityInfo;
         }
 
-        IViewModel IPresenter.ViewModel => this.ViewModel;
+        IViewModel IPresenter.ViewModel 
+        {
+            get { return this.ViewModel; } 
+        }
         public TViewModel ViewModel
         {
             get { return viewModel; }
@@ -39,7 +43,7 @@ namespace Aurora.Core
             }
         }
 
-        public TActivityInfo ActivityInfo { get; }
+        public TActivityInfo ActivityInfo { get; private set; }
 
         public virtual Task InitializeAsync(IViewModel vm)
         {
@@ -57,7 +61,7 @@ namespace Aurora.Core
         }
 
         protected virtual void OnViewModelChanged() { }
-        
+
         protected virtual void OnInitialized() { }
 
         public void OnViewModelPropertyChanged<TPropertyType>(Expression<Func<TViewModel, TPropertyType>> property, Action propertyChangedAction, bool suppressInitial = false)

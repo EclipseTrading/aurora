@@ -11,16 +11,22 @@ namespace Aurora.Core.Activities
 
         protected BaseViewActivity(TActivityInfo activityInfo)
         {
-            ActivityInfo = activityInfo;
+            this.ActivityInfo = activityInfo;
         }
 
         [Dependency]
         public IViewFactory ViewFactory { get; set; }
         
         
-        protected virtual object[] Parameters => new object[] { ActivityInfo };
+        protected virtual object[] Parameters  
+        {        
+            get { return new object[] { ActivityInfo }; }
+        }
 
-        ActivityInfo IActivity.ActivityInfo => this.ActivityInfo;
+        ActivityInfo IActivity.ActivityInfo 
+        {
+            get { return this.ActivityInfo; }             
+        }
 
         public async Task StartAsync()
         {
@@ -28,7 +34,7 @@ namespace Aurora.Core.Activities
             await AddViewAsync(presenter);
         }
 
-        public TActivityInfo ActivityInfo { get;  }
+        public TActivityInfo ActivityInfo { get; private set; }
 
         protected abstract Task AddViewAsync(ActiveView view);
     }
