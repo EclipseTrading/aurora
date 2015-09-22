@@ -1,0 +1,61 @@
+﻿<controls:MetroWindow x:Class="Aurora.Hosting.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:regions="http://www.codeplex.com/CompositeWPF"
+        xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:core="clr-namespace:Aurora.Core;assembly=Aurora.Core"
+        xmlns:hosting="clr-namespace:Aurora.Hosting"
+        ResizeMode="CanResizeWithGrip"
+        mc:Ignorable="d"
+        TitleForeground="#858585"
+        GlowBrush="#858585" Style="{DynamicResource CleanWindowStyleKey}"
+        ShowIconOnTitleBar="True"
+        Icon="{Binding Path=IconPath, Converter={hosting:ImageSourceConverter}}"
+        d:DataContext="{d:DesignInstance d:Type=core:IApplicationWindowViewModel}" Height="800" Width="1000">
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Aurora.Hosting;component/AuroraAccents.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Aurora.Hosting;component/AuroraWindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+    <controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal" Margin="-5">
+                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="{StaticResource AccentColorBrush}"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.ApplicationName}"/>
+                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="#5E5E5E"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.WindowName}"/>
+            </StackPanel>
+        </DataTemplate>
+    </controls:MetroWindow.TitleTemplate>
+
+    <controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Width="20" Height="20" Source="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=Icon, Converter={hosting:Passthrough}}"/>
+        </DataTemplate>
+    </controls:MetroWindow.IconTemplate>
+    <Grid Margin="5,0,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.TopHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" regions:RegionManager.RegionName="{x:Static container:Regions.LeftHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static container:Regions.CenterHost}"/>
+        <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static container:Regions.RightHost}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.BottomHost}"/>
+    </Grid>
+</controls:MetroWindow>

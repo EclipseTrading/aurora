@@ -1,0 +1,22 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Aurora.CommandBarContainer</id>
+    <version>1.0</version>
+    <authors>EclipseTrading</authors>
+    <owners>EclipseTrading</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Aurora Framework container for command bars</description>
+    <tags>WPF MVPVM MVVM</tags>
+    <dependencies>
+      <dependency id="Aurora.Core" version="1.0" />
+      <dependency id="Unity" version="3.5.1404.0" />
+    </dependencies>
+    <references>
+      <reference file="Aurora.CommandBarContainer.dll"/>
+    </references>
+  </metadata>
+  <files>
+    <file src="..\Containers\CommandBarContainer\bin\Release\Aurora.CommandBarContainer.dll" target="lib\net45"/>
+    <file src="..\Containers\CommandBarContainer\bin\Release\Aurora.CommandBarContainer.pdb" target="lib\net45"/>
+  </files>
+</package>

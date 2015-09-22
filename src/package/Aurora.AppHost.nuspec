@@ -1,0 +1,30 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Aurora.AppHost</id>
+    <version>1.0</version>
+    <authors>EclipseTrading</authors>
+    <owners>EclipseTrading</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MVPVM Framework Application Host Project</description>
+    <tags>WPF MVPVM MVVM</tags>
+    <dependencies>
+      <dependency id="Aurora.Core" version="1.0"/>
+      <dependency id="Aurora.DockingContainer" version="1.0"/>
+      <dependency id="Aurora.CommandBarContainer" version="1.0"/>
+      <dependency id="MahApps.Metro" version="1.1.2.0" />
+      <dependency id="Prism" version="5.0.0" />
+      <dependency id="Prism.UnityExtensions" version="5.0.1" />
+    </dependencies>
+    <references>
+      <reference file="Aurora.Hosting.dll"/>
+    </references>
+  </metadata>
+  <files>
+    <file src="Aurora.AppHost\Bootstrapper.cs.pp" target="content\Bootstrapper.cs.pp"/>
+    <file src="Aurora.AppHost\ModuleBootstrapper.cs.pp" target="content\ModuleBootstrapper.cs.pp"/>
+    <file src="Aurora.AppHost\App.xaml.cs.pp" target="content\App.xaml.cs.pp"/>
+    <file src="Aurora.AppHost\App.xaml.install.xdt" target="content\App.xaml.install.xdt"/>
+    <file src="..\Framework\Hosting\bin\Release\Aurora.Hosting.dll" target="lib\net45"/>
+    <file src="..\Framework\Hosting\bin\Release\Aurora.Hosting.pdb" target="lib\net45"/>
+  </files>
+</package>

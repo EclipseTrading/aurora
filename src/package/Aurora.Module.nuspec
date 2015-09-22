@@ -1,0 +1,24 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Aurora.Module</id>
+    <version>1.0</version>
+    <authors>EclipseTrading</authors>
+    <owners>EclipseTrading</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MVPVM Framework Application Module Project</description>
+    <tags>WPF MVPVM MVVM</tags>
+    <dependencies>
+      <dependency id="Aurora.Core" version="1.0"/>
+      <dependency id="Prism" version="5.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Aurora.Module\View\Sample.ActivityInfo.cs.pp" target="content\Sample.Activity.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.Activity.cs.pp" target="content\Views\Sample\Sample.Activity.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.View.xaml.cs.pp" target="content\Views\Sample\Sample.View.xaml.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.View.xaml.pp" target="content\Views\Sample\Sample.View.xaml.pp"/>
+    <file src="Aurora.Module\View\Sample.Presenter.cs.pp" target="content\Views\Sample\Sample.Presenter.cs.pp"/>
+    <file src="Aurora.Module\View\Sample.ViewModel.cs.pp" target="content\Views\Sample\Sample.ViewModel.cs.pp"/>
+    <file src="Aurora.Module\ModuleBootstrapper.cs.pp" target="content\ModuleBootstrapper.cs.pp"/>
+  </files>
+</package>
