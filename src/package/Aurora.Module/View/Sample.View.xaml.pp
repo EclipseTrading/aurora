@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:$rootnamespace$.Views.Sample"
              mc:Ignorable="d" 
+			 d:DataContext="{d:DesignInstance d:Type=local:SampleViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
             
