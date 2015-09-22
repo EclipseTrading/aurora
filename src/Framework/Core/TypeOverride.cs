@@ -10,8 +10,8 @@ namespace Aurora.Core
             Value = value;
         }
 
-        public object Value { get; private set; }
-        public Type Type { get; private set; }
+        public object Value { get; }
+        public Type Type { get; }
 
     }
 

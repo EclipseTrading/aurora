@@ -20,11 +20,7 @@ namespace Aurora.Core
 
             var rawName = relatedType.Name.Substring(0, relatedType.Name.Length - sourceSuffix.Length);
             var typeName = rawName + targetSuffix;
-            if(relatedType.AssemblyQualifiedName == null) 
-            {
-                return null;
-            }
-            var fullName = relatedType.AssemblyQualifiedName.Replace(relatedType.Name, typeName);
+            var fullName = relatedType.AssemblyQualifiedName?.Replace(relatedType.Name, typeName);
             return fullName == null ? null : Type.GetType(fullName, false);
         }
     }

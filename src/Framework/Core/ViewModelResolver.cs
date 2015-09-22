@@ -8,10 +8,7 @@ namespace Aurora.Core
         public Type ResolveType(Type relatedType)
         {
             var presenterInterface = relatedType.GetInterface(typeof (IPresenter<>).FullName);
-            if(presenterInterface == null) {
-                return null;
-            }
-            var viewModelType = presenterInterface.GenericTypeArguments.FirstOrDefault();
+            var viewModelType = presenterInterface?.GenericTypeArguments.FirstOrDefault();
             return viewModelType;
         }
     }

@@ -29,10 +29,8 @@ namespace Aurora.Core
             this.ActivityInfo = viewActivityInfo;
         }
 
-        IViewModel IPresenter.ViewModel 
-        {
-            get { return this.ViewModel; } 
-        }
+        IViewModel IPresenter.ViewModel => this.ViewModel;
+
         public TViewModel ViewModel
         {
             get { return viewModel; }
@@ -43,7 +41,7 @@ namespace Aurora.Core
             }
         }
 
-        public TActivityInfo ActivityInfo { get; private set; }
+        public TActivityInfo ActivityInfo { get; }
 
         public virtual Task InitializeAsync(IViewModel vm)
         {

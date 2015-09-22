@@ -29,17 +29,11 @@ namespace Aurora.Core.Activities
         [Dependency]
         public IRegionManager RegionManager { get; set; }
 
-        public IRegionManager ContainerRegionManager 
-        {
-            get { return containerRegionManager ?? (containerRegionManager = RegionManager.CreateRegionManager()); }
-        }
+        public IRegionManager ContainerRegionManager => containerRegionManager ?? (containerRegionManager = RegionManager.CreateRegionManager());
 
-        public TActivityInfo ActivityInfo { get; private set; }
+        public TActivityInfo ActivityInfo { get; }
 
-        ActivityInfo IActivity.ActivityInfo
-        {
-            get { return this.ActivityInfo; }
-        }
+        ActivityInfo IActivity.ActivityInfo => this.ActivityInfo;
 
         public virtual async Task StartAsync()
         {

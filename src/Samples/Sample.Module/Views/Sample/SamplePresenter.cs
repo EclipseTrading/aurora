@@ -35,30 +35,24 @@ namespace Aurora.Sample.Module.Views.Sample
         {
             base.OnViewModelChanged();
 
-            if(ViewContainerService != null) 
-            {
-                ViewContainerService.SetTitle("Sample View");
-            }
-            
+            ViewContainerService?.SetTitle("Sample View");
+
             this.ViewModel.Title = activityInfo.Title;
 
-            this.OnViewModelPropertyChanged(vm => vm.Title, () => {
-                if (this.ViewContainerService != null)
-                    ViewContainerService.SetTitle(ViewModel.Title);
-            });
+            this.OnViewModelPropertyChanged(vm => vm.Title, () =>ViewContainerService?.SetTitle(ViewModel.Title));
 
-            this.ViewModel.OkCommand = 
+            this.ViewModel.OkCommand =
                 new DelegateCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
                 () => !string.IsNullOrEmpty(ViewModel.Name));
 
-            this.OnViewModelPropertyChanged(vm => vm.Name, 
+            this.OnViewModelPropertyChanged(vm => vm.Name,
                 () => ViewModel.OkCommand.RaiseCanExecuteChanged());
-            
+
             this.ViewModel.NewViewCommand = new DelegateCommand(
                 () => activityService.StartActivityAsync(new SampleViewActivityInfo("Sample View", HostLocation.Center, true)
                 {
                     MessageFormat = activityInfo.MessageFormat
-                }), 
+                }),
                 () => true);
 
             var random = new Random();
@@ -68,22 +62,19 @@ namespace Aurora.Sample.Module.Views.Sample
                 .Select(_ => Math.Round(random.NextDouble(), 6))
                 .Subscribe(s => subject.OnNext(s));
 
-            
+
             subject.Subscribe(d => ViewModel.Immediate = d);
 
             this.OnViewModelPropertyChanged(vm => vm.Delay, InitDelay);
 
             ViewModel.Delay = 0;
 
-            ViewModel.ChildView = await this.AddChildViewAsync(typeof (ChildPresenter));
+            ViewModel.ChildView = await this.AddChildViewAsync(typeof(ChildPresenter));
         }
 
         private void InitDelay()
         {
-            if (delayDisposable != null)
-            {
-                this.delayDisposable.Dispose();
-            }
+            this.delayDisposable?.Dispose();
             this.delayDisposable = subject.Delay(TimeSpan.FromMilliseconds(ViewModel.Delay)).Subscribe(d => ViewModel.Delayed = d);
         }
     }

@@ -27,10 +27,7 @@ namespace Aurora.Hosting
 
         public ResizeDirection Direction { get; set; }
 
-        public Window Window
-        {
-            get { return Window.GetWindow(AssociatedObject); }
-        }
+        public Window Window => Window.GetWindow(AssociatedObject);
 
         protected override void OnAttached()
         {

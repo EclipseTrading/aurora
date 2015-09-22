@@ -1,17 +1,9 @@
-using System;
-
 namespace Aurora.Core.Container
 {
     public class ViewSettings : ViewModelBase
     {
         private string title;
-
-        public ViewSettings()
-        {
-            this.Location = HostLocation.Center;
-        }
-
-        public HostLocation Location { get; set; }
+        public HostLocation Location { get; set; } = HostLocation.Center;
 
         public string Title
         {

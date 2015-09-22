@@ -14,10 +14,10 @@ namespace Aurora.Core.Activities
         }
 
         [JsonProperty("title")]
-        public string Title { get; private set; }
+        public string Title { get; }
         [JsonProperty("location")]
-        public HostLocation Location { get; private set; }
+        public HostLocation Location { get; }
         [JsonProperty("isCloseable")]
-        public bool IsCloseable { get; private set; }
+        public bool IsCloseable { get; }
     }
 }
