@@ -3,8 +3,8 @@ param([String] $commonAssemblyInfo, [String]$build, [String] $env)
 "Updating Version Build Number To: " + $build
 
 $envName = $env
-IF($env.StartsWith('Feature/')) {
-   $m = $env | Select-String -Pattern 'Feature/([A-Z]+\-[0-9]+)' | Select-Object -first 1
+IF($env.StartsWith('feature/')) {
+   $m = $env | Select-String -Pattern 'feature/([A-Z]+\-[0-9]+)' | Select-Object -first 1
    $envName = $m.Matches[0].Groups[1].Value
 }
 
