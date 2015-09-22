@@ -19,7 +19,7 @@ $assemblyInfo -Replace  'Version\(\"([0-9]+\.[0-9]+\.[0-9]+)(\.[0-9]+)?\"\)', $r
 
 # Update the AssemblyInformationalVersion
 $assemblyInfo = Get-Content $commonAssemblyInfo
-$informationalVersion = '$1.' + $envName + '-' + $build 
+$informationalVersion = '$1-' + $envName + '-' + $build 
 $replace = 'AssemblyInformationalVersion("' + $informationalVersion  + '")'
 $assemblyInfo -Replace 'AssemblyInformationalVersion\(\"([0-9]+\.[0-9]+\.[0-9]+)(\.[0-9]+\-DEV)?\"\)', $replace | Out-File $commonAssemblyInfo
 
