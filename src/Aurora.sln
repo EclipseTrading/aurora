@@ -36,6 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Framework\Contr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{3E6289D7-7C85-4947-BFF4-DCE2899E74F8}"
 	ProjectSection(SolutionItems) = preProject
+		package\Aurora.All.nuspec = package\Aurora.All.nuspec
 		package\Aurora.AppHost.nuspec = package\Aurora.AppHost.nuspec
 		package\Aurora.CommandBarContainer.nuspec = package\Aurora.CommandBarContainer.nuspec
 		package\Aurora.Controls.nuspec = package\Aurora.Controls.nuspec
