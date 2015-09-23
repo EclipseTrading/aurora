@@ -12,14 +12,15 @@
       <dependency id="CommonServiceLocator" version="1.2" />
       <dependency id="Prism.Composition" version="5.0.0" />
       <dependency id="Prism.Mvvm" version="1.0.0" />
-      <dependency id="System.Windows.Interactivity.WPF" version="2.0.20525" />
       <dependency id="Unity" version="3.5.1404.0" />
     </dependencies>
     <references>
       <reference file="Aurora.TabContainer.dll"/>
+	  <reference file="System.Windows.Interactivity.dll"/>
     </references>
   </metadata>
   <files>
+    <file src="..\lib\System.Windows.Interactivity\System.Windows.Interactivity.dll" target="lib\net45"/>
     <file src="..\Containers\TabContainer\bin\Release\Aurora.TabContainer.dll" target="lib\net45"/>
     <file src="..\Containers\TabContainer\bin\Release\Aurora.TabContainer.pdb" target="lib\net45"/>
   </files>

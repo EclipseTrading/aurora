@@ -2,6 +2,12 @@ param([String] $commonAssemblyInfo, [String]$build, [String] $env)
 
 "Updating Version Build Number To: " + $build
 
+$envName = $env
+IF($env.StartsWith('feature/')) {
+   $m = $env | Select-String -Pattern 'feature/([A-Z]+\-[0-9]+)' | Select-Object -first 1
+   $envName = $m.Matches[0].Groups[1].Value
+}
+
 # If Prod Use the Assembly Version, otherwise take the version with the environment / JIRA at the end, i.e. pre-release version string
 $verString = If($env -eq 'PROD') { 'AssemblyVersion' } ELSE { 'AssemblyInformationalVersion' } 
 
@@ -13,7 +19,7 @@ $assemblyInfo -Replace  'Version\(\"([0-9]+\.[0-9]+\.[0-9]+)(\.[0-9]+)?\"\)', $r
 
 # Update the AssemblyInformationalVersion
 $assemblyInfo = Get-Content $commonAssemblyInfo
-$informationalVersion = '$1.' + $build + '-' + $env
+$informationalVersion = '$1-' + $envName + '-' + $build 
 $replace = 'AssemblyInformationalVersion("' + $informationalVersion  + '")'
 $assemblyInfo -Replace 'AssemblyInformationalVersion\(\"([0-9]+\.[0-9]+\.[0-9]+)(\.[0-9]+\-DEV)?\"\)', $replace | Out-File $commonAssemblyInfo
 
