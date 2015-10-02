@@ -11,5 +11,6 @@ namespace Aurora.CommandBarContainer
         }
 
         public Orientation CommandOrientation { get; set; } = Orientation.Horizontal;
+        public bool ShowContainerFrame { get; set; } = true;
     }
 }

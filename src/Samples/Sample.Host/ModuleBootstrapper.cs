@@ -17,7 +17,7 @@ namespace Aurora.Sample.Host
 
         public void Initialize()
         {
-            activityService.StartActivityAsync(new CommandBarContainerActivityInfo(HostLocation.AppMenu) { CommandOrientation = Orientation.Vertical});
+            activityService.StartActivityAsync(new CommandBarContainerActivityInfo(HostLocation.AppMenu) { CommandOrientation = Orientation.Vertical, ShowContainerFrame = false});
             activityService.StartActivityAsync(new DockingContainerActivityInfo(HostLocation.Center, true));
         }
     }
