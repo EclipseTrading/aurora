@@ -8,6 +8,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:core="clr-namespace:Aurora.Core;assembly=Aurora.Core"
         xmlns:hosting="clr-namespace:Aurora.Hosting"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
         TitleForeground="#858585"
@@ -36,7 +37,61 @@
 
     <controls:MetroWindow.IconTemplate>
         <DataTemplate>
-            <Image Width="20" Height="20" Source="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=Icon, Converter={hosting:Passthrough}}"/>
+            <Grid>
+                <ToggleButton IsChecked="{Binding ElementName=IconPopup, Path=IsOpen}" Width="20" Height="20" Margin="0,0,0,-3">
+                    <ToggleButton.Content>
+                        <Image Source="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=Icon, Converter={hosting:Passthrough}}"/>
+                    </ToggleButton.Content>
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <ContentPresenter Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Border Margin="-3,-4" Padding="2" BorderThickness="1" BorderBrush="DarkGray" CornerRadius="2">
+                                                    <ContentPresenter Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+                <Popup x:Name="IconPopup" Placement="Bottom" AllowsTransparency="True" PlacementTarget="{Binding ElementName=ImageIcon}"
+                       
+                       Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="5" HorizontalOffset="-3">
+                    <i:Interaction.Behaviors>
+                        <hosting:CloseOnAction/>
+                    </i:Interaction.Behaviors>
+
+
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Rectangle Fill="White" Margin="0" Stroke="DarkGray" StrokeThickness="1" RadiusX="5" RadiusY="5">
+
+                        </Rectangle>
+
+
+                        <Border BorderThickness="1,0,0,0" BorderBrush="DarkGray" Background="White" Margin="0,-3,225,5">
+
+                        </Border>
+                        <ContentControl x:Name="PART_Content" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                        regions:RegionManager.RegionManager="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=(regions:RegionManager.RegionManager)}" 
+                                        regions:RegionManager.RegionName="{x:Static container:Regions.AppMenuHost}"/>
+                    </Grid>
+                </Popup>
+            </Grid>
+
         </DataTemplate>
     </controls:MetroWindow.IconTemplate>
     <Grid Margin="5,0,5,5">

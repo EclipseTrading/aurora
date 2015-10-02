@@ -1,4 +1,5 @@
-﻿using Aurora.Core.Activities;
+﻿using System.Windows.Controls;
+using Aurora.Core.Activities;
 using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer
@@ -8,5 +9,8 @@ namespace Aurora.CommandBarContainer
         public CommandBarContainerActivityInfo(HostLocation location) : base(location)
         {
         }
+
+        public Orientation CommandOrientation { get; set; } = Orientation.Horizontal;
+        public bool ShowContainerFrame { get; set; } = true;
     }
 }

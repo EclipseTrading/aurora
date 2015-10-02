@@ -11,6 +11,12 @@ namespace Aurora.CommandBarContainer.Views
             
         }
 
+        protected override void OnViewModelChanged()
+        {
+            this.ViewModel.CommandOrientation = ActivityInfo.CommandOrientation;
+            this.ViewModel.ShowContainerFrame = ActivityInfo.ShowContainerFrame;
+        }
+
         public void AddCommand(CommandInfo commandInfo, ICommand command)
         {
             this.ViewModel.Commands.Add(new CommandViewModel { Title = commandInfo.Title, Command = command});

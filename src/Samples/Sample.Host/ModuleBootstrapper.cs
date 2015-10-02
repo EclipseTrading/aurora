@@ -1,3 +1,4 @@
+using System.Windows.Controls;
 using Aurora.CommandBarContainer;
 using Aurora.Core.Container;
 using Aurora.DockingContainer;
@@ -16,7 +17,7 @@ namespace Aurora.Sample.Host
 
         public void Initialize()
         {
-            activityService.StartActivityAsync(new CommandBarContainerActivityInfo(HostLocation.Top));
+            activityService.StartActivityAsync(new CommandBarContainerActivityInfo(HostLocation.AppMenu) { CommandOrientation = Orientation.Vertical, ShowContainerFrame = false});
             activityService.StartActivityAsync(new DockingContainerActivityInfo(HostLocation.Center, true));
         }
     }
