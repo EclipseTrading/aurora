@@ -4,15 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views1="clr-namespace:Aurora.CommandBarContainer.Views"
+             xmlns:commandBarContainer="clr-namespace:Aurora.CommandBarContainer"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance views1:CommandBarContainerViewModel}"
              d:DesignHeight="34" d:DesignWidth="300">
-    <Grid Background="#EFEFEF">
-        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="3"  Fill="#006DB6"/>
+    <Grid>
+        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="3"  Fill="#006DB6" 
+                   Visibility="{Binding ShowContainerFrame, Converter={commandBarContainer:BoolToVisibilityConverter}}"/>
         <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0,2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="{Binding CommandOrientation}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -21,5 +23,15 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers> 
+                    <DataTrigger Binding="{Binding Path=ShowContainerFrame}" Value="True">
+                        <Setter Property="Background" Value="#EFEFEF"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
     </Grid>
 </UserControl>

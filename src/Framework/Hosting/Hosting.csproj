@@ -123,6 +123,8 @@
   <ItemGroup>
     <Compile Include="ApplicationWindowViewModel.cs" />
     <Compile Include="AuroraBootstrapper.cs" />
+    <Compile Include="BoolToVisibilityConverter.cs" />
+    <Compile Include="CloseOnAction.cs" />
     <Compile Include="DragWindowBehavior.cs" />
     <Compile Include="ImageSourceConverter.cs" />
     <Compile Include="MaximizeBehavior.cs" />

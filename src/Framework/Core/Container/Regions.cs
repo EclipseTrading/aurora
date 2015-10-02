@@ -8,5 +8,6 @@ namespace Aurora.Core.Container
         public const string RightHost = "RightHost";
         public const string BottomHost = "BottomHost";
         public const string Default = CenterHost;
+        public static string AppMenuHost = "AppMenuHost";
     }
 }
