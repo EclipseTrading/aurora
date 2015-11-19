@@ -9,7 +9,6 @@ namespace Aurora.Hosting
     {
         protected override void OnAttached()
         {
-            //this.AssociatedObject.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(MouseUpHandler));
             this.AssociatedObject.AddHandler(MenuItem.ClickEvent, new RoutedEventHandler(MouseUpHandler));
         }
         
