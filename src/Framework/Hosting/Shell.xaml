@@ -76,19 +76,35 @@
                     </i:Interaction.Behaviors>
 
 
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Rectangle Fill="White" Margin="0" Stroke="DarkGray" StrokeThickness="1" RadiusX="5" RadiusY="5">
-
-                        </Rectangle>
 
 
-                        <Border BorderThickness="1,0,0,0" BorderBrush="DarkGray" Background="White" Margin="0,-3,225,5">
 
-                        </Border>
-                        <ContentControl x:Name="PART_Content" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                        regions:RegionManager.RegionManager="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=(regions:RegionManager.RegionManager)}" 
-                                        regions:RegionManager.RegionName="{x:Static container:Regions.AppMenuHost}"/>
-                    </Grid>
+                    <Border Margin="0,0,8,8" Background="White" BorderThickness="0">
+
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" Opacity="0.4"/>
+                        </Border.Effect>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+
+
+                            <Rectangle Fill="White" Margin="0" Stroke="DarkGray" StrokeThickness="1" RadiusX="0" RadiusY="0">
+
+                            </Rectangle>
+
+
+                            <Border BorderThickness="1,0,0,0" BorderBrush="DarkGray" Background="White" Margin="0,-3,217,5">
+
+                            </Border>
+
+                            <ContentControl x:Name="PART_Content" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                            regions:RegionManager.RegionManager="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=(regions:RegionManager.RegionManager)}" 
+                                                            regions:RegionManager.RegionName="{x:Static container:Regions.AppMenuHost}"/>
+
+
+
+                        </Grid>
+                    </Border>
                 </Popup>
             </Grid>
 

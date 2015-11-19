@@ -19,7 +19,13 @@ namespace Aurora.CommandBarContainer.Views
 
         public void AddCommand(CommandInfo commandInfo, ICommand command)
         {
-            this.ViewModel.Commands.Add(new CommandViewModel { Title = commandInfo.Title, Command = command});
+            this.ViewModel.Commands.Add(new CommandViewModel
+            {
+                Title = commandInfo.Title,
+                Command = command,
+                Description = commandInfo.Description,
+                IconPath = commandInfo.IconPath
+            });
         }
     }
 }
