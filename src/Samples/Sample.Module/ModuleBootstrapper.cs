@@ -23,11 +23,16 @@ namespace Aurora.Sample.Module
         {
             Func<SampleViewActivityInfo> f = () => new SampleViewActivityInfo("Sample View" + (viewIndex != 0 ? " (" + viewIndex++ + ")" : ""), isCloseable: true)
             {
-                MessageFormat = "Hello {0}" 
+                MessageFormat = "Hello {0}"
             };
 
             await activityService.StartActivityAsync(f());
-            commandBarService.AddCommand(new CommandInfo("New Sample View"), new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+            commandBarService.AddCommand(new CommandInfo("New Sample View") { Description = "test", IconPath= "pack://application:,,,/Aurora.CommandBarContainer;component/Image/config.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+            commandBarService.AddCommand(new CommandInfo("View2") { Description = "hello view", IconPath = "pack://application:,,,/Aurora.CommandBarContainer;component/Image/limits.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+            commandBarService.AddCommand(new CommandInfo("View3") { Description = "test", IconPath = "pack://application:,,,/Aurora.CommandBarContainer;component/Image/config.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+            commandBarService.AddCommand(new CommandInfo("View4") { Description = "test", IconPath = "pack://application:,,,/Aurora.CommandBarContainer;component/Image/config.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+            commandBarService.AddCommand(new CommandInfo("View5") { Description = "", IconPath = "pack://application:,,,/Aurora.CommandBarContainer;component/Image/limits.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
+         
         }
     }
 }
