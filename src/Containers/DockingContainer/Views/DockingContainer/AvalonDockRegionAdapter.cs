@@ -27,17 +27,8 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 
         private static void OnViewsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, IRegion region, DockingManager regionTarget)
         {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (ActiveView item in e.OldItems)
-                {
-                    if (item == null)
-                        continue;
-
-                    item.Presenter?.Dispose();
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
+           
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
 
                 foreach (ActiveView item in e.NewItems)
@@ -98,6 +89,16 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                         regionTarget.Layout.RootPanel.ReplaceChildAt(0, currentILayoutDocumentPane);
                     }
                     newLayoutDocument.IsActive = true;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (ActiveView item in e.OldItems)
+                {
+                    if (item == null)
+                        continue;
+
+                    item.Presenter?.Dispose();
                 }
             }
         }
