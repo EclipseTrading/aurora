@@ -100,7 +100,7 @@
     <Compile Include="Container\ShellViewModel.cs" />
     <Compile Include="Container\ViewSettings.cs" />
     <Compile Include="Activities\IActivity.cs" />
-    <Compile Include="FuncDisposable.cs" />
+    <Compile Include="ActionDisposable.cs" />
     <Compile Include="IApplicationWindowViewModel.cs" />
     <Compile Include="IModuleProvider.cs" />
     <Compile Include="IViewFactory.cs" />

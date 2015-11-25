@@ -19,19 +19,12 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo
         {
-            var a = new Container { View = contentView };
-
-            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => a.View);
+            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => contentView);
             return await Task.FromResult(new ActionDisposable(() => {
                 regionManager.Regions[DockingContainerRegion.Default].Remove(contentView);
                 contentView = null;
-                a.View = null;
             }));            
         }
 
-        private class Container
-        {
-            public ActiveView View { get; set; }
-        }
     }
 }

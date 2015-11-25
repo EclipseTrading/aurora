@@ -27,6 +27,8 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 
         private static void OnViewsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, IRegion region, DockingManager regionTarget)
         {
+            if (e.Action != NotifyCollectionChangedAction.Add)
+                return;
            
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
@@ -91,14 +93,7 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                     newLayoutDocument.IsActive = true;
                 }
             }
-            else if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (ActiveView item in e.OldItems)
-                {
-                   // item?.Dispose();
-                }
-
-            }
+          
         }
 
         /// <summary>
