@@ -13,5 +13,10 @@ namespace Aurora.Core
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual void Dispose()
+        {
+
+        }
     }
 }

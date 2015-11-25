@@ -6,6 +6,7 @@ using Aurora.Core.ViewContainer;
 using Aurora.TabContainer.Views.Tab;
 using Microsoft.Practices.Prism.Regions;
 using IViewContainerService = Aurora.Core.Container.IViewContainerService;
+using System;
 
 namespace Aurora.TabContainer
 {
@@ -20,7 +21,7 @@ namespace Aurora.TabContainer
             this.regionManager = regionManager;
         }
 
-        public async Task AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo)
+        public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo
         {
             var activeView = await viewFactory.CreateActiveViewAsync<TabPresenter>(
@@ -45,6 +46,8 @@ namespace Aurora.TabContainer
 
 
             regionManager.RegisterViewWithRegion(TabContainerRegion.Default, () => activeView.View);
+
+            return new ActionDisposable(() => { });
         }
     }
 }

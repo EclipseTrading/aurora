@@ -37,9 +37,14 @@ namespace Aurora.Core.Activities
 
         public virtual async Task StartAsync()
         {
-            var presenter = await ViewFactory.CreateActiveViewAsync<TPresenter>(ActivityInfo,
+            var activeView = await ViewFactory.CreateActiveViewAsync<TPresenter>(ActivityInfo,
                 new TypeOverride<IRegionManager>(ContainerRegionManager));
-            ContainerService.SetViewContainer(ActivityInfo.Location, presenter.View);
+            ContainerService.SetViewContainer(ActivityInfo.Location, activeView.View);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

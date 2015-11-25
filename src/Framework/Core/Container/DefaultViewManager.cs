@@ -9,8 +9,8 @@ namespace Aurora.Core.Container
     {
         private readonly Dictionary<HostLocation, IViewContainerService> services = new Dictionary<HostLocation, IViewContainerService>();
         private IViewContainerService defaultViewContainerService;
-        
-        public async Task AddViewAsync<TActivityInfo>(ActiveView view, TActivityInfo activityInfo) 
+
+        public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView view, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo
         {
             IViewContainerService viewContainerService;
@@ -29,7 +29,8 @@ namespace Aurora.Core.Container
                 viewContainerService = services[activityInfo.Location];
             }
 
-            await viewContainerService.AddViewAsync(view, activityInfo);
+            return await viewContainerService.AddViewAsync(view, activityInfo);            
+
         }
 
         public void RegisterViewContainerService(HostLocation location, IViewContainerService viewContainerService)

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Aurora.Core.Activities
 {
@@ -9,7 +10,7 @@ namespace Aurora.Core.Activities
         new TActivityInfo ActivityInfo { get;  }
     }
 
-    public interface IActivity
+    public interface IActivity : IDisposable
     {
         ActivityInfo ActivityInfo { get; }
         Task StartAsync();

@@ -7,7 +7,7 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 {
     public class PresenterLayoutDocument : LayoutDocument, IViewContainerService
     {
-        public ActiveView View { get; }
+        public ActiveView View { get; set; }
 
         public PresenterLayoutDocument(ActiveView view)
         {
