@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 using Aurora.Core;
 using Aurora.Core.Activities;
-using Aurora.Core.ViewContainer;
-using Aurora.DockingContainer.Views.Document;
 using Microsoft.Practices.Prism.Regions;
 using IViewContainerService = Aurora.Core.Container.IViewContainerService;
+using System;
 
 namespace Aurora.DockingContainer.Views.DockingContainer
 {
@@ -17,11 +16,22 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             this.regionManager = regionManager;
         }
 
-        public async Task AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo) 
+        public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo
         {
-            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => contentView);
-            await Task.FromResult(0);
+            var a = new Container { View = contentView };
+
+            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => a.View);
+            return await Task.FromResult(new ActionDisposable(() => {
+                regionManager.Regions[DockingContainerRegion.Default].Remove(contentView);
+                contentView = null;
+                a.View = null;
+            }));            
+        }
+
+        private class Container
+        {
+            public ActiveView View { get; set; }
         }
     }
 }

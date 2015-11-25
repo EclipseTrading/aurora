@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Aurora.Core.Container;
 using Microsoft.Practices.Unity;
+using System;
 
 namespace Aurora.Core.Activities
 {
@@ -24,9 +25,9 @@ namespace Aurora.Core.Activities
         [Dependency]
         public IViewManager ViewManager { get; set; }
 
-        protected async override Task AddViewAsync(ActiveView view)
+        protected async override Task<IDisposable> AddViewAsync(ActiveView view)
         {
-            await ViewManager.AddViewAsync(view, ActivityInfo);
+            return await ViewManager.AddViewAsync(view, ActivityInfo);
         }
     }
 }

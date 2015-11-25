@@ -95,11 +95,9 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             {
                 foreach (ActiveView item in e.OldItems)
                 {
-                    if (item == null)
-                        continue;
-
-                    item.Presenter?.Dispose();
+                   // item?.Dispose();
                 }
+
             }
         }
 
@@ -114,7 +112,10 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         {
             var presenterLayoutDocument = e.Document as PresenterLayoutDocument;
             if (presenterLayoutDocument != null)
-                region.Remove(presenterLayoutDocument.View);
+            {
+                presenterLayoutDocument.View.Dispose();
+                presenterLayoutDocument.View = null;
+            }
         }
     }
 }

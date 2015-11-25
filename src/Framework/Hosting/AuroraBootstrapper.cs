@@ -65,8 +65,9 @@ namespace Aurora.Hosting
         {
             base.ConfigureContainer();
 
-            this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
+             this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
             this.Container.RegisterType(typeof(IActivityService), typeof(DefaultActivityService), new ContainerControlledLifetimeManager());
+
             this.Container.RegisterType(typeof(IViewManager), typeof(DefaultViewManager), new ContainerControlledLifetimeManager());
 
             this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
