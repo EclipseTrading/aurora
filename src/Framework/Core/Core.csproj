@@ -113,6 +113,7 @@
     <Compile Include="Container\ViewSettings.cs" />
     <Compile Include="Activities\IActivity.cs" />
     <Compile Include="ActionDisposable.cs" />
+    <Compile Include="Dialog\DialogCloseReason.cs" />
     <Compile Include="Dialog\DialogControl.cs" />
     <Compile Include="Dialog\DialogResult.cs" />
     <Compile Include="Dialog\DialogViewModel.cs" />

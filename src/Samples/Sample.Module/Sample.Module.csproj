@@ -93,6 +93,7 @@
     <Compile Include="Views\ChildView\ChildViewModel.cs" />
     <Compile Include="Views\ChildView\ChildPresenter.cs" />
     <Compile Include="Views\Dialog\SampleDialogPresenter.cs" />
+    <Compile Include="Views\Dialog\SampleDialogResult.cs" />
     <Compile Include="Views\Dialog\SampleDialogView.xaml.cs">
       <DependentUpon>SampleDialogView.xaml</DependentUpon>
     </Compile>

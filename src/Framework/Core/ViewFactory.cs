@@ -41,11 +41,7 @@ namespace Aurora.Core
 
 
             ActiveView result = null;
-
-            bool isViewPresenter = presenter is IViewPresenter;
-            bool isDialogPresenter = presenter is IDialogViewPresenter;
-
-            if (isViewPresenter)
+            if (presenter is IViewPresenter)
             {
                 var contentContainer = new ContentContainer();
             

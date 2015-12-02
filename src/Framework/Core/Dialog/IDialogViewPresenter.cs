@@ -2,12 +2,8 @@
 
 namespace Aurora.Core.Dialog
 {
-    public interface IDialogViewPresenter
-    {        
-    }
-
-
-    public interface IDialogViewPresenter<TResult> : IDialogViewPresenter where TResult : DialogResult 
+ 
+    public interface IDialogViewPresenter<TResult> where TResult : DialogResult 
     {
         Task<TResult> ShowAsync(); 
     }

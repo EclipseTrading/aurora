@@ -10,7 +10,7 @@ namespace Aurora.Core.Dialog
                                                             where TResult : DialogResult
                                                             
     {
-        private TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+        private TaskCompletionSource<TResult> tcs;
         public DialogViewPresenter() : base(new ViewActivityInfo(null))
         {
 
@@ -19,6 +19,7 @@ namespace Aurora.Core.Dialog
 
         public Task<TResult> ShowAsync()
         {
+            this.tcs = new TaskCompletionSource<TResult>();
             this.ViewModel.IsOpen = true;
             return tcs.Task;
         }
