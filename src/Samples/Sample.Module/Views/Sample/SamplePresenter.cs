@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Windows;
 using Aurora.Core;
-using Aurora.Core.Activities;
 using Aurora.Core.Container;
 using Aurora.Core.ViewContainer;
 using Aurora.Sample.Module.Shared;
 using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
 using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
+using System.Threading.Tasks;
+using Aurora.Sample.Module.Views.Dialog;
 
 namespace Aurora.Sample.Module.Views.Sample
 {
@@ -55,6 +55,8 @@ namespace Aurora.Sample.Module.Views.Sample
                 }),
                 () => true);
 
+            this.ViewModel.ShowDialogCommand = new DelegateCommand(async () => await GetDialogResultAsync());
+
             var random = new Random();
 
             subject = new Subject<double>();
@@ -76,6 +78,14 @@ namespace Aurora.Sample.Module.Views.Sample
         {
             this.delayDisposable?.Dispose();
             this.delayDisposable = subject.Delay(TimeSpan.FromMilliseconds(ViewModel.Delay)).Subscribe(d => ViewModel.Delayed = d);
+        }
+
+        private async Task GetDialogResultAsync()
+        {
+            var result = await ShowDialogAsync<SampleDialogResult>(typeof(SampleDialogPresenter));
+
+            string output = result.ExtraResult;
+
         }
     }
 }

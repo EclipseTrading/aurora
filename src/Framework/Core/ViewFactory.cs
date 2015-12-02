@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
+using Aurora.Core.Dialog;
+using Aurora.Core.ViewContainer;
 
 namespace Aurora.Core
 {
@@ -37,11 +39,34 @@ namespace Aurora.Core
             var view = (FrameworkElement)container.Resolve(viewType, overrides);
             var viewModel = (IViewModel)container.Resolve(viewModelType, overrides);
 
-            view.DataContext = viewModel;
 
-            await presenter.InitializeAsync(viewModel);
+            ActiveView result = null;
 
-            return new ActiveView(presenter, viewModel, view, activity);
+            bool isViewPresenter = presenter is IViewPresenter;
+            bool isDialogPresenter = presenter is IDialogViewPresenter;
+
+            if (isViewPresenter)
+            {
+                var contentContainer = new ContentContainer();
+            
+                view.DataContext = viewModel;
+                var contentContext = new ContentContext();
+                contentContext.MainContent = view;
+                
+                contentContainer.DataContext = contentContext;
+                ((IViewPresenter)presenter).ContentContext = contentContext;
+                await presenter.InitializeAsync(viewModel);
+                result = new ActiveView(presenter, viewModel, contentContainer, activity);
+            }
+            else
+            {
+                view.DataContext = viewModel;
+                await presenter.InitializeAsync(viewModel);
+                result = new ActiveView(presenter, viewModel, view, activity);
+            }
+
+            return result;
         }
+
     }
 }

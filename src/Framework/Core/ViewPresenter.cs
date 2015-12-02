@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
+using Aurora.Core.Dialog;
+using Aurora.Core.ViewContainer;
 
 namespace Aurora.Core
 {
+
     public class ViewPresenter<TViewModel, TActivityInfo> : Presenter<TViewModel, TActivityInfo>, IViewPresenter
         where TViewModel : IViewModel
         where TActivityInfo : ViewActivityInfo
@@ -21,6 +24,21 @@ namespace Aurora.Core
         public IViewFactory ViewFactory { get; set; }
 
         public ViewActivityInfo ViewActivityInfo => this.ActivityInfo;
+        
+
+        public ContentContext ContentContext { get; set; }
+
+        protected virtual async Task<TResult> ShowDialogAsync<TResult>(Type presenterType, params object[] parameters) 
+            where TResult : DialogResult
+        {
+            var dialogView = await this.ViewFactory.CreateActiveViewAsync(null, presenterType, parameters);           
+            this.ContentContext.DialogContent = dialogView.View;
+            this.ContentContext.IsOpenDialog = true;          
+            var result = await ((IDialogViewPresenter<TResult>)dialogView.Presenter).ShowAsync();
+            this.ContentContext.IsOpenDialog = false;
+
+            return result;
+        }
 
         protected virtual async Task<ActiveView> AddChildViewAsync<TChildActivityInfo>(Type presenterType, TChildActivityInfo activityInfo, params object[] parameters)
             where TChildActivityInfo : ViewActivityInfo

@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Aurora.Sample.Module.Views.Dialog.SampleDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aurora.Sample.Module.Views.Dialog"
+             xmlns:controls="clr-namespace:Aurora.Core.Dialog;assembly=Aurora.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Foreground="#015288" FontSize="14px" FontWeight="Bold">Dialog</Label>
+
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Testing</TextBlock>
+
+        <Grid Grid.Row="2">
+
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5">
+                <Button Command="{Binding CancelCommand}">Cancel</Button>
+                <Button Command="{Binding CompleteCommand}" >OK</Button>
+                <Button Command="{Binding ShowDialogCommand}">Show Dialog</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
