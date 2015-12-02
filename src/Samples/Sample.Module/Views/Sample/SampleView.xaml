@@ -33,7 +33,10 @@
         <Label Grid.Row="2" Grid.Column="0">Window Title</Label>
         <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.ColumnSpan="2"
                  Grid.Column="1" />
-        <Button Command="{Binding Path=NewViewCommand}" Grid.Row="3" Grid.Column="0">New View</Button>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
+            <Button Command="{Binding Path=NewViewCommand}" >New View</Button>
+            <Button Command="{Binding Path=ShowDialogCommand}">Show Dialog</Button>
+        </StackPanel>
 
         <Label Grid.Row="5" Grid.Column="0" Content="{Binding Immediate}"/>
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding Delayed}"/>

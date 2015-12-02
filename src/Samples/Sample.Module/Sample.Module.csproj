@@ -92,6 +92,12 @@
     </Compile>
     <Compile Include="Views\ChildView\ChildViewModel.cs" />
     <Compile Include="Views\ChildView\ChildPresenter.cs" />
+    <Compile Include="Views\Dialog\SampleDialogPresenter.cs" />
+    <Compile Include="Views\Dialog\SampleDialogResult.cs" />
+    <Compile Include="Views\Dialog\SampleDialogView.xaml.cs">
+      <DependentUpon>SampleDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialog\SampleDialogViewModel.cs" />
     <Compile Include="Views\Sample\SamplePresenter.cs" />
     <Compile Include="Views\Sample\SampleView.xaml.cs">
       <DependentUpon>SampleView.xaml</DependentUpon>
@@ -101,6 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ChildView\ChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialog\SampleDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

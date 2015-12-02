@@ -50,6 +50,8 @@ namespace Aurora.Sample.Module.Views.Sample
 
         public ICommand NewViewCommand { get; set; }
 
+        public ICommand ShowDialogCommand { get; set; }
+
         public double Immediate
         {
             get { return immediate; }
