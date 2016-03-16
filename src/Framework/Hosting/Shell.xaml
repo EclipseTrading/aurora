@@ -12,7 +12,6 @@
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
         TitleForeground="#858585"
-        GlowBrush="#858585" Style="{DynamicResource CleanWindowStyleKey}"
         ShowIconOnTitleBar="True"
         Icon="{Binding Path=IconPath, Converter={hosting:ImageSourceConverter}}"
         d:DataContext="{d:DesignInstance d:Type=core:IApplicationWindowViewModel}" Height="800" Width="1000">
@@ -26,10 +25,10 @@
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <StackPanel Orientation="Horizontal" Margin="-5">
-                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="{StaticResource AccentColorBrush}"
+            <StackPanel Orientation="Horizontal" Margin="3">
+                <TextBlock FontFamily="Segoe UI" FontSize="14pt" Foreground="White"
                            Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.ApplicationName}"/>
-                <TextBlock FontFamily="Segoe UI Semibold" FontSize="14pt" Foreground="#5E5E5E"
+                <TextBlock FontFamily="Segoe UI" FontSize="14pt" Foreground="#BEBEBE"
                            Text="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=DataContext.WindowName}"/>
             </StackPanel>
         </DataTemplate>
@@ -75,10 +74,6 @@
                         <hosting:CloseOnAction/>
                     </i:Interaction.Behaviors>
 
-
-
-
-
                     <Border Margin="0,0,8,8" Background="White" BorderThickness="0">
 
                         <Border.Effect>
@@ -110,7 +105,8 @@
 
         </DataTemplate>
     </controls:MetroWindow.IconTemplate>
-    <Grid Margin="5,0,5,5">
+    <Border BorderThickness="1" BorderBrush="LightGray">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -128,5 +124,6 @@
         <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static container:Regions.CenterHost}"/>
         <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static container:Regions.RightHost}"/>
         <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.BottomHost}"/>
-    </Grid>
+        </Grid>
+    </Border>
 </controls:MetroWindow>

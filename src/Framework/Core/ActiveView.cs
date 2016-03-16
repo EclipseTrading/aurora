@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using Aurora.Core.Activities;
 using System;
 
@@ -15,7 +17,7 @@ namespace Aurora.Core
     }
 
     public class ActiveView : IDisposable
-    {
+    {                                                            
         public ActiveView(IPresenter presenter, IViewModel viewModel, FrameworkElement view, IActivity activity = null)
         {
             Presenter = presenter;
@@ -25,9 +27,9 @@ namespace Aurora.Core
         }
 
         public IPresenter Presenter { get; }
-        public IViewModel ViewModel { get; private set; }
-        public FrameworkElement View { get; private set; }
-        public IActivity Activity { get; private set; }
+        public IViewModel ViewModel { get; }  
+        public FrameworkElement View { get; } 
+        public IActivity Activity { get; }  
 
         public void Dispose()
         {
