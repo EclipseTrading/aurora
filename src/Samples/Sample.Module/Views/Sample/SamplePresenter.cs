@@ -21,6 +21,8 @@ namespace Aurora.Sample.Module.Views.Sample
 
         private Subject<double> subject;
         private IDisposable delayDisposable;
+        private IDisposable observableDisposable;
+        private IDisposable subDisposable;
 
 
         public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService)
@@ -39,7 +41,7 @@ namespace Aurora.Sample.Module.Views.Sample
 
             this.ViewModel.Title = activityInfo.Title;
 
-            this.OnViewModelPropertyChanged(vm => vm.Title, () =>ViewContainerService?.SetTitle(ViewModel.Title));
+            this.OnViewModelPropertyChanged(vm => vm.Title, () => ViewContainerService?.SetTitle(ViewModel.Title));
 
             this.ViewModel.OkCommand =
                 new DelegateCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
@@ -60,18 +62,17 @@ namespace Aurora.Sample.Module.Views.Sample
             var random = new Random();
 
             subject = new Subject<double>();
-            Observable.Interval(TimeSpan.FromMilliseconds(1000))
+            observableDisposable = Observable.Interval(TimeSpan.FromMilliseconds(1000))
                 .Select(_ => Math.Round(random.NextDouble(), 6))
                 .Subscribe(s => subject.OnNext(s));
 
-
-            subject.Subscribe(d => ViewModel.Immediate = d);
+            subDisposable = subject.Subscribe(d => ViewModel.Immediate = d);
 
             this.OnViewModelPropertyChanged(vm => vm.Delay, InitDelay);
 
             ViewModel.Delay = 0;
 
-            ViewModel.ChildView = await this.AddChildViewAsync(typeof(ChildPresenter));
+            //  ViewModel.ChildView = await this.AddChildViewAsync(typeof(ChildPresenter));
         }
 
         private void InitDelay()
@@ -83,9 +84,14 @@ namespace Aurora.Sample.Module.Views.Sample
         private async Task GetDialogResultAsync()
         {
             var result = await ShowDialogAsync<SampleDialogResult>(typeof(SampleDialogPresenter));
-
             string output = result.ExtraResult;
-
+        }
+        
+        public override void Dispose()
+        {
+            this.delayDisposable?.Dispose();  
+            this.observableDisposable?.Dispose();
+            this.subDisposable?.Dispose();
         }
     }
 }

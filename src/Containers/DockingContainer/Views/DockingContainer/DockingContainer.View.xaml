@@ -10,9 +10,13 @@
              d:DataContext="{d:DesignInstance dockingHost1:DockingContainerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <xcad:DockingManager  regions:RegionManager.RegionManager="{Binding Path=RegionManager}" 
                 regions:RegionManager.RegionName="{x:Static dockingHost:DockingContainerRegion.Default}">
 
+        <xcad:DockingManager.Theme>
+            <xcad:MetroTheme/>
+        </xcad:DockingManager.Theme>
         <xcad:LayoutRoot>
             <xcad:LayoutPanel>
                 <xcad:LayoutDocumentPaneGroup>
