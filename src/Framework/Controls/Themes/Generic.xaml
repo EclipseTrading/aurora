@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ActiveViewer}">
-                    <ContentControl Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveView.View, Mode=OneTime}" />
+                    <ContentControl Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveView.View}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

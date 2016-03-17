@@ -47,7 +47,8 @@
         <TextBox Text="{Binding Delay}" Grid.Row="6"
         	Grid.Column="2" VerticalAlignment="Top"   />
         
-        <controls:ActiveViewer Grid.Row="7" Grid.ColumnSpan="3" Grid.Column="0" ActiveView="{Binding Path=ChildView}" />
+        <controls:ActiveViewer Grid.Row="7" Grid.ColumnSpan="3" Grid.Column="0" 
+                               ActiveView="{Binding Path=ChildView}" />
 
     </Grid>
 </UserControl>
