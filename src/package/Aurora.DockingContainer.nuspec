@@ -9,7 +9,8 @@
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
       <dependency id="Aurora.Core" version="1.0" />
-      <dependency id="AvalonDock" version="2.0.2000" />
+      <dependency id="Xceed.Wpf.AvalonDock" version="2.9.15603.14400" />
+      <dependency id="Xceed.Wpf.AvalonDock.Themes.Metro" version="2.9.15603.14400"/>
       <dependency id="CommonServiceLocator" version="1.2" />
       <dependency id="Prism.Composition" version="5.0.0" />
     </dependencies>
