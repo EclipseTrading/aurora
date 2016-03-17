@@ -72,7 +72,7 @@ namespace Aurora.Sample.Module.Views.Sample
 
             ViewModel.Delay = 0;
 
-            //  ViewModel.ChildView = await this.AddChildViewAsync(typeof(ChildPresenter));
+            ViewModel.ChildView = await this.AddChildViewAsync(typeof(ChildPresenter));
         }
 
         private void InitDelay()
