@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
 using Aurora.Core;
 using Aurora.Core.Container;
 
@@ -26,6 +27,14 @@ namespace Aurora.CommandBarContainer.Views
                 Description = commandInfo.Description,
                 IconPath = commandInfo.IconPath
             });
+        }
+
+        public void RemoveCommand(CommandInfo commandInfo)
+        {
+            foreach (var toRemove in this.ViewModel.Commands.Where(e => e.Title.Equals(commandInfo.Title)).ToList())
+            {
+                this.ViewModel.Commands.Remove(toRemove);
+            }
         }
     }
 }

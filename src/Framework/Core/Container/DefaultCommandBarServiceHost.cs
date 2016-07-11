@@ -28,6 +28,22 @@ namespace Aurora.Core.Container
             }
         }
 
+        public void RemoveCommand(CommandInfo commandInfo)
+        {
+            if (!string.IsNullOrEmpty(commandInfo.BarName) && commandBarServices.ContainsKey(commandInfo.BarName))
+            {
+                commandBarServices[commandInfo.BarName].RemoveCommand(commandInfo);
+            }
+            else if (string.IsNullOrEmpty(commandInfo.BarName) && defaultCommandBarService != null)
+            {
+                defaultCommandBarService.RemoveCommand(commandInfo);
+            }
+            else
+            {
+                cache.RemoveAll(e => e.CommandInfo.Title.Equals(commandInfo.Title));
+            }
+        }
+
         public void RegisterCommandBarService(string barName, ICommandBarService commandBarService)
         {
             this.commandBarServices[barName] = commandBarService;
