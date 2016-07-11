@@ -17,6 +17,11 @@ namespace Aurora.CommandBarContainer.Views
             presenter.AddCommand(commandInfo, command);
         }
 
+        public void RemoveCommand(CommandInfo commandInfo)
+        {
+            presenter.RemoveCommand(commandInfo);
+        }
+
         public void Dispose()
         {
             this.presenter.Dispose();
