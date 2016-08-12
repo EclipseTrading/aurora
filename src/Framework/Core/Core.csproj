@@ -146,6 +146,13 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewPresenter.cs" />
+    <Compile Include="Workspace\IWorkspace.cs" />
+    <Compile Include="Workspace\IWorkspaceManager.cs" />
+    <Compile Include="Workspace\Workspace.cs" />
+    <Compile Include="Workspace\WorkspaceItem.cs" />
+    <Compile Include="Workspace\WorkspaceLocation.cs" />
+    <Compile Include="Workspace\WorkspaceManager.cs" />
+    <Compile Include="Workspace\WorkspaceViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

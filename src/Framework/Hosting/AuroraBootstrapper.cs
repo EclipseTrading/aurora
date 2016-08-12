@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Container;
+using Aurora.Core.Workspace;
 using Aurora.DockingContainer.Views.DockingContainer;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
@@ -71,6 +72,8 @@ namespace Aurora.Hosting
             this.Container.RegisterType(typeof(IViewManager), typeof(DefaultViewManager), new ContainerControlledLifetimeManager());
 
             this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
+            this.Container.RegisterType(typeof(IWorkspaceManager), typeof(WorkspaceManager),
+               new ContainerControlledLifetimeManager());
 
             this.Container.RegisterInstance(typeof (IApplicationWindowViewModel), windowViewModel);
 

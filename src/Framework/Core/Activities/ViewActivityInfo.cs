@@ -1,5 +1,7 @@
 using Aurora.Core.Container;
+using Aurora.Core.Workspace;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Aurora.Core.Activities
 {
@@ -19,5 +21,9 @@ namespace Aurora.Core.Activities
         public HostLocation Location { get; }
         [JsonProperty("isCloseable")]
         public bool IsCloseable { get; }
+
+        public WorkspaceLocation WorkspaceLocation { get; set; }
+
+        public JObject ViewData { get; set; }
     }
 }

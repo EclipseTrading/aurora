@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
-using Aurora.Core;
+using Aurora.Core.Workspace;
 using Microsoft.Practices.Prism.Regions;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -34,74 +33,76 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
 
-                foreach (ActiveView item in e.NewItems)
+                foreach (ViewContext item in e.NewItems)
                 {
-                    var view = item.View;
-                    if (view == null)
-                        continue;
+                    var viewActivityInfo = item.Info;
+                    var workspaceLocation = viewActivityInfo.WorkspaceLocation;
 
-                    //Create a new layout document to be included in the LayoutDocuemntPane (defined in xaml)
-                    var newLayoutDocument = new PresenterLayoutDocument(item);
-
-                    //Store all LayoutDocuments already pertaining to the LayoutDocumentPane (defined in xaml)
-                    var oldLayoutDocuments = new List<LayoutDocument>();
-                    //Get the current ILayoutDocumentPane ... Depending on the arrangement of the views this can be either 
-                    //a simple LayoutDocumentPane or a LayoutDocumentPaneGroup
-                    var currentILayoutDocumentPane = (ILayoutDocumentPane)regionTarget.Layout.RootPanel.Children[0];
-
-                    if (currentILayoutDocumentPane.GetType() == typeof(LayoutDocumentPaneGroup))
+                    if (workspaceLocation == null)
                     {
-                        //If the current ILayoutDocumentPane turns out to be a group
-                        //Get the children (LayoutDocuments) of the first pane
-                        var oldLayoutDocumentPane = (LayoutDocumentPane)currentILayoutDocumentPane.Children.ToList()[0];
-                        foreach (var child in oldLayoutDocumentPane.Children.Cast<LayoutDocument>())
+                        //do normal docking as before
+                        workspaceLocation = new WorkspaceLocation();
+                        viewActivityInfo.WorkspaceLocation = workspaceLocation;
+                        var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
+                        var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[0];
+                        var newLayoutDocument = new PresenterLayoutDocument(item);
+                        pane.InsertChildAt(0, newLayoutDocument);
+
+                    }
+                    else
+                    {
+
+                        if (workspaceLocation.IsFloating)
                         {
-                            oldLayoutDocuments.Insert(0, child);
+                            var newLayoutDocument = new PresenterLayoutDocument(item);
+                            newLayoutDocument.FloatingTop = workspaceLocation.FloatingTop;
+                            newLayoutDocument.FloatingLeft = workspaceLocation.FloatingLeft;
+                            newLayoutDocument.FloatingWidth = workspaceLocation.FloatingWidth;
+                            newLayoutDocument.FloatingHeight = workspaceLocation.FloatingHeight;
+
+                            var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
+                            var pane = (LayoutDocumentPane)paneGroup.Children[0];
+                            pane.InsertChildAt(0, newLayoutDocument);
+                            newLayoutDocument.Float();
+                        }
+                        else
+                        {
+
+
+                            var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
+                            int paneGroupCount = paneGroup.Children.Count;
+                            if (workspaceLocation.GroupIdx >= paneGroupCount)
+                            {
+                                var diff = workspaceLocation.GroupIdx - paneGroupCount + 1;
+
+                                Enumerable.Range(0, diff).ToList().ForEach(arg =>
+                                {
+                                    var newPane = new LayoutDocumentPane();
+                                    paneGroup.InsertChildAt(paneGroup.ChildrenCount, newPane);
+                                });
+                             
+                            }
+
+                            var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[workspaceLocation.GroupIdx];
+                            var newLayoutDocument = new PresenterLayoutDocument(item);
+                            pane.InsertChildAt(0, newLayoutDocument);
+                            var sorted = pane.Children.OrderBy(d => ((PresenterLayoutDocument)d).WorkspaceLocation.TabOrder).ToList();
+                            pane.Children.Clear();
+                            sorted.ForEach( (sortedItem) => { pane.InsertChildAt(pane.ChildrenCount, sortedItem); } );
+
                         }
                     }
-                    else if (currentILayoutDocumentPane.GetType() == typeof(LayoutDocumentPane))
-                    {
-                        //If the current ILayoutDocumentPane turns out to be a simple pane
-                        //Get the children (LayoutDocuments) of the single existing pane.
-                        foreach (var child in currentILayoutDocumentPane.Children.Cast<LayoutDocument>())
-                        {
-                            oldLayoutDocuments.Insert(0, child);
-                        }
-                    }
 
-                    //Create a new LayoutDocumentPane and inserts your new LayoutDocument
-                    var newLayoutDocumentPane = new LayoutDocumentPane();
-                    newLayoutDocumentPane.InsertChildAt(0, newLayoutDocument);
-
-                    //Append to the new LayoutDocumentPane the old LayoutDocuments
-                    foreach (var doc in oldLayoutDocuments)
-                    {
-                        newLayoutDocumentPane.InsertChildAt(0, doc);
-                    }
-
-                    newLayoutDocumentPane.SelectedContentIndex = newLayoutDocumentPane.IndexOf(newLayoutDocument);
-
-
-                    //Traverse the visual tree of the xaml and replace the LayoutDocumentPane (or LayoutDocumentPaneGroup) in xaml
-                    //with your new LayoutDocumentPane (or LayoutDocumentPaneGroup)
-                    if (currentILayoutDocumentPane.GetType() == typeof(LayoutDocumentPane))
-                        regionTarget.Layout.RootPanel.ReplaceChildAt(0, newLayoutDocumentPane);
-                    else if (currentILayoutDocumentPane.GetType() == typeof(LayoutDocumentPaneGroup))
-                    {
-                        currentILayoutDocumentPane.ReplaceChild(currentILayoutDocumentPane.Children.ToList()[0], newLayoutDocumentPane);
-                        regionTarget.Layout.RootPanel.ReplaceChildAt(0, currentILayoutDocumentPane);
-                    }
-                    newLayoutDocument.IsActive = true;
                 }
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                foreach (ActiveView item in e.OldItems)
+                foreach (ViewContext item in e.OldItems)
                 {
-                    if (item == null)
+                    if (item.View == null)
                         continue;
 
-                    item.Presenter?.Dispose();
+                    item.View.Presenter?.Dispose();
                 }
             }
         }
@@ -118,7 +119,7 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             var presenterLayoutDocument = e.Document as PresenterLayoutDocument;
             if (presenterLayoutDocument != null)
             {
-                region.Remove(presenterLayoutDocument.View);     
+                region.Remove(presenterLayoutDocument.ViewContext);  
             }
         }
     }
