@@ -93,6 +93,7 @@
     <Compile Include="Views\DockingContainer\DockingContainer.ViewModel.cs" />
     <Compile Include="Views\DockingContainer\DockingViewContainerService.cs" />
     <Compile Include="Views\DockingContainer\PresenterLayoutDocument.cs" />
+    <Compile Include="Views\DockingContainer\ViewContext.cs" />
     <Compile Include="Views\Document\Document.Activity.cs" />
     <Compile Include="Views\Document\Document.Presenter.cs" />
     <Compile Include="Views\Document\Document.View.xaml.cs" />
