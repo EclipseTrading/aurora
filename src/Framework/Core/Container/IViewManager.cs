@@ -4,5 +4,6 @@
     {
         void RegisterViewContainerService(HostLocation location, IViewContainerService viewContainerService);
         void SetDefaultViewContainerService(IViewContainerService viewContainerService);
+        IViewContainerService GetViewContainerService(HostLocation location);
     }
 }

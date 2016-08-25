@@ -7,22 +7,20 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 {
     public class PresenterLayoutDocument : LayoutDocument, IViewContainerService
     {
-        public ActiveView View { get; set; }
         public ViewContext ViewContext { get; }
 
         public PresenterLayoutDocument(ViewContext viewContext)
        {
             this.ViewContext = viewContext;
-            this.View = this.ViewContext.View;
-            this.Content = this.View.View;
-            var viewActivityInfo = this.ViewContext.Info;
-            this.Title = viewActivityInfo?.Title;
-            this.CanClose = viewActivityInfo?.IsCloseable ?? true;
-            this.WorkspaceLocation = viewActivityInfo?.WorkspaceLocation;
+            this.Content = this.ViewContext.View.View;
+            this.Title = this.ViewContext.Info?.Title;
+            this.CanClose = this.ViewContext.Info?.IsCloseable ?? true;
+            this.ViewLocation = this.ViewContext.Info?.ViewLocation;
 
-            var viewContainerAware = this.View.Presenter as IViewContainerAware;
+            var viewContainerAware = this.ViewContext.View.Presenter as IViewContainerAware;
             if (viewContainerAware != null)
             {
+                //attach PresenterLayoutDocument to Presenter
                 viewContainerAware.ViewContainerService = this;
             }
         }
@@ -32,6 +30,7 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             this.Title = title;
         }
 
-        public WorkspaceLocation WorkspaceLocation { get; }
+        public ViewLocation ViewLocation { get; }
+
     }
 }

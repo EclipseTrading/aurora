@@ -4,17 +4,15 @@ using System.Threading.Tasks;
 using Aurora.Core.Activities;
 using Aurora.Core.Container;
 using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace Aurora.Core.Workspace
 {
-    
+   
     public class Workspace : IWorkspace
     {
-        private string name;
-        private readonly List<WorkspaceItem> viewList = new List<WorkspaceItem>();
-        public Workspace(string name, IViewFactory viewFactory, IViewManager viewManager)
+        public Workspace(IViewFactory viewFactory, IViewManager viewManager)
         {
-            this.name = name;
             this.ViewFactory = viewFactory;
             this.ViewManager = viewManager;
         }
@@ -23,36 +21,103 @@ namespace Aurora.Core.Workspace
 
         private IViewManager ViewManager { get; }
 
-        public async Task CreateView(Type presenterType, string viewName, WorkspaceLocation location, JObject customData)
+        public async Task CreateFloatingView(Type presenterType, string viewName, JObject viewData, Rect location)
         {
             var info = new ViewActivityInfo(viewName);
-            info.WorkspaceLocation = location;
-            info.ViewData = customData;
+            info.ViewLocation = new ViewLocation();
+            info.ViewLocation.IsFloating = true;
+            info.ViewLocation.FloatingTop = location.Top;
+            info.ViewLocation.FloatingLeft = location.Left;
+            info.ViewLocation.FloatingWidth = location.Width;
+            info.ViewLocation.FloatingHeight = location.Height;
+
+            info.ViewData = viewData;
             var activeView = await ViewFactory.CreateActiveViewAsync(null, presenterType, info);
-            var workspaceItem = new WorkspaceItem(info, presenterType, activeView);
-            viewList.Add(workspaceItem);
-            await ShowView(workspaceItem);
+            await ViewManager.AddViewAsync(activeView, info);
         }
+
+        public async Task CreateDockedView(Type presenterType, string viewName, JObject viewData, int groupIdx, int order, bool selected)
+        {
+            var info = new ViewActivityInfo(viewName);
+            info.ViewLocation = new ViewLocation();
+            info.ViewLocation.IsFloating = false;
+            info.ViewLocation.GroupIdx = groupIdx;
+            info.ViewLocation.Order = order;
+            info.ViewLocation.DockWidth = 1.0;
+            info.ViewLocation.Orientation = DockingOrientation.Horizontal;
+            info.ViewLocation.IsSelected = selected;
+        
+
+            info.ViewData = viewData;
+            var activeView = await ViewFactory.CreateActiveViewAsync(null, presenterType, info);
+            await ViewManager.AddViewAsync(activeView, info);
+        }
+
 
         public async Task CloseAllView()
         {
-            //not implement now
-            await Task.FromResult(0);
+            var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
+            await service.CloseAllView();
+
         }
 
-        public async Task ShowAllView()
+    
+        public async Task LoadLayout(WorkspaceLayout layout)
         {
-            foreach (var v in viewList)
+            var dockingConfig = new DockingConfig();
+            dockingConfig.Orientation = layout.Orientation;
+
+            //move main window
+            Application.Current.MainWindow.Top = layout.MainWindowRect.Top;
+            Application.Current.MainWindow.Left = layout.MainWindowRect.Left;
+            Application.Current.MainWindow.Width = layout.MainWindowRect.Width;
+            Application.Current.MainWindow.Height = layout.MainWindowRect.Height;
+
+            foreach (var group in layout.DockGroups)
             {
-                await ShowView(v);
+                
+                foreach (var view in group.DockingViews)
+                {
+                    await CreateDockedView(view.PresenterType, view.ViewName, view.ViewData, 
+                                            layout.DockGroups.IndexOf(group), view.Order, view.Selected);   
+                }
+                dockingConfig.GroupProportion.Add(group.Proportion);
             }
+
+            await ArrangeDocking(dockingConfig);
+
+
+            foreach (var view in layout.FloatingViews)
+            {
+                await CreateFloatingView(view.PresneterType, view.ViewName, view.ViewData, view.Location);
+            }
+
+            
         }
 
-        private async Task ShowView(WorkspaceItem item)
+        public async Task<WorkspaceLayout> GetCurrentLayout()
         {
-            await ViewManager.AddViewAsync(item.View, item.ViewInfo);
+
+            var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
+            var layout = await service.GetCurrentLayout();
+          
+
+            layout.MainWindowRect = new Rect(Application.Current.MainWindow.Left,
+                                             Application.Current.MainWindow.Top,
+                                             Application.Current.MainWindow.Width,
+                                             Application.Current.MainWindow.Height);
+            return layout;
+
         }
 
+
+
+        public async Task ArrangeDocking(DockingConfig config)
+        {
+            var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
+            await service.ArrangeDockingState(config);
+
+        }
 
     }
 }

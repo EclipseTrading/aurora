@@ -22,7 +22,7 @@ namespace Aurora.Core.Activities
         [JsonProperty("isCloseable")]
         public bool IsCloseable { get; }
 
-        public WorkspaceLocation WorkspaceLocation { get; set; }
+        public ViewLocation ViewLocation { get; set; }
 
         public JObject ViewData { get; set; }
     }

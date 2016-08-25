@@ -72,8 +72,9 @@ namespace Aurora.Hosting
             this.Container.RegisterType(typeof(IViewManager), typeof(DefaultViewManager), new ContainerControlledLifetimeManager());
 
             this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
-            this.Container.RegisterType(typeof(IWorkspaceManager), typeof(WorkspaceManager),
-               new ContainerControlledLifetimeManager());
+         
+            this.Container.RegisterType(typeof(IWorkspace), typeof(Workspace),
+                 new ContainerControlledLifetimeManager());
 
             this.Container.RegisterInstance(typeof (IApplicationWindowViewModel), windowViewModel);
 

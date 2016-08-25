@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Aurora.Core.Activities;
 using Aurora.Core.Workspace;
 using Aurora.Sample.Module.Views.ChildView;
@@ -13,52 +14,50 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 {
     public class TestWorkspacePresenter : WorkspaceViewPresenter<TestWorkspaceViewModel>
     {
-        private readonly IWorkspaceManager workspaceManager;
-        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspaceManager workspaceManager) : base(info)
+        private readonly IWorkspace workspace;
+       
+        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace) : base(info)
         {
-            this.workspaceManager = workspaceManager;
+            //this.workspace = workspaceService.LoadWorkspace();
+            this.workspace = workspace;
         }
 
         protected override void OnViewModelChanged()
         {
             this.ViewModel.CreateViewCommand = new DelegateCommand(async () => { await this.CreateView(); });
+            this.ViewModel.ToggleOrientationCommand = new DelegateCommand(this.ToogleOrientation);
             this.ViewModel.SelectedWindowType = WindowType.Floating;
             this.ViewModel.SelectedViewType = ViewType.Custom;
             this.ViewModel.Title = "Testing";
             this.ViewModel.Width = 800;
             this.ViewModel.Height = 600;
-            this.ViewModel.JsonInput = "{}";
+
+            var input = ViewActivityInfo.ViewData?.ToString();
+            this.ViewModel.JsonInput = input ?? "{}";
         }
 
+        private void ToogleOrientation()
+        {
+           
+        }
         private async Task CreateView()
         {
             if (this.ViewModel.SelectedWindowType == WindowType.Floating)
             {
-                var location = new WorkspaceLocation()
-                {
-                    FloatingTop = this.ViewModel.Top,
-                    FloatingLeft = this.ViewModel.Left,
-                    FloatingWidth = this.ViewModel.Width,
-                    FloatingHeight = this.ViewModel.Height,
-                    IsFloating = true
-                };
-
 
                 var data = JObject.Parse(this.ViewModel.JsonInput);
-                await workspaceManager.CurrentWorkspace.CreateView(GetPresenterType(), this.ViewModel.Title, location, data);
+                this.ViewActivityInfo.ViewData = data;
+                await this.workspace.CreateFloatingView(GetPresenterType(), this.ViewModel.Title, data, 
+                    new Rect(this.ViewModel.Left, this.ViewModel.Top, this.ViewModel.Width, this.ViewModel.Height));
+
             }
             else
             {
-                var location = new WorkspaceLocation()
-                {
-                    GroupIdx = this.ViewModel.GroupIdx,
-                    TabOrder = this.ViewModel.TabOrder,
-                    IsSelected = false,
-                    IsFloating = false
-                };
                 var data = JObject.Parse(this.ViewModel.JsonInput);
-                await workspaceManager.CurrentWorkspace.CreateView(GetPresenterType(), this.ViewModel.Title, location, data);
-
+                this.ViewActivityInfo.ViewData = data;
+                await this.workspace.CreateDockedView(GetPresenterType(), this.ViewModel.Title, data, 
+                    this.ViewModel.GroupIdx, this.ViewModel.Order, true);
+            
             }
         }
 

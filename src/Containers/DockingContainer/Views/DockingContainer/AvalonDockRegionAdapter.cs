@@ -1,5 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using Aurora.Core.Workspace;
 using Microsoft.Practices.Prism.Regions;
 using Xceed.Wpf.AvalonDock;
@@ -9,17 +11,15 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 {
     public class AvalonDockRegionAdapter : RegionAdapterBase<DockingManager>
     {
-        private DockingManager dockingManager;    
-
         public AvalonDockRegionAdapter(IRegionBehaviorFactory regionBehaviorFactory) : base(regionBehaviorFactory)
         {
         }
 
         protected override void Adapt(IRegion region, DockingManager regionTarget)
         {
-            this.dockingManager = regionTarget;
             region.Views.CollectionChanged += (sender, e) => OnViewsCollectionChanged(sender, e, region, regionTarget);
             regionTarget.DocumentClosed += (sender, e) => this.OnDocumentClosedEventArgs(sender, e, region);
+         
         }
 
         protected override IRegion CreateRegion()
@@ -32,66 +32,91 @@ namespace Aurora.DockingContainer.Views.DockingContainer
            
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-
+                region.Context = regionTarget;
                 foreach (ViewContext item in e.NewItems)
                 {
                     var viewActivityInfo = item.Info;
-                    var workspaceLocation = viewActivityInfo.WorkspaceLocation;
+                    var location = viewActivityInfo.ViewLocation;
 
-                    if (workspaceLocation == null)
+                    if (location == null)
                     {
                         //do normal docking as before
-                        workspaceLocation = new WorkspaceLocation();
-                        viewActivityInfo.WorkspaceLocation = workspaceLocation;
                         var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
                         var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[0];
                         var newLayoutDocument = new PresenterLayoutDocument(item);
                         pane.InsertChildAt(0, newLayoutDocument);
+                        continue;
+                    }
 
+                    if (location.IsFloating)
+                    {
+                        var newLayoutDocument = new PresenterLayoutDocument(item);
+                        newLayoutDocument.FloatingTop = location.FloatingTop;
+                        newLayoutDocument.FloatingLeft = location.FloatingLeft;
+                        newLayoutDocument.FloatingWidth = location.FloatingWidth;
+                        newLayoutDocument.FloatingHeight = location.FloatingHeight;
+
+                        var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
+                        var pane = (LayoutDocumentPane)paneGroup.Children[0];
+                        pane.InsertChildAt(0, newLayoutDocument);
+                        newLayoutDocument.Float();
+                       
                     }
                     else
                     {
+                        var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
+                        paneGroup.Orientation = location.Orientation == DockingOrientation.Vertical ? Orientation.Vertical : Orientation.Horizontal;
 
-                        if (workspaceLocation.IsFloating)
+                        int paneGroupCount = paneGroup.Children.Count;
+                        if (location.GroupIdx >= paneGroupCount)
                         {
-                            var newLayoutDocument = new PresenterLayoutDocument(item);
-                            newLayoutDocument.FloatingTop = workspaceLocation.FloatingTop;
-                            newLayoutDocument.FloatingLeft = workspaceLocation.FloatingLeft;
-                            newLayoutDocument.FloatingWidth = workspaceLocation.FloatingWidth;
-                            newLayoutDocument.FloatingHeight = workspaceLocation.FloatingHeight;
+                            var diff = location.GroupIdx - paneGroupCount + 1;
+                            Enumerable.Range(0, diff).ToList().ForEach(arg =>
+                            {
+                                var newPane = new LayoutDocumentPane();
+                                    
 
-                            var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
-                            var pane = (LayoutDocumentPane)paneGroup.Children[0];
-                            pane.InsertChildAt(0, newLayoutDocument);
-                            newLayoutDocument.Float();
+                                if (location.Orientation == DockingOrientation.Vertical)
+                                {
+                                    paneGroup.Orientation = Orientation.Vertical;
+                                    newPane.DockHeight = new GridLength(location.DockWidth, GridUnitType.Star);
+                                }
+                                else
+                                {
+                                    paneGroup.Orientation = Orientation.Horizontal;
+                                    newPane.DockWidth = new GridLength(location.DockWidth, GridUnitType.Star);
+                                }
+                                paneGroup.InsertChildAt(paneGroup.ChildrenCount, newPane);
+                            });
+
+                        }
+
+                        var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[location.GroupIdx];
+
+                        if (location.Orientation == DockingOrientation.Vertical)
+                        {
+                            pane.DockHeight = new GridLength(location.DockWidth, GridUnitType.Star);
                         }
                         else
                         {
-
-
-                            var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
-                            int paneGroupCount = paneGroup.Children.Count;
-                            if (workspaceLocation.GroupIdx >= paneGroupCount)
-                            {
-                                var diff = workspaceLocation.GroupIdx - paneGroupCount + 1;
-
-                                Enumerable.Range(0, diff).ToList().ForEach(arg =>
-                                {
-                                    var newPane = new LayoutDocumentPane();
-                                    paneGroup.InsertChildAt(paneGroup.ChildrenCount, newPane);
-                                });
-                             
-                            }
-
-                            var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[workspaceLocation.GroupIdx];
-                            var newLayoutDocument = new PresenterLayoutDocument(item);
-                            pane.InsertChildAt(0, newLayoutDocument);
-                            var sorted = pane.Children.OrderBy(d => ((PresenterLayoutDocument)d).WorkspaceLocation.TabOrder).ToList();
-                            pane.Children.Clear();
-                            sorted.ForEach( (sortedItem) => { pane.InsertChildAt(pane.ChildrenCount, sortedItem); } );
-
+                            pane.DockWidth = new GridLength(location.DockWidth, GridUnitType.Star);
                         }
+                       
+                            
+                        var newLayoutDocument = new PresenterLayoutDocument(item);
+                        pane.InsertChildAt(0, newLayoutDocument);
+  
+                            
+                        var sorted = pane.Children.OrderBy(d => ((PresenterLayoutDocument)d).ViewLocation.Order).ToList();
+                        pane.Children.Clear();
+                        sorted.ForEach((sortedItem) =>{ pane.InsertChildAt(pane.ChildrenCount, sortedItem); } );
+
+                        var selectedIdx = sorted.FindIndex(d => ((PresenterLayoutDocument)d).ViewLocation.IsSelected);
+                        pane.SelectedContentIndex = selectedIdx;
+
+
                     }
+ 
 
                 }
             }
@@ -102,7 +127,8 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                     if (item.View == null)
                         continue;
 
-                    item.View.Presenter?.Dispose();
+                   // item.View.Presenter?.Dispose();
+                    item.View?.Dispose();
                 }
             }
         }

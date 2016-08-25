@@ -22,14 +22,16 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         private double width;
         private double height;
         private int groupIdx;
-        private int tabOrder;
+        private int order;
         private WindowType selectedWindowType;
         private ViewType selectedViewType;
         private string title;
         private string jsonInput;
+        private double dockWidth;
 
 
         public ICommand CreateViewCommand { get; set; }
+        public ICommand ToggleOrientationCommand { get; set; }
 
         public double Top
         {
@@ -81,12 +83,12 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             }
         }
 
-        public int TabOrder
+        public int Order
         {
-            get { return tabOrder; }
+            get { return order; }
             set
             {
-                tabOrder = value;
+                order = value;
                 OnPropertyChanged();
             }
         }
@@ -130,6 +132,17 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
                 OnPropertyChanged();
             }
         }
+
+        public double DockWidth
+        {
+            get { return dockWidth; }
+            set
+            {
+                dockWidth = value;
+                OnPropertyChanged();
+            }
+        }
+
 
     }
 }

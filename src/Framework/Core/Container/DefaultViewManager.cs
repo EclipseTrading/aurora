@@ -43,5 +43,13 @@ namespace Aurora.Core.Container
             this.defaultViewContainerService = viewContainerService;
         }
 
+        public IViewContainerService GetViewContainerService(HostLocation location)
+        {
+            if (!services.ContainsKey(location))
+                return this.defaultViewContainerService;
+
+            return services[location];
+        }
+
     }
 }

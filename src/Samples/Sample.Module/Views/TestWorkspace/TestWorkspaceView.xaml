@@ -47,9 +47,11 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20, 5">
                     <Label>Group:</Label>
                     <TextBox Width="80" Text="{Binding Path=GroupIdx}"></TextBox>
-                    <Label>Tab Order:</Label>
-                    <TextBox Width="80" Text="{Binding Path=TabOrder}"></TextBox>
-                </StackPanel>
+                    <Label>Order:</Label>
+                    <TextBox Width="80" Text="{Binding Path=Order}"></TextBox>
+                    <Label>Width:</Label>
+                    <TextBox Width="80" Text="{Binding Path=DockWidth}"></TextBox>
+            </StackPanel>
 
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="20,0,0,0">
@@ -58,11 +60,17 @@
                     <ComboBox ItemsSource="{Binding Source={StaticResource ViewTypes}}" SelectedItem="{Binding Path=SelectedViewType}"></ComboBox>
                 </StackPanel>
 
-                <TextBox Grid.Row="5"  Margin="20, 5" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=JsonInput}">
-                </TextBox>
+                <ScrollViewer Grid.Row="5">
+                     <TextBox  Margin="20, 5" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=JsonInput}">
+                     </TextBox>
+                </ScrollViewer>
+                
 
-
-                <Button Grid.Row="6" Command="{Binding Path=CreateViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Create View</Button>
+                 <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <Button  Command="{Binding Path=CreateViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Create View</Button>
+                    <Button  Command="{Binding Path=ToggleOrientationCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Toogle Orientation</Button>
+                </StackPanel>
+             
             </Grid>
 
   
