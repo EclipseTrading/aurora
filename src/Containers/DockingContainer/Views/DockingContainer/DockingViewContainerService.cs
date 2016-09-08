@@ -80,6 +80,11 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 
             var region = regionManager.Regions[DockingContainerRegion.Default];
             var dockingManager = (DockingManager) region.Context;
+            if (dockingManager == null)
+            {
+                return;
+            }
+
             var paneGroup = (LayoutDocumentPaneGroup)dockingManager.Layout.RootPanel.Children[0];
 
             paneGroup.Orientation = dockingConfig.Orientation == DockingOrientation.Vertical ? Orientation.Vertical : Orientation.Horizontal;
@@ -125,14 +130,14 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             //docked windows
             foreach (var pane in paneGroup.Children.Cast<LayoutDocumentPane>())
             {
-                var group = new DockGroup();
+                var group = new DockGroupConfig();
                 @group.Proportion = paneGroup.Orientation == Orientation.Vertical ? pane.DockHeight.Value : pane.DockWidth.Value;
                     
                 layout.DockGroups.Add(group);
                 foreach (var doc in pane.Children)
                 {
                     var presenterDoc = (PresenterLayoutDocument) doc;
-                    group.DockingViews.Add(new DockingView(presenterDoc.ViewContext.View.Presenter.GetType(), presenterDoc.Title,
+                    group.DockingViews.Add(new DockingViewConfig(presenterDoc.ViewContext.View.Presenter.GetType(), presenterDoc.Title,
                         presenterDoc.ViewContext.Info.ViewData, pane.IndexOfChild(doc), presenterDoc.IsSelected));
                    
                 }
@@ -144,9 +149,10 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                 foreach (var doc in floating.Children)
                 {
                     var presenterDoc = (PresenterLayoutDocument)doc;
-                    layout.FloatingViews.Add(new FloatingView(presenterDoc.ViewContext.View.Presenter.GetType(), presenterDoc.Title,
+                    layout.FloatingViews.Add(new FloatingViewConfig(presenterDoc.ViewContext.View.Presenter.GetType(), presenterDoc.Title,
                         presenterDoc.ViewContext.Info.ViewData,
-                        new Rect(presenterDoc.FloatingLeft, presenterDoc.FloatingTop, presenterDoc.FloatingWidth, presenterDoc.FloatingHeight)));
+                        new Rect(presenterDoc.FloatingLeft, presenterDoc.FloatingTop, presenterDoc.FloatingWidth, presenterDoc.FloatingHeight),
+                        presenterDoc.IsMaximized));
                    
                 }
                 

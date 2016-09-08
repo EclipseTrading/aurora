@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Aurora.Core.Activities;
 using Aurora.Core.Workspace;
-using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
 using Newtonsoft.Json.Linq;
 
@@ -18,7 +14,6 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
        
         public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace) : base(info)
         {
-            //this.workspace = workspaceService.LoadWorkspace();
             this.workspace = workspace;
         }
 
@@ -48,7 +43,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
                 var data = JObject.Parse(this.ViewModel.JsonInput);
                 this.ViewActivityInfo.ViewData = data;
                 await this.workspace.CreateFloatingView(GetPresenterType(), this.ViewModel.Title, data, 
-                    new Rect(this.ViewModel.Left, this.ViewModel.Top, this.ViewModel.Width, this.ViewModel.Height));
+                    new Rect(this.ViewModel.Left, this.ViewModel.Top, this.ViewModel.Width, this.ViewModel.Height), false);
 
             }
             else

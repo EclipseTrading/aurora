@@ -147,11 +147,11 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewPresenter.cs" />
-    <Compile Include="Workspace\DockGroup.cs" />
+    <Compile Include="Workspace\DockGroupConfig.cs" />
     <Compile Include="Workspace\DockingConfig.cs" />
     <Compile Include="Workspace\DockingOrientation.cs" />
-    <Compile Include="Workspace\DockingView.cs" />
-    <Compile Include="Workspace\FloatingView.cs" />
+    <Compile Include="Workspace\DockingViewConfig.cs" />
+    <Compile Include="Workspace\FloatingViewConfig.cs" />
     <Compile Include="Workspace\IWorkspace.cs" />
     <Compile Include="Workspace\Workspace.cs" />
     <Compile Include="Workspace\WorkspaceLayout.cs" />

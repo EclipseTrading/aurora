@@ -3,7 +3,8 @@
     public enum DockingOrientation
     {
         Horizontal,
-        Vertical
+        Vertical,
+        UseCurrentOrientation
     }
 
 }

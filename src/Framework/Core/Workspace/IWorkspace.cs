@@ -8,7 +8,7 @@ namespace Aurora.Core.Workspace
 
     public interface IWorkspace
     {
-        Task CreateFloatingView(Type presenterType, string viewName, JObject viewData, Rect location);
+        Task CreateFloatingView(Type presenterType, string viewName, JObject viewData, Rect location, bool maximized);
         Task CreateDockedView(Type presenterType, string viewName, JObject viewData, int groupIdx, int order, bool selected);
         Task ArrangeDocking(DockingConfig config);
         Task CloseAllView();

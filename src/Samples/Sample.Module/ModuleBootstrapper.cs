@@ -38,14 +38,7 @@ namespace Aurora.Sample.Module
 
         public async void Initialize()
         {
-            //Func<SampleViewActivityInfo> f = () => new SampleViewActivityInfo("Sample View" + (viewIndex != 0 ? " (" + viewIndex++ + ")" : ""), isCloseable: true)
-            //{
-            //    MessageFormat = "Hello {0}"
-            //};
-            //commandBarService.AddCommand(new CommandInfo("New Sample View") { Description = "test", IconPath = "pack://application:,,,/Aurora.CommandBarContainer;component/Image/config.png" }, new StartActivityCommand<SampleViewActivityInfo>(activityService, f));
-
-
-
+            
 
             commandBarService.AddCommand(new CommandInfo("Layout 1"), new DelegateCommand(async () =>
             {
@@ -54,20 +47,20 @@ namespace Aurora.Sample.Module
                 var layout = new WorkspaceLayout();
                 layout.MainWindowRect = new Rect(500,300, 1200, 800);
                 layout.Orientation = DockingOrientation.Horizontal;
-                layout.DockGroups.Add(new DockGroup
+                layout.DockGroups.Add(new DockGroupConfig
                 {
                     DockingViews = { 
-                       new DockingView(typeof(TestWorkspacePresenter), "Main", null, 1, false),
-                       new DockingView(typeof(CustomPresenter), "View1", null, 0, false),
-                       new DockingView(typeof(CustomPresenter), "View4", null, 2, true)
+                       new DockingViewConfig(typeof(TestWorkspacePresenter), "Main", null, 1, false),
+                       new DockingViewConfig(typeof(CustomPresenter), "View1", null, 0, false),
+                       new DockingViewConfig(typeof(CustomPresenter), "View4", null, 2, true)
                     },
                     Proportion = 0.3
                 });
-                layout.DockGroups.Add(new DockGroup
+                layout.DockGroups.Add(new DockGroupConfig
                 {
                     DockingViews = {
-                       new DockingView(typeof(CustomPresenter), "View2", null, 1, true),
-                       new DockingView(typeof(CustomPresenter), "View3", null, 0, false)
+                       new DockingViewConfig(typeof(CustomPresenter), "View2", null, 1, true),
+                       new DockingViewConfig(typeof(CustomPresenter), "View3", null, 0, false)
                     },
                     Proportion = 0.7
                 });
@@ -86,23 +79,23 @@ namespace Aurora.Sample.Module
                 var layout = new WorkspaceLayout();
                 layout.MainWindowRect = new Rect(300, 500, 800, 1200);
                 layout.Orientation = DockingOrientation.Vertical;
-                layout.DockGroups.Add(new DockGroup
+                layout.DockGroups.Add(new DockGroupConfig
                 {
                     DockingViews = {
-                       new DockingView(typeof(TestWorkspacePresenter), "Main", null, 0, true),                     
+                       new DockingViewConfig(typeof(TestWorkspacePresenter), "Main", null, 0, true),
                     },
                     Proportion = 0.8
                 });
-                layout.DockGroups.Add(new DockGroup
+                layout.DockGroups.Add(new DockGroupConfig
                 {
                     DockingViews = {
-                       new DockingView(typeof(CustomPresenter), "View2", null, 0, false),
-                       new DockingView(typeof(CustomPresenter), "View3", null, 2, true),
-                       new DockingView(typeof(CustomPresenter), "View4", null, 1, false)
+                       new DockingViewConfig(typeof(CustomPresenter), "View2", null, 0, false),
+                       new DockingViewConfig(typeof(CustomPresenter), "View3", null, 2, true),
+                       new DockingViewConfig(typeof(CustomPresenter), "View4", null, 1, false)
                     },
                     Proportion = 0.2
                 });
-                layout.FloatingViews.Add(new FloatingView(typeof(CustomPresenter), "Floating1", null,
+                layout.FloatingViews.Add(new FloatingViewConfig(typeof(CustomPresenter), "Floating1", null,
                     new Rect(1500, 500, 500, 500)));               
                
                 await currentWorkspace.LoadLayout(layout);

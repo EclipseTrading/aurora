@@ -19,7 +19,6 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         {
             region.Views.CollectionChanged += (sender, e) => OnViewsCollectionChanged(sender, e, region, regionTarget);
             regionTarget.DocumentClosed += (sender, e) => this.OnDocumentClosedEventArgs(sender, e, region);
-         
         }
 
         protected override IRegion CreateRegion()
@@ -55,17 +54,23 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                         newLayoutDocument.FloatingLeft = location.FloatingLeft;
                         newLayoutDocument.FloatingWidth = location.FloatingWidth;
                         newLayoutDocument.FloatingHeight = location.FloatingHeight;
+                        newLayoutDocument.IsMaximized = location.Maximized;
 
                         var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
                         var pane = (LayoutDocumentPane)paneGroup.Children[0];
                         pane.InsertChildAt(0, newLayoutDocument);
                         newLayoutDocument.Float();
-                       
+
                     }
                     else
                     {
                         var paneGroup = (LayoutDocumentPaneGroup)regionTarget.Layout.RootPanel.Children[0];
-                        paneGroup.Orientation = location.Orientation == DockingOrientation.Vertical ? Orientation.Vertical : Orientation.Horizontal;
+                        if (location.Orientation != DockingOrientation.UseCurrentOrientation)
+                        {
+                            paneGroup.Orientation = location.Orientation == DockingOrientation.Vertical
+                                ? Orientation.Vertical
+                                : Orientation.Horizontal;
+                        }
 
                         int paneGroupCount = paneGroup.Children.Count;
                         if (location.GroupIdx >= paneGroupCount)
@@ -74,17 +79,13 @@ namespace Aurora.DockingContainer.Views.DockingContainer
                             Enumerable.Range(0, diff).ToList().ForEach(arg =>
                             {
                                 var newPane = new LayoutDocumentPane();
-                                    
-
-                                if (location.Orientation == DockingOrientation.Vertical)
+                                if (paneGroup.Orientation == Orientation.Vertical)
                                 {
-                                    paneGroup.Orientation = Orientation.Vertical;
-                                    newPane.DockHeight = new GridLength(location.DockWidth, GridUnitType.Star);
+                                    newPane.DockHeight = new GridLength(location.DockProportion, GridUnitType.Star);
                                 }
                                 else
                                 {
-                                    paneGroup.Orientation = Orientation.Horizontal;
-                                    newPane.DockWidth = new GridLength(location.DockWidth, GridUnitType.Star);
+                                    newPane.DockWidth = new GridLength(location.DockProportion, GridUnitType.Star);
                                 }
                                 paneGroup.InsertChildAt(paneGroup.ChildrenCount, newPane);
                             });
@@ -93,13 +94,13 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 
                         var pane = (LayoutDocumentPane)paneGroup.Children.ToList()[location.GroupIdx];
 
-                        if (location.Orientation == DockingOrientation.Vertical)
+                        if (paneGroup.Orientation == Orientation.Vertical)
                         {
-                            pane.DockHeight = new GridLength(location.DockWidth, GridUnitType.Star);
+                            pane.DockHeight = new GridLength(location.DockProportion, GridUnitType.Star);
                         }
                         else
                         {
-                            pane.DockWidth = new GridLength(location.DockWidth, GridUnitType.Star);
+                            pane.DockWidth = new GridLength(location.DockProportion, GridUnitType.Star);
                         }
                        
                             
@@ -113,21 +114,14 @@ namespace Aurora.DockingContainer.Views.DockingContainer
 
                         var selectedIdx = sorted.FindIndex(d => ((PresenterLayoutDocument)d).ViewLocation.IsSelected);
                         pane.SelectedContentIndex = selectedIdx;
-
-
                     }
- 
-
                 }
+
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (ViewContext item in e.OldItems)
                 {
-                    if (item.View == null)
-                        continue;
-
-                   // item.View.Presenter?.Dispose();
                     item.View?.Dispose();
                 }
             }

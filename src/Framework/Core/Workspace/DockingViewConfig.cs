@@ -3,9 +3,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Aurora.Core.Workspace
 {
-    public class DockingView
+    public class DockingViewConfig
     {
-        public DockingView(Type presenterType, string viewName, JObject data, int order, bool selected)
+        public DockingViewConfig(Type presenterType, string viewName, JObject data, int order, bool selected)
         {
             this.PresenterType = presenterType;
             this.ViewName = viewName;
