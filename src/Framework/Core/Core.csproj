@@ -93,6 +93,7 @@
     <Compile Include="Activities\ViewContainerActivity.cs" />
     <Compile Include="Commands\StartActivityCommand.cs" />
     <Compile Include="CompositeTypeResolver.cs" />
+    <Compile Include="Container\IWorkspaceContainerService.cs" />
     <Compile Include="DefaultModuleProvider.cs" />
     <Compile Include="Container\CommandInfo.cs" />
     <Compile Include="Container\DefaultCommandBarServiceHost.cs" />
@@ -146,6 +147,16 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewPresenter.cs" />
+    <Compile Include="Workspace\DockGroupConfig.cs" />
+    <Compile Include="Workspace\DockingConfig.cs" />
+    <Compile Include="Workspace\DockingOrientation.cs" />
+    <Compile Include="Workspace\DockingViewConfig.cs" />
+    <Compile Include="Workspace\FloatingViewConfig.cs" />
+    <Compile Include="Workspace\IWorkspace.cs" />
+    <Compile Include="Workspace\Workspace.cs" />
+    <Compile Include="Workspace\WorkspaceLayout.cs" />
+    <Compile Include="Workspace\ViewLocation.cs" />
+    <Compile Include="Workspace\WorkspaceViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

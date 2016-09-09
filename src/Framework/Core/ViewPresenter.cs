@@ -67,6 +67,8 @@ namespace Aurora.Core
             {
                 activeView.Presenter.Dispose();
             }
+
+            childViews.Clear();
         }
     }
 }

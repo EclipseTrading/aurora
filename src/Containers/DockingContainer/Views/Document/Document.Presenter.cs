@@ -27,5 +27,6 @@ namespace Aurora.DockingContainer.Views.Document
         {
             this.RequestClose?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

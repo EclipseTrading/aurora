@@ -8,5 +8,8 @@ namespace Aurora.Core.Container
     {
         Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView view, TActivityInfo activityInfo)
             where TActivityInfo : ViewActivityInfo;
+     
     }
+
+
 }

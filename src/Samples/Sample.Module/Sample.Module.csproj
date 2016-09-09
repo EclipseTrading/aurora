@@ -52,6 +52,10 @@
       <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -104,6 +108,17 @@
     </Compile>
     <Compile Include="Views\Sample\SampleViewActivity.cs" />
     <Compile Include="Views\Sample\SampleViewModel.cs" />
+    <Compile Include="Views\TestWorkspace\EnumBooleanConverter.cs" />
+    <Compile Include="Views\TestWorkspace\CustomView.xaml.cs">
+      <DependentUpon>CustomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestWorkspace\CustomViewModel.cs" />
+    <Compile Include="Views\TestWorkspace\CustomPresenter.cs" />
+    <Compile Include="Views\TestWorkspace\TestWorkspacePresenter.cs" />
+    <Compile Include="Views\TestWorkspace\TestWorkspaceView.xaml.cs">
+      <DependentUpon>TestWorkspaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestWorkspace\TestWorkspaceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ChildView\ChildView.xaml">
@@ -115,6 +130,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Sample\SampleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestWorkspace\CustomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestWorkspace\TestWorkspaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

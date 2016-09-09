@@ -1,25 +1,26 @@
 ﻿using Aurora.Core;
-using Aurora.Core.Activities;
 using Aurora.Core.ViewContainer;
+using Aurora.Core.Workspace;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Aurora.DockingContainer.Views.DockingContainer
 {
     public class PresenterLayoutDocument : LayoutDocument, IViewContainerService
     {
-        public ActiveView View { get; set; }
+        public ViewContext ViewContext { get; }
 
-        public PresenterLayoutDocument(ActiveView view)
-        {
-            View = view;
-            this.Content = view.View;
-            var viewActivityInfo = view.Activity.ActivityInfo as ViewActivityInfo;
-            this.Title = viewActivityInfo?.Title;
-            this.CanClose = viewActivityInfo?.IsCloseable ?? true;
+        public PresenterLayoutDocument(ViewContext viewContext)
+       {
+            this.ViewContext = viewContext;
+            this.Content = this.ViewContext.View.View;
+            this.Title = this.ViewContext.Info?.Title;
+            this.CanClose = this.ViewContext.Info?.IsCloseable ?? true;
+            this.ViewLocation = this.ViewContext.Info?.ViewLocation;
 
-            var viewContainerAware = view.Presenter as IViewContainerAware;
+            var viewContainerAware = this.ViewContext.View.Presenter as IViewContainerAware;
             if (viewContainerAware != null)
             {
+                //attach PresenterLayoutDocument to Presenter
                 viewContainerAware.ViewContainerService = this;
             }
         }
@@ -28,5 +29,8 @@ namespace Aurora.DockingContainer.Views.DockingContainer
         {
             this.Title = title;
         }
+
+        public ViewLocation ViewLocation { get; }
+
     }
 }
