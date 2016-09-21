@@ -32,6 +32,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 
         public ICommand CreateViewCommand { get; set; }
         public ICommand ToggleOrientationCommand { get; set; }
+        public ICommand CloseViewCommand { get; set; }
 
         public double Top
         {

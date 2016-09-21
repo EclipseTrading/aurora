@@ -38,5 +38,10 @@ namespace Aurora.TabContainer.Views.Tab
         {
             this.ViewModel.IsCloseable = isCloseable;
         }
+
+        public void CloseView()
+        {
+            this.ViewModel.CloseCommand.Execute(null);
+        }
     }
 }

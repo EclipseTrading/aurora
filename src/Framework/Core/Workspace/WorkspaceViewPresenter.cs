@@ -12,5 +12,11 @@ namespace Aurora.Core.Workspace
         }
 
         public IViewContainerService ViewContainerService { get; set; }
+
+
+        public void CloseView()
+        {
+            ViewContainerService.CloseView();
+        }
     }
 }
