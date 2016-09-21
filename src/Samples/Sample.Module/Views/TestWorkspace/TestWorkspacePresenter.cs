@@ -21,6 +21,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         {
             this.ViewModel.CreateViewCommand = new DelegateCommand(async () => { await this.CreateView(); });
             this.ViewModel.ToggleOrientationCommand = new DelegateCommand(this.ToogleOrientation);
+            this.ViewModel.CloseViewCommand = new DelegateCommand(this.CloseView);
             this.ViewModel.SelectedWindowType = WindowType.Floating;
             this.ViewModel.SelectedViewType = ViewType.Custom;
             this.ViewModel.Title = "Testing";

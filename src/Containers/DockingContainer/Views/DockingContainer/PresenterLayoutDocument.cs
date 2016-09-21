@@ -30,6 +30,11 @@ namespace Aurora.DockingContainer.Views.DockingContainer
             this.Title = title;
         }
 
+        public void CloseView()
+        {
+            this.Close();
+        }
+
         public ViewLocation ViewLocation { get; }
 
     }

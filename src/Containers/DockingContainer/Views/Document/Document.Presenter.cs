@@ -23,6 +23,11 @@ namespace Aurora.DockingContainer.Views.Document
             this.ViewModel.Title = title;
         }
 
+        public void CloseView()
+        {
+            this.ViewModel.CloseCommand.Execute(null);
+        }
+
         private void OnRequestClose()
         {
             this.RequestClose?.Invoke(this, EventArgs.Empty);
