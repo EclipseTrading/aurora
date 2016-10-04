@@ -18,19 +18,17 @@ namespace Aurora.Sample.Module.Views.Sample
     {
         private readonly SampleViewActivityInfo activityInfo;
         private readonly IActivityService activityService;
-        private readonly ICommandBarService commandBarService;
 
         private Subject<double> subject;
         private IDisposable delayDisposable;
         private IDisposable observableDisposable;
         private IDisposable subDisposable;
 
-        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService, ICommandBarService commandBarService)
+        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService)
             : base(activityInfo)
         {
             this.activityInfo = activityInfo;
             this.activityService = activityService;
-            this.commandBarService = commandBarService;
         }
 
         public IViewContainerService ViewContainerService { get; set; }
@@ -60,7 +58,6 @@ namespace Aurora.Sample.Module.Views.Sample
                 () => true);
 
             this.ViewModel.ShowDialogCommand = new DelegateCommand(async () => await GetDialogResultAsync());
-            this.ViewModel.RemoveMenuItemCommand = new DelegateCommand(RemoveMenuItem);
 
             var random = new Random();
 
@@ -90,11 +87,7 @@ namespace Aurora.Sample.Module.Views.Sample
             string output = result.ExtraResult;
         }
 
-        private void RemoveMenuItem()
-        {
-            this.commandBarService.RemoveCommand(this.ViewModel.MenuName);
-        }
-        
+
         public override void Dispose()
         {
             this.delayDisposable?.Dispose();  

@@ -14,7 +14,6 @@ namespace Aurora.Sample.Module.Views.Sample
         private double delayed;
         private int delay;
         private ActiveView childView;
-        private string menuName;
 
         public string Name
         {
@@ -34,16 +33,6 @@ namespace Aurora.Sample.Module.Views.Sample
                 title = value;
                 this.OnPropertyChanged();
             }
-        }
-
-        public string MenuName
-        {
-            get { return menuName; }
-          /*  set
-            {
-                menuName = value;
-                this.OnPropertyChanged();
-            }*/
         }
 
         public string Message

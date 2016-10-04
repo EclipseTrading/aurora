@@ -113,7 +113,7 @@ namespace Aurora.Sample.Module
                     layout1, layout2, new DividerItem(), closeAll, capture, restore
                 }));
 
-        //    commandBarService.AddCommand(workspaces);
+            commandBarService.AddCommand(workspaces);
 
 
             var nested = new MenuItemCommand("Nested",

@@ -79,7 +79,6 @@
     <Compile Include="Views\CommandBarContainer.Presenter.cs" />
     <Compile Include="Views\CommandBarContainer.ViewModel.cs" />
     <Compile Include="Views\CommandBarService.cs" />
-    <Compile Include="Views\CommandViewModel.cs" />
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="packages.config" />
