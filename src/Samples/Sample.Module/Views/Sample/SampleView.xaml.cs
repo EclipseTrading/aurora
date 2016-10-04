@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Aurora.Sample.Module.Views.Sample
+﻿namespace Aurora.Sample.Module.Views.Sample
 {
     /// <summary>
     /// Interaction logic for SampleView.xaml
     /// </summary>
-    public partial class SampleView : UserControl
+    public partial class SampleView 
     {
         public SampleView()
         {

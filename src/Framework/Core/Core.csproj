@@ -93,9 +93,11 @@
     <Compile Include="Activities\ViewContainerActivity.cs" />
     <Compile Include="Commands\StartActivityCommand.cs" />
     <Compile Include="CompositeTypeResolver.cs" />
+    <Compile Include="Container\DividerItem.cs" />
     <Compile Include="Container\IWorkspaceContainerService.cs" />
+    <Compile Include="Container\MenuItemCommand.cs" />
     <Compile Include="DefaultModuleProvider.cs" />
-    <Compile Include="Container\CommandInfo.cs" />
+    <Compile Include="Container\CommandBarItem.cs" />
     <Compile Include="Container\DefaultCommandBarServiceHost.cs" />
     <Compile Include="Container\DefaultContainerService.cs" />
     <Compile Include="Container\DefaultViewManager.cs" />
@@ -160,9 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">

@@ -100,8 +100,8 @@
     <Compile Include="Views\Document\Document.View.xaml.cs" />
     <Compile Include="Views\Document\Document.ViewModel.cs" />
     <None Include="app.config" />
-    <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

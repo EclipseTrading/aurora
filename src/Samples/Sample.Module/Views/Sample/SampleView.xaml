@@ -37,11 +37,7 @@
             <Button Command="{Binding Path=NewViewCommand}" >New View</Button>
             <Button Command="{Binding Path=ShowDialogCommand}">Show Dialog</Button>
         </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="4">
-            <TextBox Text="{Binding Path=MenuName, UpdateSourceTrigger=PropertyChanged}" Width="150"></TextBox>
-            <Button Command="{Binding Path=RemoveMenuItemCommand}">Remove Menu Item</Button>
-        </StackPanel>
+
 
         <Label Grid.Row="5" Grid.Column="0" Content="{Binding Immediate}"/>
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding Delayed}"/>

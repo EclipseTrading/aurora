@@ -1,75 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
+﻿using System.Collections.Generic;
 
 namespace Aurora.Core.Container
 {
-    public class DefaultCommandBarServiceHost : ICommandBarServiceHost
+    public class DefaultCommandBarServiceHost : ICommandBarServiceHost, ICommandBarService
     {
         private readonly Dictionary<string, ICommandBarService> commandBarServices = new Dictionary<string, ICommandBarService>();
         private ICommandBarService defaultCommandBarService;
-        private readonly List<CommandObject> cache = new List<CommandObject>();
-
-        public void AddCommand(CommandInfo commandInfo, ICommand command)
-        {
-            if (!string.IsNullOrEmpty(commandInfo.BarName) && commandBarServices.ContainsKey(commandInfo.BarName))
-            {
-                commandBarServices[commandInfo.BarName].AddCommand(commandInfo, command);
-            }
-            else if (string.IsNullOrEmpty(commandInfo.BarName) && defaultCommandBarService != null)
-            {
-                defaultCommandBarService.AddCommand(commandInfo, command);
-
-            }
-            else
-            {
-                cache.Add(new CommandObject { CommandInfo = commandInfo, Command = command });
-            }
-        }
-
-        public void RemoveCommand(CommandInfo commandInfo)
-        {
-            if (!string.IsNullOrEmpty(commandInfo.BarName) && commandBarServices.ContainsKey(commandInfo.BarName))
-            {
-                commandBarServices[commandInfo.BarName].RemoveCommand(commandInfo);
-            }
-            else if (string.IsNullOrEmpty(commandInfo.BarName) && defaultCommandBarService != null)
-            {
-                defaultCommandBarService.RemoveCommand(commandInfo);
-            }
-            else
-            {
-                cache.RemoveAll(e => e.CommandInfo.Title.Equals(commandInfo.Title));
-            }
-        }
-
+        
         public void RegisterCommandBarService(string barName, ICommandBarService commandBarService)
         {
             this.commandBarServices[barName] = commandBarService;
-            UpdateFromCache(commandBarService, s => s == barName);
         }
+
         public void RegisterDefaultCommandBarService(ICommandBarService commandBarService)
         {
             this.defaultCommandBarService = commandBarService;
-            UpdateFromCache(commandBarService, string.IsNullOrEmpty);
         }
 
-        private void UpdateFromCache(ICommandBarService commandBarService, Func<string, bool> f)
+        public ICommandBarService GetCommandBarService(string barName)
         {
-            var toAdd = this.cache.Where(c => f(c.CommandInfo.BarName)).ToList();
-
-            toAdd.ForEach(i =>
-            {
-                commandBarService.AddCommand(i.CommandInfo, i.Command);
-                this.cache.Remove(i);
-            });
+            return barName == null ? defaultCommandBarService : commandBarServices[barName];
         }
 
-        internal class CommandObject
+        public void AddCommand(CommandBarItem menuItemCommand)
         {
-            public CommandInfo CommandInfo { get; set; }
-            public ICommand Command { get; set; }
+            defaultCommandBarService?.AddCommand(menuItemCommand);
+        }
+
+        public void RemoveCommand(string commandId)
+        {
+            defaultCommandBarService?.RemoveCommand(commandId);
         }
 
         public void Dispose()

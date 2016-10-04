@@ -1,10 +1,9 @@
-﻿using System;
-
-namespace Aurora.Core.Container
+﻿namespace Aurora.Core.Container
 {
-    public interface ICommandBarServiceHost : ICommandBarService, IDisposable
+    public interface ICommandBarServiceHost
     {
         void RegisterCommandBarService(string barName, ICommandBarService commandBarService);
         void RegisterDefaultCommandBarService(ICommandBarService commandBarService);
+        ICommandBarService GetCommandBarService(string barName);
     }
 }
