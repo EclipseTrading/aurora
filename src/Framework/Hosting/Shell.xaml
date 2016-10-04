@@ -52,7 +52,6 @@
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsChecked" Value="True">
-
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate>
@@ -68,13 +67,12 @@
                     </ToggleButton.Style>
                 </ToggleButton>
                 <Popup x:Name="IconPopup" Placement="Bottom" AllowsTransparency="True" PlacementTarget="{Binding ElementName=ImageIcon}"
-                       
-                       Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="5" HorizontalOffset="-3">
+                       Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="-2" HorizontalOffset="2">
                     <i:Interaction.Behaviors>
                         <hosting:CloseOnAction/>
                     </i:Interaction.Behaviors>
 
-                    <Border Margin="0,0,8,8" Background="White" BorderThickness="0">
+                    <Border Margin="0,0,8,8" Background="#006DB6" BorderThickness="0">
 
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5" Opacity="0.4"/>

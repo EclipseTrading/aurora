@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Windows.Input;
 using Aurora.Core;
 using Aurora.Core.Container;
 
@@ -18,20 +17,14 @@ namespace Aurora.CommandBarContainer.Views
             this.ViewModel.ShowContainerFrame = ActivityInfo.ShowContainerFrame;
         }
 
-        public void AddCommand(CommandInfo commandInfo, ICommand command)
+        public void AddCommand(CommandBarItem menuItemCommand)
         {
-            this.ViewModel.Commands.Add(new CommandViewModel
-            {
-                Title = commandInfo.Title,
-                Command = command,
-                Description = commandInfo.Description,
-                IconPath = commandInfo.IconPath
-            });
+            this.ViewModel.Commands.Add(menuItemCommand);
         }
 
-        public void RemoveCommand(CommandInfo commandInfo)
+        public void RemoveCommand(string commandId)
         {
-            foreach (var toRemove in this.ViewModel.Commands.Where(e => e.Title.Equals(commandInfo.Title)).ToList())
+            foreach (var toRemove in this.ViewModel.Commands.Where(e => e.Id.Equals(commandId)).ToList())
             {
                 this.ViewModel.Commands.Remove(toRemove);
             }

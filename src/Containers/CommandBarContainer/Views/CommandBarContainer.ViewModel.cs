@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Aurora.Core;
+using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer.Views
 {
@@ -8,7 +9,7 @@ namespace Aurora.CommandBarContainer.Views
     {
         private Orientation commandOrientation;
         private bool showContainerFrame;
-        public ObservableCollection<CommandViewModel> Commands { get; } = new ObservableCollection<CommandViewModel>();
+        public ObservableCollection<CommandBarItem> Commands { get; } = new ObservableCollection<CommandBarItem>();
 
         public Orientation CommandOrientation
         {

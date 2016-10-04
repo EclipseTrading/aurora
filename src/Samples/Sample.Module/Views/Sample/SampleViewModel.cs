@@ -39,11 +39,11 @@ namespace Aurora.Sample.Module.Views.Sample
         public string MenuName
         {
             get { return menuName; }
-            set
+          /*  set
             {
                 menuName = value;
                 this.OnPropertyChanged();
-            }
+            }*/
         }
 
         public string Message

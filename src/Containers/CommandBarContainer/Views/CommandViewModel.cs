@@ -8,6 +8,17 @@ namespace Aurora.CommandBarContainer.Views
         private string title;
         private string description;
         private string iconPath;
+        private string id;
+
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public string Title
         {

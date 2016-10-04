@@ -25,7 +25,6 @@ namespace Aurora.Sample.Module.Views.Sample
         private IDisposable observableDisposable;
         private IDisposable subDisposable;
 
-
         public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService, ICommandBarService commandBarService)
             : base(activityInfo)
         {
@@ -33,9 +32,10 @@ namespace Aurora.Sample.Module.Views.Sample
             this.activityService = activityService;
             this.commandBarService = commandBarService;
         }
+
         public IViewContainerService ViewContainerService { get; set; }
 
-        protected async override void OnViewModelChanged()
+        protected override async void OnViewModelChanged()
         {
             base.OnViewModelChanged();
 
@@ -92,7 +92,7 @@ namespace Aurora.Sample.Module.Views.Sample
 
         private void RemoveMenuItem()
         {
-            this.commandBarService.RemoveCommand(new CommandInfo(this.ViewModel.MenuName));
+            this.commandBarService.RemoveCommand(this.ViewModel.MenuName);
         }
         
         public override void Dispose()

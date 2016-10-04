@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using Aurora.Core.Container;
+﻿using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer.Views
 {
@@ -12,14 +11,14 @@ namespace Aurora.CommandBarContainer.Views
             this.presenter = presenter;
         }
 
-        public void AddCommand(CommandInfo commandInfo, ICommand command)
+        public void AddCommand(CommandBarItem menuItemCommand)
         {
-            presenter.AddCommand(commandInfo, command);
+            presenter.AddCommand(menuItemCommand);
         }
 
-        public void RemoveCommand(CommandInfo commandInfo)
+        public void RemoveCommand(string commandId)
         {
-            presenter.RemoveCommand(commandInfo);
+            presenter.RemoveCommand(commandId);
         }
 
         public void Dispose()
