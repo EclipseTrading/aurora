@@ -101,14 +101,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.15603.14400, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xceed.Wpf.AvalonDock.2.9.15603.14400\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.15603.14400, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xceed.Wpf.AvalonDock.Themes.Metro.2.9.15603.14400\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -154,6 +146,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Containers\SyncfusionDockingContainer\SyncfusionDockingContainer.csproj">
+      <Project>{ac4c6c12-4aa1-4cd4-9043-b00af5842cd5}</Project>
+      <Name>SyncfusionDockingContainer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Controls\Controls.csproj">
       <Project>{45ac10ca-ff17-4d90-b3f7-1d9c69cbbf30}</Project>
       <Name>Controls</Name>
@@ -169,10 +165,6 @@
     <ProjectReference Include="..\..\Containers\CommandBarContainer\CommandBarContainer.csproj">
       <Project>{f6df0b4d-2254-454f-b157-cf39ea396780}</Project>
       <Name>CommandBarContainer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Containers\DockingContainer\DockingContainer.csproj">
-      <Project>{cea85a33-0ad2-42a5-9a20-9965b331a5c0}</Project>
-      <Name>DockingContainer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sample.Module.Shared\Sample.Module.Shared.csproj">
       <Project>{79034b5d-19b8-483f-ba7d-ad7184be0566}</Project>

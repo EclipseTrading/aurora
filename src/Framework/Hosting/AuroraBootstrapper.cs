@@ -6,13 +6,13 @@ using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
-using Aurora.DockingContainer.Views.DockingContainer;
+using Aurora.SyncfusionDockingContainer.Views.DockingContainer;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.UnityExtensions;
-using Xceed.Wpf.AvalonDock;
 using ContainerControlledLifetimeManager = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using Microsoft.Practices.Unity;
+using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.Hosting
 {
@@ -100,9 +100,10 @@ namespace Aurora.Hosting
             var mappings = base.ConfigureRegionAdapterMappings();
             if (mappings == null)
                 return null;
-            
 
-            mappings.RegisterMapping(typeof(DockingManager), this.Container.Resolve<AvalonDockRegionAdapter>());
+
+            mappings.RegisterMapping(typeof(DockingManager), this.Container.Resolve<DockRegionAdapter>());
+
 
             return mappings;
         }

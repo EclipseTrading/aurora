@@ -8,7 +8,7 @@ namespace Aurora.Sample.Host
     {
         public override IEnumerable<Type> GetModules()
         {
-            yield return typeof(DockingContainer.ModuleBootstrapper);
+            yield return typeof(SyncfusionDockingContainer.ModuleBootstrapper);
             yield return typeof(ModuleBootstrapper);
             yield return typeof(Module.ModuleBootstrapper);
         }

@@ -9,7 +9,7 @@
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
       <dependency id="Aurora.Core" version="1.0"/>
-      <dependency id="Aurora.DockingContainer" version="1.0"/>
+      <dependency id="Aurora.SyncfusionDockingContainer" version="1.0"/>
       <dependency id="Aurora.CommandBarContainer" version="1.0"/>
       <dependency id="MahApps.Metro" version="1.1.2.0" />
       <dependency id="Prism" version="5.0.0" />

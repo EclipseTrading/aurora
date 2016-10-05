@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{22BAAB64-5C15-42EB-A49F-A5073E94913D}"
 EndProject
@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{3E62
 		package\Aurora.Core.nuspec = package\Aurora.Core.nuspec
 		package\Aurora.DockingContainer.nuspec = package\Aurora.DockingContainer.nuspec
 		package\Aurora.Module.nuspec = package\Aurora.Module.nuspec
+		package\Aurora.SyncfusionDockingContainer.nuspec = package\Aurora.SyncfusionDockingContainer.nuspec
 		package\Aurora.TabContainer.nuspec = package\Aurora.TabContainer.nuspec
 		package\version.ps1 = package\version.ps1
 	EndProjectSection
@@ -69,6 +70,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{ED5A134D-3
 		package\Aurora.Module\View\Sample.View.xaml.pp = package\Aurora.Module\View\Sample.View.xaml.pp
 		package\Aurora.Module\View\Sample.ViewModel.cs.pp = package\Aurora.Module\View\Sample.ViewModel.cs.pp
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncfusionDockingContainer", "Containers\SyncfusionDockingContainer\SyncfusionDockingContainer.csproj", "{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +119,10 @@ Global
 		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,5 +142,6 @@ Global
 		{3EF094E9-6FAC-40E9-AC94-ABEFC4B6DEF1} = {3E6289D7-7C85-4947-BFF4-DCE2899E74F8}
 		{027E12B2-EA9B-4834-B64D-D0FBA241F6B3} = {3E6289D7-7C85-4947-BFF4-DCE2899E74F8}
 		{ED5A134D-35F1-4B5C-B144-D6FEDEE16C11} = {027E12B2-EA9B-4834-B64D-D0FBA241F6B3}
+		{AC4C6C12-4AA1-4CD4-9043-B00AF5842CD5} = {3981BFFE-7611-4205-A393-AAFC275F2B8F}
 	EndGlobalSection
 EndGlobal

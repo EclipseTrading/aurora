@@ -29,29 +29,53 @@ namespace Aurora.Sample.Module
             {
                 await currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout
+                var layout = new WorkspaceLayout();
+                layout.MainWindowRect = new Rect(500, 300, 1200, 800);
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
                 {
-                    MainWindowRect = new Rect(500, 300, 1200, 800),
-                    Orientation = DockingOrientation.Horizontal
-                };
-                layout.DockGroups.Add(new DockGroupConfig
-                {
-                    DockingViews =
-                    {
-                        new DockingViewConfig(typeof(TestWorkspacePresenter), "Main", null, 1, false),
-                        new DockingViewConfig(typeof(CustomPresenter), "View1", null, 0, false),
-                        new DockingViewConfig(typeof(CustomPresenter), "View4", null, 2, true)
-                    },
-                    Proportion = 0.3
+                    ViewTitle = "Risk and Pnl - Strategy",
+                    DockState = DockingState.Dock,
+                    DockSide = DockingSide.Left,
+                    DockTarget = "",
+                    DockWidth = 450,
+                    DockHeight = 90,
+                    DockIndex = 0
                 });
-                layout.DockGroups.Add(new DockGroupConfig
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view2", null)
                 {
-                    DockingViews =
-                    {
-                        new DockingViewConfig(typeof(CustomPresenter), "View2", null, 1, true),
-                        new DockingViewConfig(typeof(CustomPresenter), "View3", null, 0, false)
-                    },
-                    Proportion = 0.7
+                    ViewTitle = "view2",
+                    DockState = DockingState.Dock,
+                    DockSide = DockingSide.Bottom,
+                    DockTarget = "view1",
+                    DockWidth = 250,
+                    DockHeight = 90,
+                    DockIndex = 1
+                });
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view3", null)
+                {
+                    ViewTitle = "view3",
+                    DockState = DockingState.Dock,
+                    DockSide = DockingSide.Right,
+                    DockTarget = "",
+                    DockWidth = 250,
+                    DockHeight = 90,
+                    DockIndex = 2
+                });
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view4", null)
+                {
+                    ViewTitle = "view4",
+                    DockState = DockingState.Dock,
+                    DockSide = DockingSide.Bottom,
+                    DockTarget = "",
+                    DockWidth = 250,
+                    DockHeight = 90,
+                    DockIndex = 3
+                });
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(TestWorkspacePresenter), "Floating1", null)
+                {
+                    ViewTitle = "Floating1",
+                    DockState = DockingState.Float,
+                    FloatingLocation = new Rect(1500, 500, 500, 500)
                 });
 
                 await currentWorkspace.LoadLayout(layout);
@@ -61,31 +85,24 @@ namespace Aurora.Sample.Module
             {
                 await currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout
+                var layout = new WorkspaceLayout();
+                layout.MainWindowRect = new Rect(500, 300, 1200, 800);
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
                 {
-                    MainWindowRect = new Rect(300, 500, 800, 1200),
-                    Orientation = DockingOrientation.Vertical
-                };
-                layout.DockGroups.Add(new DockGroupConfig
-                {
-                    DockingViews =
-                    {
-                        new DockingViewConfig(typeof(TestWorkspacePresenter), "Main", null, 0, true),
-                    },
-                    Proportion = 0.8
+                    ViewTitle = "Risk and Pnl - Strategy",
+                    DockState = DockingState.Dock,
+                    DockSide = DockingSide.Left,
+                    DockTarget = "",
+                    DockWidth = 450,
+                    DockHeight = 90,
+                    DockIndex = 0
                 });
-                layout.DockGroups.Add(new DockGroupConfig
+                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "Floating1", null)
                 {
-                    DockingViews =
-                    {
-                        new DockingViewConfig(typeof(CustomPresenter), "View2", null, 0, false),
-                        new DockingViewConfig(typeof(CustomPresenter), "View3", null, 2, true),
-                        new DockingViewConfig(typeof(CustomPresenter), "View4", null, 1, false)
-                    },
-                    Proportion = 0.2
+                    ViewTitle = "Floating1",
+                    DockState = DockingState.Float,
+                    FloatingLocation = new Rect(1500, 500, 500, 500)
                 });
-                layout.FloatingViews.Add(new FloatingViewConfig(typeof(CustomPresenter), "Floating1", null,
-                    new Rect(1500, 500, 500, 500)));
 
                 await currentWorkspace.LoadLayout(layout);
             }));

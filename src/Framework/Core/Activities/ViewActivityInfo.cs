@@ -8,21 +8,23 @@ namespace Aurora.Core.Activities
     public class ViewActivityInfo : ActivityInfo
     {
         [JsonConstructor]
-        public ViewActivityInfo(string title, HostLocation location = HostLocation.Center, bool isCloseable = true)
+        public ViewActivityInfo(string id, HostLocation location = HostLocation.Center, bool isCloseable = true)
         {
-            Title = title;
+           // Title = title;
+            Id = id;
             Location = location;
             IsCloseable = isCloseable;
         }
 
         [JsonProperty("title")]
-        public string Title { get; }
+        public string Title { get; set; }
         [JsonProperty("location")]
         public HostLocation Location { get; }
         [JsonProperty("isCloseable")]
         public bool IsCloseable { get; }
 
         public ViewLocation ViewLocation { get; set; }
+        public string Id { get; }
 
         public JObject ViewData { get; set; }
     }
