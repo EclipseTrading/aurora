@@ -158,6 +158,7 @@
     <Compile Include="Workspace\Workspace.cs" />
     <Compile Include="Workspace\WorkspaceLayout.cs" />
     <Compile Include="Workspace\ViewLocation.cs" />
+    <Compile Include="Workspace\WorkspaceViewConfig.cs" />
     <Compile Include="Workspace\WorkspaceViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>

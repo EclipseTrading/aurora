@@ -43,17 +43,33 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 
                 var data = JObject.Parse(this.ViewModel.JsonInput);
                 this.ViewActivityInfo.ViewData = data;
-                await this.workspace.CreateFloatingView(GetPresenterType(), this.ViewModel.Title, data, 
-                    new Rect(this.ViewModel.Left, this.ViewModel.Top, this.ViewModel.Width, this.ViewModel.Height), false);
 
+                var location = new ViewLocation
+                {
+                    DockState = DockingState.Float,
+                    FloatingLeft = this.ViewModel.Left,
+                    FloatingTop = this.ViewModel.Top,
+                    FloatingWidth = this.ViewModel.Width,
+                    FloatingHeight = this.ViewModel.Height
+                };
+                await
+                    this.workspace.CreateView(GetPresenterType(), "id_" + Guid.NewGuid().ToString("N").ToUpper(),
+                        this.ViewModel.Title, data, location);
             }
             else
             {
                 var data = JObject.Parse(this.ViewModel.JsonInput);
                 this.ViewActivityInfo.ViewData = data;
-                await this.workspace.CreateDockedView(GetPresenterType(), this.ViewModel.Title, data, 
-                    this.ViewModel.GroupIdx, this.ViewModel.Order, true);
-            
+
+                var location = new ViewLocation
+                {
+                    DockState = DockingState.Document
+                };
+                await
+                    this.workspace.CreateView(GetPresenterType(), "id_" + Guid.NewGuid().ToString("N").ToUpper(),
+                    this.ViewModel.Title, data,
+                        location);
+
             }
         }
 

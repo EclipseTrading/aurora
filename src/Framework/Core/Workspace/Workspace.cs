@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using Aurora.Core.Activities;
 using Aurora.Core.Container;
@@ -9,7 +8,7 @@ using System.Windows;
 
 namespace Aurora.Core.Workspace
 {
-   
+
     public class Workspace : IWorkspace
     {
         public Workspace(IViewFactory viewFactory, IViewManager viewManager)
@@ -22,39 +21,17 @@ namespace Aurora.Core.Workspace
 
         private IViewManager ViewManager { get; }
 
-        public async Task CreateFloatingView(Type presenterType, string viewName, JObject viewData, Rect location, bool maximized)
+        public async Task CreateView(Type presenterType, string id, string title, JObject viewData, ViewLocation location)
         {
-            var info = new ViewActivityInfo(viewName);
-            info.ViewLocation = new ViewLocation();
-            info.ViewLocation.IsFloating = true;
-            info.ViewLocation.FloatingTop = location.Top;
-            info.ViewLocation.FloatingLeft = location.Left;
-            info.ViewLocation.FloatingWidth = location.Width;
-            info.ViewLocation.FloatingHeight = location.Height;
-            info.ViewLocation.Maximized = maximized;
-
+            var info = new ViewActivityInfo(id);
+            info.ViewLocation = location;
             info.ViewData = viewData;
+            info.Title = title;
+
             var activeView = await ViewFactory.CreateActiveViewAsync(null, presenterType, info);
             await ViewManager.AddViewAsync(activeView, info);
+
         }
-
-        public async Task CreateDockedView(Type presenterType, string viewName, JObject viewData, int groupIdx, int order, bool selected)
-        {
-            var info = new ViewActivityInfo(viewName);
-            info.ViewLocation = new ViewLocation();
-            info.ViewLocation.IsFloating = false;
-            info.ViewLocation.GroupIdx = groupIdx;
-            info.ViewLocation.Order = order;
-            info.ViewLocation.DockProportion = 1.0;
-            info.ViewLocation.Orientation = DockingOrientation.UseCurrentOrientation;
-            info.ViewLocation.IsSelected = selected;
-        
-
-            info.ViewData = viewData;
-            var activeView = await ViewFactory.CreateActiveViewAsync(null, presenterType, info);
-            await ViewManager.AddViewAsync(activeView, info);
-        }
-
 
         public async Task CloseAllView()
         {
@@ -63,11 +40,8 @@ namespace Aurora.Core.Workspace
 
         }
 
-    
         public async Task LoadLayout(WorkspaceLayout layout)
         {
-            var dockingConfig = new DockingConfig();
-            dockingConfig.Orientation = layout.Orientation;
 
             //move main window
             Application.Current.MainWindow.Top = layout.MainWindowRect.Top;
@@ -87,27 +61,73 @@ namespace Aurora.Core.Workspace
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
             }
 
-
-            foreach (var group in layout.DockGroups)
+            var floatViews = layout.WorkspaceViews.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget == "").OrderByDescending(e => e.FloatingDockIndex);
+            foreach (var view in floatViews)
             {
-                
-                foreach (var view in group.DockingViews)
-                {
-                    await CreateDockedView(view.PresenterType, view.ViewName, view.ViewData, 
-                                            layout.DockGroups.IndexOf(group), view.Order, view.Selected);
-                }
-                dockingConfig.GroupProportion.Add(group.Proportion);
+                var location = new ViewLocation();
+                location.IsFloating = true;
+                location.FloatingTop = view.FloatingLocation.Top;
+                location.FloatingLeft = view.FloatingLocation.Left;
+                location.FloatingWidth = view.FloatingLocation.Width;
+                location.FloatingHeight = view.FloatingLocation.Height;
+                location.Maximized = view.Maximized;
+                location.FloatTarget = view.FloatingDockTarget;
+                location.DockSide = view.FloatingDockSide;
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+
             }
 
-            await ArrangeDocking(dockingConfig);
-
-
-            foreach (var view in layout.FloatingViews)
+            floatViews = layout.WorkspaceViews.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget != "").OrderByDescending(e => e.FloatingDockIndex);
+            foreach (var view in floatViews)
             {
-                await CreateFloatingView(view.PresneterType, view.ViewName, view.ViewData, view.Location, view.Maximized);
+                var location = new ViewLocation();
+                location.IsFloating = true;
+                location.FloatingTop = view.FloatingLocation.Top;
+                location.FloatingLeft = view.FloatingLocation.Left;
+                location.FloatingWidth = view.FloatingLocation.Width;
+                location.FloatingHeight = view.FloatingLocation.Height;
+                location.Maximized = view.Maximized;
+                location.FloatTarget = view.FloatingDockTarget;
+                location.DockSide = view.FloatingDockSide;
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+
             }
 
-            
+
+            var sortedDockViews = layout.WorkspaceViews.Where(e => e.DockState != DockingState.Float && e.DockTarget == "").OrderByDescending(e => e.DockIndex);
+            foreach (var view in sortedDockViews)
+            {
+                var location = new ViewLocation();
+                location.IsFloating = false;
+                location.DockTarget = view.DockTarget;
+                location.DockState = view.DockState;
+                location.DockSide = view.DockSide;
+                location.DockWidth = view.DockWidth;
+                location.DockHeight = view.DockHeight;
+                location.DockIndex = view.DockIndex;
+
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+
+            }
+
+
+            sortedDockViews = layout.WorkspaceViews.Where(e => e.DockState != DockingState.Float && e.DockTarget != "").OrderByDescending(e => e.DockIndex);
+            foreach (var view in sortedDockViews)
+            {
+                var location = new ViewLocation();
+                location.IsFloating = false;
+                location.DockTarget = view.DockTarget;
+                location.DockState = view.DockState;
+                location.DockSide = view.DockSide;
+                location.DockWidth = view.DockWidth;
+                location.DockHeight = view.DockHeight;
+                location.DockIndex = view.DockIndex;
+
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+
+            }
+
+
         }
 
         public async Task<WorkspaceLayout> GetCurrentLayout()
@@ -115,7 +135,7 @@ namespace Aurora.Core.Workspace
 
             var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
             var layout = await service.GetCurrentLayout();
-          
+
 
             layout.MainWindowRect = new Rect(Application.Current.MainWindow.Left,
                                              Application.Current.MainWindow.Top,
@@ -124,17 +144,8 @@ namespace Aurora.Core.Workspace
 
             layout.Maximized = Application.Current.MainWindow.WindowState == WindowState.Maximized;
             layout.Minimized = Application.Current.MainWindow.WindowState == WindowState.Minimized;
-          
+
             return layout;
-
-        }
-
-
-
-        public async Task ArrangeDocking(DockingConfig config)
-        {
-            var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
-            await service.ArrangeDockingState(config);
 
         }
 
