@@ -29,8 +29,7 @@ namespace Aurora.Sample.Module
             {
                 await currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout();
-                layout.MainWindowRect = new Rect(500, 300, 1200, 800);
+                var layout = new WorkspaceLayout {MainWindowRect = new Rect(500, 300, 1200, 800)};
                 layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
                 {
                     ViewTitle = "Risk and Pnl - Strategy",
