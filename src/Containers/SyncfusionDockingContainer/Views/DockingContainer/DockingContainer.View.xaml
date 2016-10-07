@@ -15,7 +15,6 @@
                 DocumentCloseButtonType="Individual" IsVS2010DraggingEnabled="True" 
                 ShowFloatWindowInTaskbar="True" CanResizeInFloatState="True" 
                 DockTabAlignment="Top" UseNativeFloatWindow="True"  UseDocumentContainer="True"  
-                IsTDIDragDropEnabled="True"
-                syncfusion:SkinStorage.VisualStyle="Metro"/>
+                IsTDIDragDropEnabled="True"/>
 
 </UserControl>
