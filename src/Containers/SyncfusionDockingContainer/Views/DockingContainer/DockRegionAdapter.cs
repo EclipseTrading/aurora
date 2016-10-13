@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Threading;
+using Aurora.Core.Workspace;
 using Microsoft.Practices.Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 
@@ -77,10 +78,19 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                 region.Context = regionTarget;
                 foreach (ViewContext item in e.NewItems)
                 {
+                    if (item.Info.ViewLocation == null)
+                    {
+                        item.Info.Title = item.Info.Id;
+                        item.Info.ViewLocation = new ViewLocation();
+                        item.Info.ViewLocation.DockTarget = "";
+                        item.Info.ViewLocation.FloatTarget = "";
+                        item.Info.ViewLocation.DockState = DockingState.Document;
+                    }
 
                     var doc = new PresenterLayoutDocument(item);
                     doc.Name = item.Info.Id;
-                    
+
+
                     if (doc.ViewLocation.IsFloating)
                     {
                         DockingManager.SetHeader(doc, item.Info?.Title);
