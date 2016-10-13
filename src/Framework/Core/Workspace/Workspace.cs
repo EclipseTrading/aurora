@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aurora.Core.Activities;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace Aurora.Core.Workspace
 {
-
+   
     public class Workspace : IWorkspace
     {
         public Workspace(IViewFactory viewFactory, IViewManager viewManager)
@@ -40,6 +41,79 @@ namespace Aurora.Core.Workspace
 
         }
 
+        private async Task CreateFloatingViews(List<WorkspaceViewConfig> source, string dockTarget)
+        {
+            var parentViews = new List<WorkspaceViewConfig>();
+            var floatViews = source.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget == dockTarget).OrderBy(e => e.FloatingDockIndex);
+            foreach (var view in floatViews)
+            {
+                parentViews.Add(view);
+
+                var location = new ViewLocation();
+                location.IsFloating = true;
+                location.FloatingTop = view.FloatingLocation.Top;
+                location.FloatingLeft = view.FloatingLocation.Left;
+                location.FloatingWidth = view.FloatingLocation.Width;
+                location.FloatingHeight = view.FloatingLocation.Height;
+                location.Maximized = view.Maximized;
+                location.FloatTarget = view.FloatingDockTarget;
+
+                location.DockSide = view.FloatingDockSide;
+                location.DockIndex = view.FloatingDockIndex;
+                location.DockWidth = view.FloatingDockWidth;
+                location.DockHeight = view.FloatingDockHeight;
+                location.TabOrderInDocument = view.TabOrderInDocument;
+                location.TabOrderInDock = view.TabOrderInDock;
+                location.TabOrderInFloating = view.TabOrderInFloating;
+
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+            }
+
+            foreach (var view in parentViews)
+            {
+                await CreateFloatingViews(source, view.ViewId);
+            }
+
+        }
+
+        private async Task CreateDockedViews(List<WorkspaceViewConfig> source, string dockTarget)
+        {
+            var parentViews = new List<WorkspaceViewConfig>();
+            IEnumerable<WorkspaceViewConfig> dockedViews;
+            if (dockTarget == "")
+            {
+                dockedViews =
+                    source.Where(e => e.DockState != DockingState.Float && e.DockTarget == dockTarget)
+                        .OrderByDescending(e => e.DockIndex);
+            }
+            else
+            {
+                dockedViews = source.Where(e => e.DockState != DockingState.Float && e.DockTarget == dockTarget).OrderBy(e => e.DockIndex);
+            }
+            foreach (var view in dockedViews)
+            {
+                parentViews.Add(view);
+                var location = new ViewLocation();
+                location.IsFloating = false;
+                location.DockTarget = view.DockTarget;
+                location.DockState = view.DockState;
+                location.DockSide = view.DockSide;
+                location.DockWidth = view.DockWidth;
+                location.DockHeight = view.DockHeight;
+                location.DockIndex = view.DockIndex;
+                location.TabOrderInDocument = view.TabOrderInDocument;
+                location.TabOrderInDock = view.TabOrderInDock;
+                location.TabOrderInFloating = view.TabOrderInFloating;
+                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
+            }
+
+            foreach (var view in parentViews)
+            {
+                await CreateDockedViews(source, view.ViewId);
+            }
+
+        }
+
         public async Task LoadLayout(WorkspaceLayout layout)
         {
 
@@ -61,73 +135,8 @@ namespace Aurora.Core.Workspace
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
             }
 
-            var floatViews = layout.WorkspaceViews.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget == "").OrderByDescending(e => e.FloatingDockIndex);
-            foreach (var view in floatViews)
-            {
-                var location = new ViewLocation();
-                location.IsFloating = true;
-                location.FloatingTop = view.FloatingLocation.Top;
-                location.FloatingLeft = view.FloatingLocation.Left;
-                location.FloatingWidth = view.FloatingLocation.Width;
-                location.FloatingHeight = view.FloatingLocation.Height;
-                location.Maximized = view.Maximized;
-                location.FloatTarget = view.FloatingDockTarget;
-                location.DockSide = view.FloatingDockSide;
-                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
-
-            }
-
-            floatViews = layout.WorkspaceViews.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget != "").OrderByDescending(e => e.FloatingDockIndex);
-            foreach (var view in floatViews)
-            {
-                var location = new ViewLocation();
-                location.IsFloating = true;
-                location.FloatingTop = view.FloatingLocation.Top;
-                location.FloatingLeft = view.FloatingLocation.Left;
-                location.FloatingWidth = view.FloatingLocation.Width;
-                location.FloatingHeight = view.FloatingLocation.Height;
-                location.Maximized = view.Maximized;
-                location.FloatTarget = view.FloatingDockTarget;
-                location.DockSide = view.FloatingDockSide;
-                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
-
-            }
-
-
-            var sortedDockViews = layout.WorkspaceViews.Where(e => e.DockState != DockingState.Float && e.DockTarget == "").OrderByDescending(e => e.DockIndex);
-            foreach (var view in sortedDockViews)
-            {
-                var location = new ViewLocation();
-                location.IsFloating = false;
-                location.DockTarget = view.DockTarget;
-                location.DockState = view.DockState;
-                location.DockSide = view.DockSide;
-                location.DockWidth = view.DockWidth;
-                location.DockHeight = view.DockHeight;
-                location.DockIndex = view.DockIndex;
-
-                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
-
-            }
-
-
-            sortedDockViews = layout.WorkspaceViews.Where(e => e.DockState != DockingState.Float && e.DockTarget != "").OrderByDescending(e => e.DockIndex);
-            foreach (var view in sortedDockViews)
-            {
-                var location = new ViewLocation();
-                location.IsFloating = false;
-                location.DockTarget = view.DockTarget;
-                location.DockState = view.DockState;
-                location.DockSide = view.DockSide;
-                location.DockWidth = view.DockWidth;
-                location.DockHeight = view.DockHeight;
-                location.DockIndex = view.DockIndex;
-
-                await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
-
-            }
-
-
+            await CreateFloatingViews(layout.WorkspaceViews.ToList(), "");
+            await CreateDockedViews(layout.WorkspaceViews.ToList(), "");
         }
 
         public async Task<WorkspaceLayout> GetCurrentLayout()

@@ -23,6 +23,12 @@
 
     public class ViewLocation
     {
+        public ViewLocation()
+        {
+            DockTarget = "";
+            FloatTarget = "";
+        }
+
         public string DockTarget { get; set; }
         public string FloatTarget { get; set; }
         public DockingSide DockSide { get; set; }
@@ -39,6 +45,10 @@
         public double FloatingHeight { get; set; }
         public bool Minimized { get; set; }
         public bool Maximized { get; set; }
+
+        public int TabOrderInDocument { get; set; }
+        public int TabOrderInFloating { get; set; }
+        public int TabOrderInDock { get; set; }
 
     }
 }

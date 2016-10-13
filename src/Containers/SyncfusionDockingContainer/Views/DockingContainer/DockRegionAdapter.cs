@@ -79,7 +79,8 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                 {
 
                     var doc = new PresenterLayoutDocument(item);
-                    doc.Name = item.Info.Id;                
+                    doc.Name = item.Info.Id;
+                    
                     if (doc.ViewLocation.IsFloating)
                     {
                         DockingManager.SetHeader(doc, item.Info?.Title);
@@ -90,11 +91,16 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             doc.ViewLocation.FloatingHeight);
                         DockingManager.SetFloatingWindowRect(doc, location);
                         DockingManager.SetSideInDockedMode(doc, (DockSide)doc.ViewLocation.DockSide);
+                        DockingManager.SetSideInFloatMode(doc, (DockSide)doc.ViewLocation.DockSide);
                         DockingManager.SetCanFloatMaximize(doc, true);
                         DockingManager.SetFloatWindowState(doc, doc.ViewLocation.Maximized ? WindowState.Maximized : WindowState.Normal);
                         DockingManager.SetTargetNameInFloatingMode(doc, doc.ViewLocation.FloatTarget ?? "");
                         DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
-                       
+                        DockingManager.SetIndexInFloatModeExternally(doc, doc.ViewLocation.DockIndex);
+                        DockingManager.SetNoHeader(doc, false);
+                        DockingManager.SetDesiredWidthInFloatingMode(doc, doc.ViewLocation.DockWidth);
+                        DockingManager.SetDesiredHeightInFloatingMode(doc, doc.ViewLocation.DockHeight);
+
                     }
                     else
                     {
@@ -107,9 +113,14 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         DockingManager.SetDesiredHeightInDockedMode(doc, doc.ViewLocation.DockHeight);
                         DockingManager.SetIndexInDockMode(doc, doc.ViewLocation.DockIndex);
                         DockingManager.SetCanFloatMaximize(doc, true);
+                        DockingManager.SetNoHeader(doc, false);   
+                        
                     }
                     regionTarget.Children.Add(doc);
-                
+                    TDILayoutPanel.SetTDIIndex(doc, doc.ViewLocation.TabOrderInDocument);
+                    DockedElementTabbedHost.SetTabOrderInFloatMode(doc, doc.ViewLocation.TabOrderInFloating);
+                    DockedElementTabbedHost.SetTabOrderInDockMode(doc, doc.ViewLocation.TabOrderInDock);
+
                 }
                 SetIndependentWindows();
             }
