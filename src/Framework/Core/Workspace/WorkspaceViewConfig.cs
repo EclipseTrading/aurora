@@ -21,6 +21,9 @@ namespace Aurora.Core.Workspace
         public string ViewTitle { get; set; }
         public JObject ViewData { get; set; }
 
+
+
+
         public string DockTarget { get; set; }
         public DockingSide DockSide { get; set; }
         public DockingState DockState { get; set; }
@@ -34,7 +37,13 @@ namespace Aurora.Core.Workspace
         public string FloatingDockTarget { get; set; }
         public int FloatingDockIndex { get; set; }
         public DockingSide FloatingDockSide { get; set; }
-      
+
+
+        public double FloatingDockWidth { get; set; }
+        public double FloatingDockHeight { get; set; }
+        public int TabOrderInDocument { get; set; }
+        public int TabOrderInFloating { get; set; }
+        public int TabOrderInDock { get; set; }
 
 
     }

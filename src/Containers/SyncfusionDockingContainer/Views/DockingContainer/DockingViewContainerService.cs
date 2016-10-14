@@ -74,6 +74,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                     var config = new WorkspaceViewConfig(presenterDoc.ViewContext.View.Presenter.GetType(),
                         presenterDoc.Name, presenterDoc.ViewContext.Info.ViewData)
                     {
+                        
                         DockState = DockingState.Float,
                         FloatingLocation = location,
                         Maximized = winState == WindowState.Maximized,
@@ -82,7 +83,12 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         FloatingDockIndex = DockingManager.GetIndexInFloatMode(doc),
                         FloatingDockSide = (DockingSide) DockingManager.GetSideInFloatMode(doc),
                         ViewTitle = presenterDoc.ViewContext.Info.Title,
-                        ViewId = presenterDoc.ViewContext.Info.Id
+                        ViewId = presenterDoc.ViewContext.Info.Id,
+                        FloatingDockWidth = DockingManager.GetDesiredWidthInFloatingMode(doc),
+                        FloatingDockHeight = DockingManager.GetDesiredHeightInFloatingMode(doc),
+                        TabOrderInDocument = TDILayoutPanel.GetTDIIndex(doc),
+                        TabOrderInDock = DockedElementTabbedHost.GetTabOrderInDockMode(doc),
+                        TabOrderInFloating = DockedElementTabbedHost.GetTabOrderInFloatMode(doc)
                     };
 
                     layout.WorkspaceViews.Add(config);
@@ -96,10 +102,14 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         DockState = (DockingState) dockState,
                         DockSide = (DockingSide) DockingManager.GetSideInDockedMode(doc),
                         DockWidth = DockingManager.GetDesiredWidthInDockedMode(doc),
-                        DockHeight = DockingManager.GetDesiredHeightInDockedMode(doc),
+                        DockHeight = DockingManager.GetDesiredHeightInDockedMode(doc),  
                         DockIndex = DockingManager.GetIndexInDockMode(doc),
                         ViewTitle = presenterDoc.ViewContext.Info.Title,
-                        ViewId = presenterDoc.ViewContext.Info.Id
+                        ViewId = presenterDoc.ViewContext.Info.Id,
+                        TabOrderInDocument = TDILayoutPanel.GetTDIIndex(doc),
+                        TabOrderInDock = DockedElementTabbedHost.GetTabOrderInDockMode(doc),
+                        TabOrderInFloating = DockedElementTabbedHost.GetTabOrderInFloatMode(doc)
+                        
                     };
 
                     layout.WorkspaceViews.Add(config);
@@ -108,6 +118,8 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                
 
             }
+
+            
 
             return layout;
         }
