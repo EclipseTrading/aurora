@@ -26,9 +26,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                 //attach PresenterLayoutDocument to Presenter
                 viewContainerAware.ViewContainerService = this;
             }
-
         }
-
 
         public void SetTitle(string title)
         {

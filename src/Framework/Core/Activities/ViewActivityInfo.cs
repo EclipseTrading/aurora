@@ -1,7 +1,6 @@
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Aurora.Core.Activities
 {
@@ -26,6 +25,6 @@ namespace Aurora.Core.Activities
         public ViewLocation ViewLocation { get; set; }
         public string Id { get; }
 
-        public JObject ViewData { get; set; }
+        public object ViewData { get; set; }
     }
 }

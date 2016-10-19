@@ -9,7 +9,6 @@ using System.Windows;
 
 namespace Aurora.Core.Workspace
 {
-   
     public class Workspace : IWorkspace
     {
         public Workspace(IViewFactory viewFactory, IViewManager viewManager)
@@ -22,26 +21,26 @@ namespace Aurora.Core.Workspace
 
         private IViewManager ViewManager { get; }
 
-        public async Task CreateView(Type presenterType, string id, string title, JObject viewData, ViewLocation location)
+        public async Task CreateView(Type presenterType, string id, string title, object viewData, ViewLocation location)
         {
-            var info = new ViewActivityInfo(id);
-            info.ViewLocation = location;
-            info.ViewData = viewData;
-            info.Title = title;
+            var info = new ViewActivityInfo(id)
+            {
+                ViewLocation = location,
+                ViewData = viewData,
+                Title = title
+            };
 
             var activeView = await ViewFactory.CreateActiveViewAsync(null, presenterType, info);
             await ViewManager.AddViewAsync(activeView, info);
-
         }
 
         public async Task CloseAllView()
         {
             var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
             await service.CloseAllView();
-
         }
 
-        private async Task CreateFloatingViews(List<WorkspaceViewConfig> source, string dockTarget)
+        private async Task CreateFloatingViews(IList<WorkspaceViewConfig> source, string dockTarget)
         {
             var parentViews = new List<WorkspaceViewConfig>();
             var floatViews = source.Where(e => e.DockState == DockingState.Float && e.FloatingDockTarget == dockTarget).OrderBy(e => e.FloatingDockIndex);
@@ -49,22 +48,23 @@ namespace Aurora.Core.Workspace
             {
                 parentViews.Add(view);
 
-                var location = new ViewLocation();
-                location.IsFloating = true;
-                location.FloatingTop = view.FloatingLocation.Top;
-                location.FloatingLeft = view.FloatingLocation.Left;
-                location.FloatingWidth = view.FloatingLocation.Width;
-                location.FloatingHeight = view.FloatingLocation.Height;
-                location.Maximized = view.Maximized;
-                location.FloatTarget = view.FloatingDockTarget;
-
-                location.DockSide = view.FloatingDockSide;
-                location.DockIndex = view.FloatingDockIndex;
-                location.DockWidth = view.FloatingDockWidth;
-                location.DockHeight = view.FloatingDockHeight;
-                location.TabOrderInDocument = view.TabOrderInDocument;
-                location.TabOrderInDock = view.TabOrderInDock;
-                location.TabOrderInFloating = view.TabOrderInFloating;
+                var location = new ViewLocation
+                {
+                    IsFloating = true,
+                    FloatingTop = view.FloatingLocation.Top,
+                    FloatingLeft = view.FloatingLocation.Left,
+                    FloatingWidth = view.FloatingLocation.Width,
+                    FloatingHeight = view.FloatingLocation.Height,
+                    Maximized = view.Maximized,
+                    FloatTarget = view.FloatingDockTarget,
+                    DockSide = view.FloatingDockSide,
+                    DockIndex = view.FloatingDockIndex,
+                    DockWidth = view.FloatingDockWidth,
+                    DockHeight = view.FloatingDockHeight,
+                    TabOrderInDocument = view.TabOrderInDocument,
+                    TabOrderInDock = view.TabOrderInDock,
+                    TabOrderInFloating = view.TabOrderInFloating
+                };
 
                 await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
             }
@@ -73,10 +73,9 @@ namespace Aurora.Core.Workspace
             {
                 await CreateFloatingViews(source, view.ViewId);
             }
-
         }
 
-        private async Task CreateDockedViews(List<WorkspaceViewConfig> source, string dockTarget)
+        private async Task CreateDockedViews(IList<WorkspaceViewConfig> source, string dockTarget)
         {
             var parentViews = new List<WorkspaceViewConfig>();
             IEnumerable<WorkspaceViewConfig> dockedViews;
@@ -93,17 +92,19 @@ namespace Aurora.Core.Workspace
             foreach (var view in dockedViews)
             {
                 parentViews.Add(view);
-                var location = new ViewLocation();
-                location.IsFloating = false;
-                location.DockTarget = view.DockTarget;
-                location.DockState = view.DockState;
-                location.DockSide = view.DockSide;
-                location.DockWidth = view.DockWidth;
-                location.DockHeight = view.DockHeight;
-                location.DockIndex = view.DockIndex;
-                location.TabOrderInDocument = view.TabOrderInDocument;
-                location.TabOrderInDock = view.TabOrderInDock;
-                location.TabOrderInFloating = view.TabOrderInFloating;
+                var location = new ViewLocation
+                {
+                    IsFloating = false,
+                    DockTarget = view.DockTarget,
+                    DockState = view.DockState,
+                    DockSide = view.DockSide,
+                    DockWidth = view.DockWidth,
+                    DockHeight = view.DockHeight,
+                    DockIndex = view.DockIndex,
+                    TabOrderInDocument = view.TabOrderInDocument,
+                    TabOrderInDock = view.TabOrderInDock,
+                    TabOrderInFloating = view.TabOrderInFloating
+                };
                 await CreateView(view.PresenterType, view.ViewId, view.ViewTitle, view.ViewData, location);
             }
 
@@ -141,7 +142,6 @@ namespace Aurora.Core.Workspace
 
         public async Task<WorkspaceLayout> GetCurrentLayout()
         {
-
             var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
             var layout = await service.GetCurrentLayout();
 
@@ -155,8 +155,6 @@ namespace Aurora.Core.Workspace
             layout.Minimized = Application.Current.MainWindow.WindowState == WindowState.Minimized;
 
             return layout;
-
         }
-
     }
 }

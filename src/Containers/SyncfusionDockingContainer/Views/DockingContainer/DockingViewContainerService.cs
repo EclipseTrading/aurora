@@ -20,7 +20,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             this.regionManager = regionManager;
         }
 
-
         public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo) where TActivityInfo : ViewActivityInfo
         {
             var newView = new ViewContext { View = contentView, Info = activityInfo };
@@ -35,17 +34,13 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             }));
         }
 
-        public async Task CloseAllView()
+        public Task CloseAllView()
         {
             var region = regionManager.Regions[DockingContainerRegion.Default];
             var dockingManager = (DockingManager)region.Context;
-            if (dockingManager == null)
-            {
-                return;
-            }
 
-            dockingManager.Children.RemoveRange(0, dockingManager.Children.Count);
-
+            dockingManager?.Children.RemoveRange(0, dockingManager.Children.Count);
+            return Task.FromResult(0);
         }
 
         public async Task<WorkspaceLayout> GetCurrentLayout()
@@ -60,7 +55,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             var layout = new WorkspaceLayout();
 
             var count = dockingManager.Children.Count;
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 var doc = dockingManager.Children[i];
 
@@ -115,13 +110,9 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                     layout.WorkspaceViews.Add(config);
 
                 }
-               
-
             }
 
-            
-
-            return layout;
+            return await Task.FromResult(layout);
         }
     }
 }

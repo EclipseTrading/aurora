@@ -8,5 +8,4 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
         public ActiveView View { get; set; }
         public ViewActivityInfo Info { get; set; }
     }
-
 }
