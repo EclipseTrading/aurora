@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Aurora.Core.Actions;
 
 namespace Aurora.Core
@@ -6,7 +7,7 @@ namespace Aurora.Core
     public class DefaultDependencyHandler : IDependencyHandler
     {
         public IDependencyHandler Parent { get; private set; }
-        public Func<ActionEvent, bool> Delegate { private get; set; }
+        private readonly IDictionary<IAction, IHandler> actionHandlers = new Dictionary<IAction, IHandler>();
 
         public DefaultDependencyHandler(IDependencyHandler parent)
         {
@@ -14,14 +15,18 @@ namespace Aurora.Core
         }
 
         public bool Execute(ActionEvent evt) {
-            if (this.Delegate == null) return Parent.Execute(evt);
+            if (actionHandlers.Count == 0 || evt.Action == null)
+            {
+                return false;
+            }
 
-            return this.Delegate.Invoke(evt) || Parent.Execute(evt);
+            IHandler handler;
+            return actionHandlers.TryGetValue(evt.Action, out handler) && handler.Execute(evt);
         }
 
-        public void Register(IAction action, IHandler handler)
+        public void RegisterActionHandler(IAction action, IHandler handler)
         {
-            
+            actionHandlers[action] = handler;
         }
 
     }
