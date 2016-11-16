@@ -1,4 +1,5 @@
-﻿using Aurora.Core;
+﻿using System.Threading.Tasks;
+using Aurora.Core;
 using System.Windows.Input;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
@@ -28,6 +29,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         private string title;
         private string jsonInput;
         private double dockWidth;
+        private ActiveView testChildView;
 
 
         public ICommand CreateViewCommand { get; set; }
@@ -144,6 +146,14 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             }
         }
 
-
+        public ActiveView TestChildView
+        {
+            get { return testChildView; }
+            set
+            {
+                testChildView = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

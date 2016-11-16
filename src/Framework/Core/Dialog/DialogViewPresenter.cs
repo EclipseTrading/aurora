@@ -11,7 +11,7 @@ namespace Aurora.Core.Dialog
                                                             
     {
         private TaskCompletionSource<TResult> tcs;
-        public DialogViewPresenter() : base(new ViewActivityInfo(null))
+        public DialogViewPresenter(IDependencyHandler dependencyHandler) : base(new ViewActivityInfo(null), dependencyHandler)
         {
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 
 namespace Aurora.Core
@@ -11,8 +12,8 @@ namespace Aurora.Core
     public class Presenter<TViewModel> : Presenter<TViewModel, ActivityInfo>
         where TViewModel : IViewModel
     {
-        public Presenter(ActivityInfo viewActivityInfo)
-            : base(viewActivityInfo)
+        public Presenter(ActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
+            : base(viewActivityInfo, dependencyHandler)
         {
         }
     }
@@ -21,11 +22,14 @@ namespace Aurora.Core
         where TViewModel : IViewModel
         where TActivityInfo : ActivityInfo
     {
+        public IDependencyHandler DependencyHandler { get; }
         private readonly Dictionary<string, List<Action>> propertyChangeActions = new Dictionary<string, List<Action>>();
+        private readonly Dictionary<IAction, IHandler> actionHandlers = new Dictionary<IAction, IHandler>();
         private TViewModel viewModel;
 
-        public Presenter(TActivityInfo viewActivityInfo)
+        public Presenter(TActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
         {
+            this.DependencyHandler = dependencyHandler;
             this.ActivityInfo = viewActivityInfo;
         }
 
@@ -52,15 +56,32 @@ namespace Aurora.Core
         {
             this.ViewModel = vm;
             this.ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            DependencyHandler.Delegate = (evt) => this.HandleAction(evt);
 
             this.OnInitialized();
 
             return Task.FromResult(false);
         }
 
+        private bool HandleAction(ActionEvent evt)
+        {
+            if (actionHandlers.Count == 0 || evt.Action == null)
+            {
+                return false;
+            }
+
+            IHandler handler;
+            return actionHandlers.TryGetValue(evt.Action, out handler) && handler.Execute(evt);
+        }
+
         protected virtual void OnViewModelChanged() { }
 
         protected virtual void OnInitialized() { }
+
+        protected void RegisterActionHandler(IAction action, IHandler handler)
+        {
+            actionHandlers[action] = handler;
+        }
 
         public void OnViewModelPropertyChanged<TPropertyType>(Expression<Func<TViewModel, TPropertyType>> property, Action propertyChangedAction, bool suppressInitial = false)
         {

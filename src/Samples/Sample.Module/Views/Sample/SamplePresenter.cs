@@ -24,8 +24,8 @@ namespace Aurora.Sample.Module.Views.Sample
         private IDisposable observableDisposable;
         private IDisposable subDisposable;
 
-        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService)
-            : base(activityInfo)
+        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService, IDependencyHandler dependencyHandler)
+            : base(activityInfo, dependencyHandler)
         {
             this.activityInfo = activityInfo;
             this.activityService = activityService;

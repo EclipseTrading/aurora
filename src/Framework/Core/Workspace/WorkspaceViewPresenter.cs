@@ -6,7 +6,7 @@ namespace Aurora.Core.Workspace
     public class WorkspaceViewPresenter<TViewModel> : ViewPresenter<TViewModel, ViewActivityInfo>, IViewContainerAware
         where TViewModel : IViewModel
     {
-        public WorkspaceViewPresenter(ViewActivityInfo info) : base(info)
+        public WorkspaceViewPresenter(ViewActivityInfo info, IDependencyHandler dependencyHandler) : base(info, dependencyHandler)
         {
 
         }

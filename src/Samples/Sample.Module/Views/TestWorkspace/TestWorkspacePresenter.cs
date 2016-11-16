@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using Aurora.Core;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Aurora.Core.Workspace;
 using Microsoft.Practices.Prism.Commands;
@@ -11,13 +13,21 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
     public class TestWorkspacePresenter : WorkspaceViewPresenter<TestWorkspaceViewModel>
     {
         private readonly IWorkspace workspace;
-       
-        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace) : base(info)
+        private IActionService actionService;
+
+        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace, IActionService actionService, IDependencyHandler dependencyHandler) : base(info, dependencyHandler)
         {
             this.workspace = workspace;
+            this.actionService = actionService;
         }
 
-        protected override void OnViewModelChanged()
+        protected override void OnInitialized()
+        {
+            var action = actionService.GetAction("action1");
+            this.RegisterActionHandler(action, new TestWorkspaceActionHandler());
+        }
+
+        protected override async void OnViewModelChanged()
         {
             this.ViewModel.CreateViewCommand = new DelegateCommand(async () => { await this.CreateView(); });
             this.ViewModel.ToggleOrientationCommand = new DelegateCommand(this.ToogleOrientation);
@@ -30,6 +40,9 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 
             var input = ViewActivityInfo.ViewData?.ToString();
             this.ViewModel.JsonInput = input ?? "{}";
+
+            var testChildView = await this.AddChildViewAsync(typeof(TestChildPresenter));
+            this.ViewModel.TestChildView = testChildView;
         }
 
         private void ToogleOrientation()

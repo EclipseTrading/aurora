@@ -9,8 +9,8 @@ namespace Aurora.TabContainer.Views.Tab
     {
         public event EventHandler RequestClose;
 
-        public TabPresenter(TabActivityInfo viewActivityInfo)
-            : base(viewActivityInfo)
+        public TabPresenter(TabActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
+            : base(viewActivityInfo, dependencyHandler)
         {
         }
 

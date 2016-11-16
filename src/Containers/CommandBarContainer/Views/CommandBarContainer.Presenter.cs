@@ -6,7 +6,7 @@ namespace Aurora.CommandBarContainer.Views
 {
     public class CommandBarContainerPresenter : Presenter<CommandBarContainerViewModel, CommandBarContainerActivityInfo>
     {
-        public CommandBarContainerPresenter(CommandBarContainerActivityInfo activityInfo) : base(activityInfo)
+        public CommandBarContainerPresenter(CommandBarContainerActivityInfo activityInfo, IDependencyHandler dependencyHandler) : base(activityInfo, dependencyHandler)
         {
             
         }

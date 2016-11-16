@@ -16,7 +16,7 @@ namespace Aurora.Core
     {
         private readonly List<ActiveView> childViews = new List<ActiveView>();
 
-        public ViewPresenter(TActivityInfo viewActivityInfo) : base(viewActivityInfo)
+        public ViewPresenter(TActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler) : base(viewActivityInfo, dependencyHandler)
         {
         }
 
@@ -49,6 +49,7 @@ namespace Aurora.Core
                 {
                     activityInfo,
                     new TypeOverride<ViewActivityInfo>(activityInfo),
+                    new TypeOverride<IDependencyHandler>(DependencyHandler) 
                 }).ToArray());
             this.childViews.Add(view);
             return view;

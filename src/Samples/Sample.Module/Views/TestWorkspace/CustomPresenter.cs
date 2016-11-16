@@ -1,11 +1,12 @@
-﻿using Aurora.Core.Activities;
+﻿using Aurora.Core;
+using Aurora.Core.Activities;
 using Aurora.Core.Workspace;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
 {
     public class CustomPresenter : WorkspaceViewPresenter<CustomViewModel>
     {
-        public CustomPresenter(ViewActivityInfo viewActivityInfo) : base(viewActivityInfo)
+        public CustomPresenter(ViewActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler) : base(viewActivityInfo, dependencyHandler)
         {
         }
 

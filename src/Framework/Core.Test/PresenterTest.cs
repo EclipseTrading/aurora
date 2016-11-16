@@ -33,7 +33,7 @@ namespace Aurora.Core.Test
 
     public class TestPresenter : Presenter<TestViewModel>
     {
-        public TestPresenter(ActivityInfo viewActivityInfo) : base(viewActivityInfo)
+        public TestPresenter(ActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler) : base(viewActivityInfo, dependencyHandler)
         {
         }
     }
