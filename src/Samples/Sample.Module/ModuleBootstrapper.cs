@@ -20,7 +20,7 @@ namespace Aurora.Sample.Module
 
         private WorkspaceLayout lastSaved;
         private IActionService actionService;
-        private IHandlerService handlerSerbice;
+        private IHandlerService handlerService;
         private IBindingService bindingService;
 
         public ModuleBootstrapper(ICommandBarService commandBarService, IWorkspace workspace, IActionService actionService, IHandlerService handlerService, IBindingService bindingService)
@@ -28,7 +28,7 @@ namespace Aurora.Sample.Module
             this.commandBarService = commandBarService;
             this.currentWorkspace = workspace;
             this.actionService = actionService;
-            this.handlerSerbice = handlerService;
+            this.handlerService = handlerService;
             this.bindingService = bindingService;
         }
 
@@ -207,7 +207,7 @@ namespace Aurora.Sample.Module
 
             var action = new DefaultAction("action1");
             actionService.RegisterAction(action);
-            handlerSerbice.RegisterHandler(action, new TestHandler());
+            handlerService.RegisterHandler(action, new TestHandler());
             bindingService.RegisterBinding(new KeyStroke(Key.L, true), action);
 
             var nested = new MenuItemCommand("Nested",

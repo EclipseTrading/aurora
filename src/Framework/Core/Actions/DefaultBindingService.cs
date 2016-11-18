@@ -60,7 +60,7 @@ namespace Aurora.Core.Actions
             // Recursively find handler along element tree upward
             while (depObj != null)
             {
-                var handler = ViewPropertyHelper.GetDependencyHandler(depObj); // GetActionHandler(activeElement);
+                var handler = ViewPropertyHelper.GetDependencyHandler(depObj);
                 Debug.WriteLine($"DefBindingService - find parent element: {i}: {depObj}:handler={handler}");
                 if (handler != null)
                 {
@@ -68,8 +68,7 @@ namespace Aurora.Core.Actions
                     return handler;
                 }
 
-                depObj = VisualTreeHelper.GetParent(depObj);
-                //depObj = LogicalTreeHelper.GetParent(depObj);
+                depObj = LogicalTreeHelper.GetParent(depObj);
                 i++;
             }
 
@@ -95,47 +94,11 @@ namespace Aurora.Core.Actions
 
         private static IEventContext CreateEventContext()
         {
-            var activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var scope = FocusManager.GetFocusScope(activeWindow);
-            Debug.WriteLine($"focus scope: {scope}");
-
-
-            var activeElement = activeWindow == null ? null : FocusManager.GetFocusedElement(activeWindow);
-            var someelemen = FocusManagerHelper.GetFocusedUIElement((UIElement) activeElement);
-
-            Debug.WriteLine($"activeWin: {activeWindow}");
-            PrintTree(activeWindow);
-
-            var tabHost = activeElement as DockedElementTabbedHost;
-            if (tabHost != null)
-            {
-                Debug.WriteLine($"DockedElementTabbedHost found: {tabHost}");
-                Debug.WriteLine($"----Print DockedElementTabbedHost.HostedElement: {tabHost.HostedElement}");
-                PrintTree(tabHost.HostedElement);
-                Debug.WriteLine($"----Print DockedElementTabbedHost.InternalDataContext: {tabHost.InternalDataContext}");
-                PrintTree(tabHost.InternalDataContext);
-            }
-
-
             return new DefaultEventContext(
-                activeWindow,
-                activeElement,
+                Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                Keyboard.FocusedElement,
                 Keyboard.FocusedElement
                 );
-        }
-
-        private static void PrintTree(DependencyObject depObj, int level = 0)
-        {
-            foreach (var child in LogicalTreeHelper.GetChildren(depObj))
-            {
-                var prefix = "-".PadLeft(level);
-                Debug.WriteLine($"{prefix} element: {child}");
-                var depChild = child as DependencyObject;
-                if (depChild != null)
-                {
-                    PrintTree(depChild, level + 1);
-                }
-            }
         }
 
         public void RegisterBinding(KeyStroke keyStroke, IAction action)

@@ -17,11 +17,11 @@ namespace Aurora.Core
         public bool Execute(ActionEvent evt) {
             if (actionHandlers.Count == 0 || evt.Action == null)
             {
-                return false;
+                return (Parent?.Execute(evt)).GetValueOrDefault();
             }
 
             IHandler handler;
-            return actionHandlers.TryGetValue(evt.Action, out handler) && handler.Execute(evt);
+            return actionHandlers.TryGetValue(evt.Action, out handler) ? handler.Execute(evt) : (Parent?.Execute(evt)).GetValueOrDefault();
         }
 
         public void RegisterActionHandler(IAction action, IHandler handler)

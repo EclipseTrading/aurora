@@ -8,7 +8,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
     {
         public bool Execute(ActionEvent evt)
         {
-            MessageBox.Show(Application.Current.MainWindow, $"Command handled in {this.GetType().Name}");
+            MessageBox.Show(evt.EvtCtx.ActiveWindow??Application.Current.MainWindow, $"Command handled in {this.GetType().Name}");
             return true;
         }
     }
