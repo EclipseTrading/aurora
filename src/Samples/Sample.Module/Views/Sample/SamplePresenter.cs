@@ -9,6 +9,7 @@ using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
 using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
 using System.Threading.Tasks;
+using Aurora.Core.Actions;
 using Aurora.Sample.Module.Views.Dialog;
 
 namespace Aurora.Sample.Module.Views.Sample
@@ -24,8 +25,8 @@ namespace Aurora.Sample.Module.Views.Sample
         private IDisposable observableDisposable;
         private IDisposable subDisposable;
 
-        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService)
-            : base(activityInfo)
+        public SamplePresenter(SampleViewActivityInfo activityInfo, IActivityService activityService, IActionHandlerService actionHandlerService)
+            : base(activityInfo, actionHandlerService)
         {
             this.activityInfo = activityInfo;
             this.activityService = activityService;

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aurora.Sample.Module.Views.TestWorkspace"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:Aurora.Controls;assembly=Aurora.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.Resources>
@@ -25,6 +26,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <RadioButton Grid.Row="0" GroupName="CreateChoice" Content="Create floating window"
@@ -70,8 +72,11 @@
                     <Button  Command="{Binding Path=CreateViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Create View</Button>
                     <Button  Command="{Binding Path=ToggleOrientationCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Toogle Orientation</Button>
                     <Button  Command="{Binding Path=CloseViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Close View</Button>
-                </StackPanel>
-             
+                    <Button  Command="ApplicationCommands.Paste" HorizontalAlignment="Left" Margin="20,5,0,0">Paste</Button>
+            </StackPanel>
+            
+                <controls:ActiveViewer ActiveView="{Binding Path=TestChildView}" Grid.Row="7"/> 
+
             </Grid>
 
   

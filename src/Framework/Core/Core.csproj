@@ -70,6 +70,22 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Syncfusion.Data.WPF, Version=14.3451.0.49, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Data.WPF451.14.3.0.49\lib\net451\Syncfusion.Data.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=14.3451.0.49, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.SfGrid.WPF451.14.3.0.49\lib\net451\Syncfusion.SfGrid.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Wpf, Version=14.3451.0.49, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Shared.WPF451.14.3.0.49\lib\net451\Syncfusion.Shared.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf, Version=14.3451.0.49, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Tools.WPF451.14.3.0.49\lib\net451\Syncfusion.Tools.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -83,6 +99,18 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ActionEvent.cs" />
+    <Compile Include="DefaultPresenterHandlerService.cs" />
+    <Compile Include="Actions\ActionParameter.cs" />
+    <Compile Include="Actions\DefaultAction.cs" />
+    <Compile Include="Actions\DefaultActionService.cs" />
+    <Compile Include="Actions\DefaultEventContext.cs" />
+    <Compile Include="Actions\IActionParameter.cs" />
+    <Compile Include="Actions\IEventContext.cs" />
+    <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Actions\IActionService.cs" />
+    <Compile Include="Actions\IActionHandler.cs" />
+    <Compile Include="Actions\KeyExtension.cs" />
     <Compile Include="ActiveView.cs" />
     <Compile Include="Activities\ActivityInfo.cs" />
     <Compile Include="Activities\ActivityInfoAttribute.cs" />
@@ -91,6 +119,10 @@
     <Compile Include="Activities\ContainerActivityInfo.cs" />
     <Compile Include="Activities\ViewActivityInfo.cs" />
     <Compile Include="Activities\ViewContainerActivity.cs" />
+    <Compile Include="Actions\DefaultBindingService.cs" />
+    <Compile Include="Actions\IBindingService.cs" />
+    <Compile Include="Actions\KeyDownListener.cs" />
+    <Compile Include="Actions\KeyStroke.cs" />
     <Compile Include="Commands\StartActivityCommand.cs" />
     <Compile Include="CompositeTypeResolver.cs" />
     <Compile Include="Container\DividerItem.cs" />
@@ -122,6 +154,9 @@
     <Compile Include="Dialog\DialogViewModel.cs" />
     <Compile Include="Dialog\DialogViewPresenter.cs" />
     <Compile Include="Dialog\IDialogViewPresenter.cs" />
+    <Compile Include="Actions\DefaultHandlerService.cs" />
+    <Compile Include="Actions\IActionHandlerService.cs" />
+    <Compile Include="DictionaryHelper.cs" />
     <Compile Include="IApplicationWindowViewModel.cs" />
     <Compile Include="IModuleProvider.cs" />
     <Compile Include="IViewFactory.cs" />
@@ -149,6 +184,7 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewPresenter.cs" />
+    <Compile Include="ViewPropertyHelper.cs" />
     <Compile Include="Workspace\DockGroupConfig.cs" />
     <Compile Include="Workspace\DockingConfig.cs" />
     <Compile Include="Workspace\DockingOrientation.cs" />

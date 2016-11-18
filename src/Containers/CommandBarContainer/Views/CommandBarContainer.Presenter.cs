@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Aurora.Core;
+using Aurora.Core.Actions;
 using Aurora.Core.Container;
 
 namespace Aurora.CommandBarContainer.Views
 {
     public class CommandBarContainerPresenter : Presenter<CommandBarContainerViewModel, CommandBarContainerActivityInfo>
     {
-        public CommandBarContainerPresenter(CommandBarContainerActivityInfo activityInfo) : base(activityInfo)
+        public CommandBarContainerPresenter(CommandBarContainerActivityInfo activityInfo, IActionHandlerService actionHandlerService) : base(activityInfo, actionHandlerService)
         {
             
         }

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Aurora.Sample.Module.Views.TestWorkspace.TestChildView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aurora.Sample.Module.Views.TestWorkspace"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:Aurora.Controls;assembly=Aurora.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="600">
+    <UserControl.Resources>
+        <local:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+        <ObjectDataProvider x:Key="ViewTypes" 
+                        MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ViewType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid Background="LightGreen">
+        <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,0,0,0">
+                <Menu>
+                    <MenuItem Command="ApplicationCommands.Paste" />
+                </Menu>
+                <Label >Title:</Label>
+                    <TextBox Width="80" Text="{Binding Path=Title}"></TextBox>
+                <Button Content="Test Button" Width="120" Margin="5,5,5,5" Command="{Binding Path=ClickCommand}" />
+                <Button Content="Paste2" Width="120" Margin="5,5,5,5" Command="ApplicationCommands.Paste" CommandTarget="{Binding ElementName=paste2box}" />
+                <TextBox Name="paste2box" Width="80"></TextBox>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+
+</UserControl>

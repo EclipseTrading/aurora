@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
 using Aurora.Core.Dialog;
@@ -24,21 +25,34 @@ namespace Aurora.Core
         
         public async Task<ActiveView> CreateActiveViewAsync(IActivity activity, Type presenterType, params object[] parameters)
         {
-            var overrides =
-                parameters.Select(p =>
+            var parentHandlerService = (IActionHandlerService)
+                parameters.Where(p => (p as TypeOverride)?.Type is IActionHandlerService)
+                    .Select(p=> (p as TypeOverride)?.Value)
+                    .SingleOrDefault();
+
+            var overrideList =
+                parameters.Where(p => !((p as TypeOverride)?.Type is IActionHandlerService))
+                .Select(p =>
                 {
                     var typeOverride = p as TypeOverride;
                     return (ResolverOverride)(typeOverride != null ?
                         new DependencyOverride(typeOverride.Type, typeOverride.Value) :
                         new DependencyOverride(p.GetType(), p));
-                }).ToArray();
+                }).ToList();
+
+            var handlerService = new DefaultPresenterActionHandlerService(parentHandlerService ?? container.Resolve<IActionHandlerService>());
+            overrideList.Add(new DependencyOverride(typeof(IActionHandlerService), handlerService));
+
+            var overrides = overrideList.ToArray();
 
             var presenter = (IPresenter)container.Resolve(presenterType, overrides);
             var viewType = viewResolver.ResolveType(presenterType);
             var viewModelType = viewModelResolver.ResolveType(presenterType);
             var view = (FrameworkElement)container.Resolve(viewType, overrides);
-            var viewModel = (IViewModel)container.Resolve(viewModelType, overrides);
 
+            ViewPropertyHelper.SetActionHandlerService(view, handlerService);
+
+            var viewModel = (IViewModel)container.Resolve(viewModelType, overrides);
 
             ActiveView result = null;
             if (presenter is IViewPresenter)

@@ -1,4 +1,5 @@
-﻿using Aurora.Core.Activities;
+﻿using Aurora.Core.Actions;
+using Aurora.Core.Activities;
 using Aurora.Core.ViewContainer;
 
 namespace Aurora.Core.Workspace
@@ -6,7 +7,7 @@ namespace Aurora.Core.Workspace
     public class WorkspaceViewPresenter<TViewModel> : ViewPresenter<TViewModel, ViewActivityInfo>, IViewContainerAware
         where TViewModel : IViewModel
     {
-        public WorkspaceViewPresenter(ViewActivityInfo info) : base(info)
+        public WorkspaceViewPresenter(ViewActivityInfo info, IActionHandlerService actionHandlerService) : base(info, actionHandlerService)
         {
 
         }

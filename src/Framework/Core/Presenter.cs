@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 
 namespace Aurora.Core
@@ -11,8 +12,8 @@ namespace Aurora.Core
     public class Presenter<TViewModel> : Presenter<TViewModel, ActivityInfo>
         where TViewModel : IViewModel
     {
-        public Presenter(ActivityInfo viewActivityInfo)
-            : base(viewActivityInfo)
+        public Presenter(ActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService)
+            : base(viewActivityInfo, actionHandlerService)
         {
         }
     }
@@ -21,11 +22,13 @@ namespace Aurora.Core
         where TViewModel : IViewModel
         where TActivityInfo : ActivityInfo
     {
+        public IActionHandlerService ActionHandlerService { get; }
         private readonly Dictionary<string, List<Action>> propertyChangeActions = new Dictionary<string, List<Action>>();
         private TViewModel viewModel;
 
-        public Presenter(TActivityInfo viewActivityInfo)
+        public Presenter(TActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService)
         {
+            this.ActionHandlerService = actionHandlerService;
             this.ActivityInfo = viewActivityInfo;
         }
 
@@ -61,6 +64,11 @@ namespace Aurora.Core
         protected virtual void OnViewModelChanged() { }
 
         protected virtual void OnInitialized() { }
+
+        protected void RegisterActionHandler(IAction action, IActionHandler actionHandler)
+        {
+            ActionHandlerService.RegisterHandler(action, actionHandler);
+        }
 
         public void OnViewModelPropertyChanged<TPropertyType>(Expression<Func<TViewModel, TPropertyType>> property, Action propertyChangedAction, bool suppressInitial = false)
         {

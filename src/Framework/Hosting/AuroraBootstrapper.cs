@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows;
 using Aurora.Core;
+using Aurora.Core.Actions;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Aurora.SyncfusionDockingContainer.Views.DockingContainer;
@@ -66,15 +67,18 @@ namespace Aurora.Hosting
         {
             base.ConfigureContainer();
 
-             this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
+            this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
             this.Container.RegisterType(typeof(IActivityService), typeof(DefaultActivityService), new ContainerControlledLifetimeManager());
+
+            this.Container.RegisterType<IActionHandlerService, DefaultActionHandlerService>(new ContainerControlledLifetimeManager());
+            this.Container.RegisterType<IActionService, DefaultActionService>(new ContainerControlledLifetimeManager());
+            this.Container.RegisterType<IBindingService, DefaultBindingService>(new ContainerControlledLifetimeManager()).Resolve<IBindingService>(); // Immediate resolve after registration to kick off key event hook
 
             this.Container.RegisterType(typeof(IViewManager), typeof(DefaultViewManager), new ContainerControlledLifetimeManager());
 
             this.Container.RegisterType(typeof(IViewFactory), typeof(ViewFactory));
          
-            this.Container.RegisterType(typeof(IWorkspace), typeof(Workspace),
-                 new ContainerControlledLifetimeManager());
+            this.Container.RegisterType(typeof(IWorkspace), typeof(Workspace), new ContainerControlledLifetimeManager());
 
             this.Container.RegisterInstance(typeof (IApplicationWindowViewModel), windowViewModel);
 
