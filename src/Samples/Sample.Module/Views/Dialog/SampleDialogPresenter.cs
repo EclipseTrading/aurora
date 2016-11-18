@@ -2,6 +2,7 @@
 using Microsoft.Practices.Prism.Commands;
 using System.Threading.Tasks;
 using Aurora.Core;
+using Aurora.Core.Actions;
 
 namespace Aurora.Sample.Module.Views.Dialog
 {
@@ -9,7 +10,7 @@ namespace Aurora.Sample.Module.Views.Dialog
     public class SampleDialogPresenter : DialogViewPresenter<SampleDialogViewModel,SampleDialogResult>
     {
 
-        public SampleDialogPresenter(IDependencyHandler dependencyHandler) : base(dependencyHandler)
+        public SampleDialogPresenter(IActionHandlerService actionHandlerService) : base(actionHandlerService)
         {
         }
 

@@ -12,8 +12,8 @@ namespace Aurora.Core
     public class Presenter<TViewModel> : Presenter<TViewModel, ActivityInfo>
         where TViewModel : IViewModel
     {
-        public Presenter(ActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
-            : base(viewActivityInfo, dependencyHandler)
+        public Presenter(ActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService)
+            : base(viewActivityInfo, actionHandlerService)
         {
         }
     }
@@ -22,13 +22,13 @@ namespace Aurora.Core
         where TViewModel : IViewModel
         where TActivityInfo : ActivityInfo
     {
-        public IDependencyHandler DependencyHandler { get; }
+        public IActionHandlerService ActionHandlerService { get; }
         private readonly Dictionary<string, List<Action>> propertyChangeActions = new Dictionary<string, List<Action>>();
         private TViewModel viewModel;
 
-        public Presenter(TActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
+        public Presenter(TActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService)
         {
-            this.DependencyHandler = dependencyHandler;
+            this.ActionHandlerService = actionHandlerService;
             this.ActivityInfo = viewActivityInfo;
         }
 
@@ -65,9 +65,9 @@ namespace Aurora.Core
 
         protected virtual void OnInitialized() { }
 
-        protected void RegisterActionHandler(IAction action, IHandler handler)
+        protected void RegisterActionHandler(IAction action, IActionHandler actionHandler)
         {
-            DependencyHandler.RegisterActionHandler(action, handler);
+            ActionHandlerService.RegisterHandler(action, actionHandler);
         }
 
         public void OnViewModelPropertyChanged<TPropertyType>(Expression<Func<TViewModel, TPropertyType>> property, Action propertyChangedAction, bool suppressInitial = false)

@@ -100,8 +100,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ActionEvent.cs" />
-    <Compile Include="DefaultDependencyHandler.cs" />
-    <Compile Include="Actions\ActionDefinition.cs" />
+    <Compile Include="DefaultPresenterHandlerService.cs" />
     <Compile Include="Actions\ActionParameter.cs" />
     <Compile Include="Actions\DefaultAction.cs" />
     <Compile Include="Actions\DefaultActionService.cs" />
@@ -110,7 +109,7 @@
     <Compile Include="Actions\IEventContext.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Actions\IActionService.cs" />
-    <Compile Include="Actions\IHandler.cs" />
+    <Compile Include="Actions\IActionHandler.cs" />
     <Compile Include="Actions\KeyExtension.cs" />
     <Compile Include="ActiveView.cs" />
     <Compile Include="Activities\ActivityInfo.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="Container\DividerItem.cs" />
     <Compile Include="Container\IWorkspaceContainerService.cs" />
     <Compile Include="Container\MenuItemCommand.cs" />
-    <Compile Include="RootDependencyHandler.cs" />
     <Compile Include="DefaultModuleProvider.cs" />
     <Compile Include="Container\CommandBarItem.cs" />
     <Compile Include="Container\DefaultCommandBarServiceHost.cs" />
@@ -157,9 +155,8 @@
     <Compile Include="Dialog\DialogViewPresenter.cs" />
     <Compile Include="Dialog\IDialogViewPresenter.cs" />
     <Compile Include="Actions\DefaultHandlerService.cs" />
-    <Compile Include="Actions\IHandlerService.cs" />
+    <Compile Include="Actions\IActionHandlerService.cs" />
     <Compile Include="DictionaryHelper.cs" />
-    <Compile Include="IDependencyHandler.cs" />
     <Compile Include="IApplicationWindowViewModel.cs" />
     <Compile Include="IModuleProvider.cs" />
     <Compile Include="IViewFactory.cs" />

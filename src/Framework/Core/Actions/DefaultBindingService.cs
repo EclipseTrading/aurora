@@ -15,11 +15,11 @@ namespace Aurora.Core.Actions
     public class DefaultBindingService : IBindingService
     {
         private readonly Dictionary<KeyStroke, IAction> keyStrokeToActionIdMap = new Dictionary<KeyStroke, IAction>();
-        private readonly RootDependencyHandler rootHandler;
+        private readonly IActionHandlerService actionHandlerService;
 
-        public DefaultBindingService(IHandlerService handlerService)
+        public DefaultBindingService(IActionHandlerService actionHandlerService)
         {
-            this.rootHandler = new RootDependencyHandler(handlerService);
+            this.actionHandlerService = actionHandlerService;
             new KeyDownListener(Application.Current, Dispatch);
         }
 
@@ -31,7 +31,6 @@ namespace Aurora.Core.Actions
             }
 
             var keyStroke = new KeyStroke(evt);
-            Console.WriteLine($"Dispatch key: {keyStroke}");
 
             IAction action;
             if (!keyStrokeToActionIdMap.TryGetValue(keyStroke, out action))
@@ -47,24 +46,24 @@ namespace Aurora.Core.Actions
             }
         }
 
-        private IDependencyHandler GetActionHandler(IEventContext ctx)
+        private IActionHandler GetActionHandler(IEventContext ctx)
         {
             var depObj = ctx.ActiveElement as DependencyObject;
             if (depObj == null)
             {
                 // No active selected element
-                return rootHandler;
+                return actionHandlerService;
             }
                  
             var i = 0;
-            // Recursively find handler along element tree upward
+            // Recursively find actionHandler along element tree upward
             while (depObj != null)
             {
-                var handler = ViewPropertyHelper.GetDependencyHandler(depObj);
-                Debug.WriteLine($"DefBindingService - find parent element: {i}: {depObj}:handler={handler}");
+                var handler = ViewPropertyHelper.GetActionHandlerService(depObj);
+                Debug.WriteLine($"DefBindingService - find parent element: {i}: {depObj}:actionHandler={handler}");
                 if (handler != null)
                 {
-                    // Remove handler found from selected element
+                    // Remove actionHandler found from selected element
                     return handler;
                 }
 
@@ -72,9 +71,8 @@ namespace Aurora.Core.Actions
                 i++;
             }
 
-            return rootHandler;
+            return actionHandlerService;
         }
-        
 
         private static bool IsRejectedKey(KeyEventArgs evt)
         {

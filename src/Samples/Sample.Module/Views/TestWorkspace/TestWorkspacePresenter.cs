@@ -15,7 +15,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         private readonly IWorkspace workspace;
         private IActionService actionService;
 
-        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace, IActionService actionService, IDependencyHandler dependencyHandler) : base(info, dependencyHandler)
+        public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace, IActionService actionService, IActionHandlerService actionHandlerService) : base(info, actionHandlerService)
         {
             this.workspace = workspace;
             this.actionService = actionService;
@@ -24,7 +24,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         protected override void OnInitialized()
         {
             var action = actionService.GetAction("action1");
-            this.RegisterActionHandler(action, new TestWorkspaceActionHandler());
+            this.RegisterActionHandler(action, new TestActionHandler("TestWorkspacePresenter"));
         }
 
         protected override async void OnViewModelChanged()

@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Aurora.Core.Actions;
 
 namespace Aurora.Core
 {
     public static class ViewPropertyHelper
     {
-        public static readonly DependencyProperty DependencyHandlerProperty = DependencyProperty.RegisterAttached(
-           "DependencyHandler", typeof(IDependencyHandler), typeof(ViewPropertyHelper), new PropertyMetadata(default(IDependencyHandler)));
+        public static readonly DependencyProperty ActionHandlerServiceProperty = DependencyProperty.RegisterAttached(
+           "ActionHandlerService", typeof(IActionHandlerService), typeof(ViewPropertyHelper), new PropertyMetadata(default(IActionHandlerService)));
 
-        public static void SetDependencyHandler(DependencyObject element, IDependencyHandler value)
+        public static void SetActionHandlerService(DependencyObject element, IActionHandlerService value)
         {
-            element.SetValue(DependencyHandlerProperty, value);
+            element.SetValue(ActionHandlerServiceProperty, value);
         }
 
-        public static IDependencyHandler GetDependencyHandler(DependencyObject element)
+        public static IActionHandlerService GetActionHandlerService(DependencyObject element)
         {
-            return (IDependencyHandler)element.GetValue(DependencyHandlerProperty);
+            return (IActionHandlerService)element.GetValue(ActionHandlerServiceProperty);
         }
     }
 }

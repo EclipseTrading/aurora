@@ -70,7 +70,7 @@ namespace Aurora.Hosting
             this.Container.RegisterType(typeof(IContainerService), typeof(DefaultContainerService), new ContainerControlledLifetimeManager());
             this.Container.RegisterType(typeof(IActivityService), typeof(DefaultActivityService), new ContainerControlledLifetimeManager());
 
-            this.Container.RegisterType<IHandlerService, DefaultHandlerService>(new ContainerControlledLifetimeManager());
+            this.Container.RegisterType<IActionHandlerService, DefaultActionHandlerService>(new ContainerControlledLifetimeManager());
             this.Container.RegisterType<IActionService, DefaultActionService>(new ContainerControlledLifetimeManager());
             this.Container.RegisterType<IBindingService, DefaultBindingService>(new ContainerControlledLifetimeManager()).Resolve<IBindingService>(); // Immediate resolve after registration to kick off key event hook
 

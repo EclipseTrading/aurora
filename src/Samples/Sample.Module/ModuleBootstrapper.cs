@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -20,15 +21,15 @@ namespace Aurora.Sample.Module
 
         private WorkspaceLayout lastSaved;
         private IActionService actionService;
-        private IHandlerService handlerService;
+        private IActionHandlerService actionHandlerService;
         private IBindingService bindingService;
 
-        public ModuleBootstrapper(ICommandBarService commandBarService, IWorkspace workspace, IActionService actionService, IHandlerService handlerService, IBindingService bindingService)
+        public ModuleBootstrapper(ICommandBarService commandBarService, IWorkspace workspace, IActionService actionService, IActionHandlerService actionHandlerService, IBindingService bindingService)
         {
             this.commandBarService = commandBarService;
             this.currentWorkspace = workspace;
             this.actionService = actionService;
-            this.handlerService = handlerService;
+            this.actionHandlerService = actionHandlerService;
             this.bindingService = bindingService;
         }
 
@@ -205,9 +206,13 @@ namespace Aurora.Sample.Module
             commandBarService.AddCommand(cmdItem);
 
 
-            var action = new DefaultAction("action1");
+            var action = new DefaultAction("action1", new IActionParameter[]
+            {
+                new ActionParameter("param1", true),
+                new ActionParameter("param2", "valueABC", true)
+            });
             actionService.RegisterAction(action);
-            handlerService.RegisterHandler(action, new TestHandler());
+            actionHandlerService.RegisterHandler(action, new TestActionHandler("root"));
             bindingService.RegisterBinding(new KeyStroke(Key.L, true), action);
 
             var nested = new MenuItemCommand("Nested",
@@ -221,15 +226,6 @@ namespace Aurora.Sample.Module
 
             commandBarService.AddCommand(nested);
 
-        }
-    }
-
-    public class TestHandler : IHandler
-    {
-        public bool Execute(ActionEvent evt)
-        {
-            MessageBox.Show(evt.EvtCtx.ActiveWindow, $"Handled by module-registered handler: {evt.EvtCtx}");
-            return true;
         }
     }
 }

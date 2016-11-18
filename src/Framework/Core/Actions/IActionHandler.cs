@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Aurora.Core.Actions
 {
-    public interface IHandlerService
+    public interface IActionHandler
     {
-        void Execute(ActionEvent evt);
-        void RegisterHandler(IAction action, IHandler handler);
+        bool Execute(ActionEvent evt);
     }
 }

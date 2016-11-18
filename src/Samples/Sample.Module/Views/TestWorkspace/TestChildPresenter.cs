@@ -11,7 +11,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
     {
         private readonly IActionService actionService;
         
-        public TestChildPresenter(IActionService actionService, IDependencyHandler dependencyHandler) : base(new ViewActivityInfo(null), dependencyHandler)
+        public TestChildPresenter(IActionService actionService, IActionHandlerService actionHandlerService) : base(new ViewActivityInfo(null), actionHandlerService)
         {
             Debug.WriteLine("Create TestChildViewPresenter");
             this.actionService = actionService;
@@ -20,7 +20,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         protected override void OnInitialized()
         {
             var action = actionService.GetAction("action1");
-            this.RegisterActionHandler(action, new TestChildActionHandler());
+            this.RegisterActionHandler(action, new TestActionHandler("TestChildPresenter"));
         }
 
         protected override void OnViewModelChanged()

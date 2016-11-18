@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
 using Aurora.Core.Dialog;
@@ -16,7 +17,7 @@ namespace Aurora.Core
     {
         private readonly List<ActiveView> childViews = new List<ActiveView>();
 
-        public ViewPresenter(TActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler) : base(viewActivityInfo, dependencyHandler)
+        public ViewPresenter(TActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService) : base(viewActivityInfo, actionHandlerService)
         {
         }
 
@@ -49,7 +50,7 @@ namespace Aurora.Core
                 {
                     activityInfo,
                     new TypeOverride<ViewActivityInfo>(activityInfo),
-                    new TypeOverride<IDependencyHandler>(DependencyHandler) 
+                    new TypeOverride<IActionHandlerService>(ActionHandlerService) 
                 }).ToArray());
             this.childViews.Add(view);
             return view;

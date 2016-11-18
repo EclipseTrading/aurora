@@ -3,30 +3,31 @@ using System.Diagnostics;
 
 namespace Aurora.Core.Actions
 {
-    public class DefaultHandlerService : IHandlerService
+    public class DefaultActionHandlerService : IActionHandlerService
     {
-        private readonly IDictionary<IAction, IHandler> handlerMap = new Dictionary<IAction, IHandler>();
+        private readonly IDictionary<IAction, IActionHandler> handlerMap = new Dictionary<IAction, IActionHandler>();
 
-        public void Execute(ActionEvent evt)
+        public bool Execute(ActionEvent evt)
         {
             lock (handlerMap)
             {
-                IHandler handler;
-                if (handlerMap.TryGetValue(evt.Action, out handler))
+                IActionHandler actionHandler;
+                if (handlerMap.TryGetValue(evt.Action, out actionHandler))
                 {
-                    handler.Execute(evt);
+                    actionHandler.Execute(evt);
                 }
             };
+            return true;
         }
 
-        public void RegisterHandler(IAction action, IHandler handler)
+        public void RegisterHandler(IAction action, IActionHandler actionHandler)
         {
             lock (handlerMap)
             {
-                handlerMap.Add(action, handler);
+                handlerMap.Add(action, actionHandler);
             }
 
-            Debug.WriteLine($"Registered handler for action[{action.Id}]");
+            Debug.WriteLine($"Registered actionHandler for action[{action.Id}]");
         }
     }
 }

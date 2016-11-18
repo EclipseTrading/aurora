@@ -1,5 +1,6 @@
 ﻿using System;
 using Aurora.Core;
+using Aurora.Core.Actions;
 using Aurora.Core.ViewContainer;
 using Microsoft.Practices.Prism.Commands;
 
@@ -9,8 +10,8 @@ namespace Aurora.TabContainer.Views.Tab
     {
         public event EventHandler RequestClose;
 
-        public TabPresenter(TabActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler)
-            : base(viewActivityInfo, dependencyHandler)
+        public TabPresenter(TabActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService)
+            : base(viewActivityInfo, actionHandlerService)
         {
         }
 

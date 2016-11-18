@@ -6,7 +6,7 @@
         public object Value { get; }
         public bool Optional { get; }
 
-        public ActionParameter(string key, object value, bool optional)
+        public ActionParameter(string key, object value, bool optional = false)
         {
             Key = key;
             Value = value;

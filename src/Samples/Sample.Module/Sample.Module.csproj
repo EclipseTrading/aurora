@@ -139,7 +139,7 @@
     <Compile Include="Views\TestWorkspace\CustomViewModel.cs" />
     <Compile Include="Views\TestWorkspace\CustomPresenter.cs" />
     <Compile Include="Views\TestWorkspace\OrderInfo.cs" />
-    <Compile Include="Views\TestWorkspace\TestChildActionHandler.cs" />
+    <Compile Include="Views\TestWorkspace\TestActionHandler.cs" />
     <Compile Include="Views\TestWorkspace\TestGridView.xaml.cs">
       <DependentUpon>TestGridView.xaml</DependentUpon>
     </Compile>
@@ -147,7 +147,6 @@
     <Compile Include="Views\TestWorkspace\TestGridPresenter.cs" />
     <Compile Include="Views\TestWorkspace\TestChildViewModel.cs" />
     <Compile Include="Views\TestWorkspace\TestChildPresenter.cs" />
-    <Compile Include="Views\TestWorkspace\TestWorkspaceActionHandler.cs" />
     <Compile Include="Views\TestWorkspace\TestWorkspacePresenter.cs" />
     <Compile Include="Views\TestWorkspace\TestChildView.xaml.cs">
       <DependentUpon>TestChildView.xaml</DependentUpon>

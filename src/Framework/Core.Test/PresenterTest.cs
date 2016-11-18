@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
 using NUnit.Framework;
@@ -33,7 +34,7 @@ namespace Aurora.Core.Test
 
     public class TestPresenter : Presenter<TestViewModel>
     {
-        public TestPresenter(ActivityInfo viewActivityInfo, IDependencyHandler dependencyHandler) : base(viewActivityInfo, dependencyHandler)
+        public TestPresenter(ActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService) : base(viewActivityInfo, actionHandlerService)
         {
         }
     }
