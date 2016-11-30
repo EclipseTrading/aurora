@@ -19,5 +19,10 @@ namespace Aurora.Core.Workspace
         {
             ViewContainerService.CloseView();
         }
+
+        public void SetTitle(string title)       
+        {
+            ViewContainerService.SetTitle(title);
+        }
     }
 }
