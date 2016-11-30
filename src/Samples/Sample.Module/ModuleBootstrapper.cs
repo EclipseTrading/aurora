@@ -213,7 +213,22 @@ namespace Aurora.Sample.Module
             });
             actionService.RegisterAction(action);
             actionHandlerService.RegisterHandler(action, new TestActionHandler("root"));
-            bindingService.RegisterBinding(new KeyStroke(Key.L, true), action);
+            bindingService.RegisterBinding(new KeyStroke(Key.K), action);
+            bindingService.RegisterBinding(new KeyStroke(Key.L, true), action); // Ctrl L
+            bindingService.RegisterBinding(new KeyStroke(Key.J, true, true), action); // Ctrl Shift J
+            bindingService.RegisterBinding(new KeyStroke(Key.H, false, true), action); // Shift H
+            bindingService.RegisterBinding(new KeyStroke(Key.M, false, false, true), action); // Alt M
+            bindingService.RegisterBinding(new KeyStroke(Key.N, true, false, true), action); // Ctrl Alt N
+            bindingService.RegisterBinding(new KeyStroke(Key.P, false, true, true), action); // Shift Alt P
+            bindingService.RegisterBinding(new KeyStroke(Key.Q, true, true, true), action); // Ctrl Shift Alt Q
+
+            var action2 = new DefaultAction("action2", new IActionParameter[]
+            {
+                new ActionParameter("act2param1", 12334.9),
+                new ActionParameter("act2param2", "valueZZZ", true)
+            });
+            actionService.RegisterAction(action2);
+            bindingService.RegisterBinding(new KeyStroke(Key.Z, true, true), action2); // Ctrl Z
 
             var nested = new MenuItemCommand("Nested",
                 new MenuItemCommand("SubItem1",
