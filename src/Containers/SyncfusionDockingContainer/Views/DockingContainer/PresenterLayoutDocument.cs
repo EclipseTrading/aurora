@@ -30,6 +30,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 
         public void SetTitle(string title)
         {
+            this.ViewContext.Info.Title = title;
             DockingManager.SetHeader(this, title);
         }
 
