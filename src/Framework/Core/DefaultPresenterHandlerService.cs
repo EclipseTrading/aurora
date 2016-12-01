@@ -17,11 +17,19 @@ namespace Aurora.Core
         public bool Execute(ActionEvent evt) {
             if (actionHandlers.Count == 0 || evt.Action == null)
             {
+                // No registered handler. Delegate to parent
                 return (parent?.Execute(evt)).GetValueOrDefault();
             }
 
             IActionHandler actionHandler;
-            return actionHandlers.TryGetValue(evt.Action, out actionHandler) ? actionHandler.Execute(evt) : (parent?.Execute(evt)).GetValueOrDefault();
+            if (!actionHandlers.TryGetValue(evt.Action, out actionHandler))
+            {
+                // No registered handler for target action. Delegate to parent
+                return (parent?.Execute(evt)).GetValueOrDefault();
+            }
+
+            // Return true if event handled by handler or delegate to parent
+            return actionHandler.Execute(evt) || (parent?.Execute(evt)).GetValueOrDefault();
         }
 
         public void RegisterHandler(IAction action, IActionHandler actionHandler)

@@ -20,7 +20,9 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         protected override void OnInitialized()
         {
             var action = actionService.GetAction("action1");
-            this.RegisterActionHandler(action, new TestActionHandler("TestChildPresenter"));
+            //this.RegisterActionHandler(action, new TestActionHandler("TestChildPresenter"));
+            var action2 = actionService.GetAction("action2");
+            this.RegisterActionHandler(action2, new TestActionHandler("TestChildPresenter"));
         }
 
         protected override void OnViewModelChanged()

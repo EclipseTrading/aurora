@@ -26,12 +26,12 @@ namespace Aurora.Core
         public async Task<ActiveView> CreateActiveViewAsync(IActivity activity, Type presenterType, params object[] parameters)
         {
             var parentHandlerService = (IActionHandlerService)
-                parameters.Where(p => (p as TypeOverride)?.Type is IActionHandlerService)
+                parameters.Where(p => (p as TypeOverride)?.Type == typeof(IActionHandlerService))
                     .Select(p=> (p as TypeOverride)?.Value)
                     .SingleOrDefault();
 
             var overrideList =
-                parameters.Where(p => !((p as TypeOverride)?.Type is IActionHandlerService))
+                parameters.Where(p => (p as TypeOverride)?.Type != typeof(IActionHandlerService))
                 .Select(p =>
                 {
                     var typeOverride = p as TypeOverride;
