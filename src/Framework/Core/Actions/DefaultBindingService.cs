@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
@@ -109,6 +110,11 @@ namespace Aurora.Core.Actions
         {
             keyStrokeToActionIdMap.Remove(keyStroke);
             Debug.WriteLine($"Unregistered binding[{keyStroke}] - {keyStrokeToActionIdMap.Count} bindings");
+        }
+
+        public IDictionary<KeyStroke, IAction> GetAllBindings()
+        {
+            return new ReadOnlyDictionary<KeyStroke, IAction>(this.keyStrokeToActionIdMap);
         }
     }
 }

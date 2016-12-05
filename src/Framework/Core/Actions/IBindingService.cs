@@ -9,6 +9,9 @@ namespace Aurora.Core.Actions
     public interface IBindingService
     {
         void RegisterBinding(KeyStroke keyStroke, IAction action);
+
         void UnregisterBinding(KeyStroke keyStroke);
+
+        IDictionary<KeyStroke, IAction> GetAllBindings();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Aurora.Core.Actions
 {
@@ -23,6 +25,11 @@ namespace Aurora.Core.Actions
         {
             IAction action;
             return idToActionMap.TryGetValue(actionId, out action) ? action : null;
+        }
+
+        public IDictionary<string, IAction> GetAllActions()
+        {
+            return new ReadOnlyDictionary<string, IAction>(this.idToActionMap);
         }
     }
 }
