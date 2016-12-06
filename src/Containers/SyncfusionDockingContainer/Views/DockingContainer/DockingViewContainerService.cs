@@ -40,6 +40,15 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             var dockingManager = (DockingManager)region.Context;
 
             dockingManager?.Children.RemoveRange(0, dockingManager.Children.Count);
+
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is NativeFloatWindow)
+                {
+                    win.Close();
+                }
+            }
+
             return Task.FromResult(0);
         }
 
