@@ -9,11 +9,11 @@ namespace Aurora.Core.Actions
 {
     public class KeyStroke
     {
-        private Key Key { get; }
-        private bool IsCtrlDown { get; }
-        private bool IsAltDown { get; }
-        private bool IsShiftDown { get; }
-        private KeyEventArgs Evt { get; }
+        public Key Key { get; }
+        public bool IsCtrlDown { get; }
+        public bool IsAltDown { get; }
+        public bool IsShiftDown { get; }
+        public KeyEventArgs Evt { get; }
 
         public KeyStroke(Key key, bool ctrl = false, bool alt = false, bool shift = false, KeyEventArgs evt = null)
         {
