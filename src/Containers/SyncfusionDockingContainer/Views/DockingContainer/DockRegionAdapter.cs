@@ -105,7 +105,19 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             DockingManager.SetSideInDockedMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetSideInFloatMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetCanFloatMaximize(doc, true);
-                            DockingManager.SetFloatWindowState(doc, doc.ViewLocation.Maximized ? WindowState.Maximized : WindowState.Normal);
+                            if (doc.ViewLocation.Maximized)
+                            {
+                                DockingManager.SetFloatWindowState(doc, WindowState.Maximized);
+                            }
+                            else if (doc.ViewLocation.Minimized)
+                            {
+                                DockingManager.SetFloatWindowState(doc, WindowState.Minimized);
+                            }
+                            else
+                            {
+                                DockingManager.SetFloatWindowState(doc, WindowState.Normal);
+                            }
+                            
                             DockingManager.SetTargetNameInFloatingMode(doc, doc.ViewLocation.FloatTarget ?? "");
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
                             DockingManager.SetIndexInFloatModeExternally(doc, doc.ViewLocation.DockIndex);
