@@ -56,6 +56,7 @@ namespace Aurora.Core.Workspace
                     FloatingWidth = view.FloatingLocation.Width,
                     FloatingHeight = view.FloatingLocation.Height,
                     Maximized = view.Maximized,
+                    Minimized = view.Minimized,
                     FloatTarget = view.FloatingDockTarget,
                     DockSide = view.FloatingDockSide,
                     DockIndex = view.FloatingDockIndex,

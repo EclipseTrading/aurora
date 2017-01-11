@@ -10,13 +10,173 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
+    <UserControl.Resources>
+        <Style x:Key="NativeFloatwindowHeader" TargetType="{x:Type ContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        <Border Name="borderTop"  BorderBrush="#FFDEDEDE" >
+                            <Border Name="borderWrap" BorderBrush="#FF595959" >
+                                <Border.ContextMenu>
+                                    <syncfusion:CustomContextMenu Name="PART_ContextMenu" Focusable="false" />
+                                </Border.ContextMenu>
+                                <DockPanel Name="MiddleHdrImg" LastChildFill="True">
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <ToggleButton  Click="MinimizedButtonClicked"	
+                                                       syncfusion:WindowChrome.IsHitTestVisibleInChrome="True"  
+                                                        Template="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.MinimizeButtonTemplate),RelativeSource={RelativeSource AncestorType=syncfusion:NativeFloatWindow}}"
+                                                        Margin="2,4,0,0"></ToggleButton>
+                                        <ToggleButton   x:Name="Restorebutton" Focusable="False" syncfusion:WindowChrome.IsHitTestVisibleInChrome="True"  Margin="2,4,0,0" Padding="0" 
+                                                       Command="syncfusion:NativeFloatWindow.RestoreCommand"	
+                                                       Template="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.RestoreButtonTemplate),RelativeSource={RelativeSource AncestorType=syncfusion:NativeFloatWindow}}" />
+                                        <ToggleButton   x:Name="MaximizeButton" Focusable="False" syncfusion:WindowChrome.IsHitTestVisibleInChrome="True" Margin="2,4,0,0" Padding="0" 
+                                                        Command="syncfusion:NativeFloatWindow.MaximizeCommand"	
+                                                        Template="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.MaximizeButtonTemplate),RelativeSource={RelativeSource AncestorType=syncfusion:NativeFloatWindow}}"/>
+                                        <ToggleButton Name="button" Focusable="False" syncfusion:WindowChrome.IsHitTestVisibleInChrome="True" Margin="2,4,0,0" Padding="0" 
+												Command="syncfusion:NativeFloatWindow.CloseCommand"	Template="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.CloseButtonTemplate),RelativeSource={RelativeSource AncestorType=syncfusion:NativeFloatWindow}}">
+
+                                        </ToggleButton>
+                                    </StackPanel>
+                                    <Border Name="Icon" DockPanel.Dock="Left" Margin="6,3,2,3" Width="16"								
+									Background="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockingManager.Icon), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                                    <ContentPresenter Margin="4, 0, 0, 0" DockPanel.Dock="Left" Name="contentWraper" VerticalAlignment="Center"  HorizontalAlignment="Left"  IsHitTestVisible="True" Content="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockedElementTabbedHost.HostedElement).(syncfusion:DockingManager.Header), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}"/>
+                                </DockPanel>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Background" SourceName="Icon" Value="{x:Null}">
+                                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.IsTouchEnabled),RelativeSource={RelativeSource AncestorType=syncfusion:NativeFloatWindow}}" Value="True">
+                                <Setter Property="FontSize" Value="18"/>
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(syncfusion:NativeFloatWindow.MaximizeButtonEnabled),RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True" />
+                                    <Condition Binding="{Binding Path=(syncfusion:NativeFloatWindow.WindowState),RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="Maximized" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="MaximizeButton" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="Restorebutton" Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(syncfusion:NativeFloatWindow.MaximizeButtonEnabled),RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True" />
+                                    <Condition Binding="{Binding Path=(syncfusion:NativeFloatWindow.WindowState),RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="Normal" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="MaximizeButton" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Restorebutton" Property="Visibility" Value="Collapsed" />
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding Path=(syncfusion:NativeFloatWindow.MaximizeButtonEnabled),RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False">
+                                <Setter TargetName="MaximizeButton" Property="Visibility" Value="Collapsed" />
+                                <Setter TargetName="Restorebutton" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+
+
+                            <DataTrigger Binding="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockedElementTabbedHost.HostedElement).(syncfusion:DockingManager.CanDocument), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False" >
+                                <Setter TargetName="PART_ContextMenu" Property="IsEnabledTabbedMenuItem" Value="False" />
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition  Binding="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockedElementTabbedHost.HostedElement).(syncfusion:DockingManager.CanClose), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False" />
+                                    <Condition Binding="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockedElementTabbedHost.ShowTabs), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="PART_ContextMenu" Property="IsEnabledHiddenMenuItem" Value="False" />
+                                <Setter TargetName="button" Property="IsEnabled" Value="False" />
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.CloseTabs), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="CloseActive" />
+                                    <Condition  Binding="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockingManager.CanClose), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False" />
+                                    <Condition Binding="{Binding Path=(syncfusion:DockingManager.InternalDataContext).(syncfusion:DockedElementTabbedHost.ShowTabs), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="PART_ContextMenu" Property="IsEnabledHiddenMenuItem" Value="False" />
+                                <Setter TargetName="button" Property="IsEnabled" Value="False" />
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding Path=(PrimaryElement).(syncfusion:DockingManager.NoHeader), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True" >
+                                <Setter TargetName="PART_ContextMenu" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsMultiHostsContainer, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True" >
+                                <Setter TargetName="contentWraper" Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding  Path=IsKeyboardFocusWithin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="False" >
+                                <Setter TargetName="MiddleHdrImg" Property="Background" Value="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowHeaderBackground), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                            </DataTrigger>
+
+                            <Trigger SourceName="MiddleHdrImg" Property="Visibility" Value="Visible">
+                                <Setter TargetName="MiddleHdrImg" Property="Background" Value="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowHeaderBackground), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                                <Setter TargetName="contentWraper" Property="TextBlock.Foreground" Value="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowHeaderForeground), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=IsKeyboardFocusWithin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:NativeFloatWindow}}}" Value="True">
+                                <Setter TargetName="MiddleHdrImg" Property="Background" Value="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowSelectedHeaderBackground), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                                <Setter TargetName="contentWraper" Property="TextBlock.Foreground" Value="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowSelectedHeaderForeground), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}" />
+                            </DataTrigger>
+
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomNativeFloatWindowStyle" TargetType="{x:Type syncfusion:NativeFloatWindow}">
+            <Setter Property="syncfusion:WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <syncfusion:WindowChrome 
+                        ResizeBorderThickness="7" CornerRadius="0"  CaptionHeight="20" GlassFrameThickness="0"
+                        UseAeroCaptionButtons="True">
+
+                    </syncfusion:WindowChrome>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate  TargetType="{x:Type ContentControl}">
+                        <AdornerDecorator>
+                            <DockPanel Focusable="False" LastChildFill="True">
+                                <Border Name="FloatWindowOutBorder"  Focusable="False"
+                                        BorderBrush="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowBorderBrush), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}"
+                                        BorderThickness="{Binding Path=(syncfusion:NativeFloatWindow.DockingManager).(syncfusion:DockingManager.FloatWindowBorderThickness), RelativeSource={RelativeSource AncestorType={x:Type syncfusion:NativeFloatWindow}}}"  >
+
+                                    <Grid Focusable="False">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Name="TopRow"  Height="Auto" />
+                                            <RowDefinition Height="*" />
+
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="Part_BorderMenu"  Grid.Column="0" Grid.Row="0" >
+                                            <Border.ContextMenu>
+                                                <syncfusion:CustomContextMenu  x:Name="Part_CustomContextMenu" Focusable="false" />
+                                            </Border.ContextMenu>
+                                        </Border>
+                                        <ContentControl Focusable="False" Style="{StaticResource NativeFloatwindowHeader}" 
+                                                        Name="BorderHeader"  Grid.Row="0" 
+                                                        Content="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+                                        <ContentPresenter Name="ContentPresenter"  Grid.Column="0" Grid.Row="1"
+										  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" 
+										  Content="{TemplateBinding ContentControl.Content}" />
+
+
+                                    </Grid>
+
+                                </Border>
+                            </DockPanel>
+                        </AdornerDecorator>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <syncfusion:DockingManager regions:RegionManager.RegionManager="{Binding Path=RegionManager}" 
                 regions:RegionManager.RegionName="{x:Static syncfusionDockingContainer:DockingContainerRegion.Default}"
                 DisabledCloseButtonsBehavior="Hide" 
                 DocumentCloseButtonType="Individual" IsVS2010DraggingEnabled="True" 
                 ShowFloatWindowInTaskbar="True" CanResizeInFloatState="True" 
                 DockTabAlignment="Top" UseNativeFloatWindow="True"  UseDocumentContainer="True"  
-                IsTDIDragDropEnabled="True" 
+                IsTDIDragDropEnabled="True"
+                NativeWindowStyle="{StaticResource CustomNativeFloatWindowStyle}"
                 syncfusion:SkinStorage.VisualStyle="Metro"/>
 
 </UserControl>
