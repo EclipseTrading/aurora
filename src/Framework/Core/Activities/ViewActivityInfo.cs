@@ -1,3 +1,4 @@
+using System.Windows;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Newtonsoft.Json;
@@ -26,5 +27,11 @@ namespace Aurora.Core.Activities
         public string Id { get; }
 
         public object ViewData { get; set; }
+
+
+        public DataTemplate HeaderTemplate { get; set; }
+        public object HeaderContent { get; set; }
+       
+
     }
 }

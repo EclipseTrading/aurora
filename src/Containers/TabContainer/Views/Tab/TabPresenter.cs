@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.ViewContainer;
@@ -43,6 +44,11 @@ namespace Aurora.TabContainer.Views.Tab
         public void CloseView()
         {
             this.ViewModel.CloseCommand.Execute(null);
+        }
+
+        public void SetHeader(DataTemplate headerTemplate, object headerContent)
+        {
+            
         }
     }
 }

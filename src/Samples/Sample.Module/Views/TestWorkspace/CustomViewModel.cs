@@ -10,6 +10,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
     {
         private string jsonString;
         private JObject rawJsonObject;
+        private object headerContent;
         
 
         public string JsonString
@@ -28,6 +29,16 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             set
             {
                 rawJsonObject = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public object HeaderContent
+        {
+            get { return headerContent; }
+            set
+            {
+                headerContent = value;
                 OnPropertyChanged();
             }
         }

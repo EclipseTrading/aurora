@@ -95,7 +95,8 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 
                         if (doc.ViewLocation.IsFloating)
                         {
-                            DockingManager.SetHeader(doc, item.Info?.Title);
+                            
+                            DockingManager.SetHeader(doc, item.Info?.HeaderContent ?? item.Info?.Title);
                             DockingManager.SetState(doc, DockState.Float);
                             var location = new Rect(doc.ViewLocation.FloatingLeft,
                                 doc.ViewLocation.FloatingTop,
@@ -128,7 +129,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         }
                         else
                         {
-                            DockingManager.SetHeader(doc, item.Info?.Title);
+                            DockingManager.SetHeader(doc, item.Info?.HeaderContent ?? item.Info?.Title);
                             DockingManager.SetState(doc, (DockState)doc.ViewLocation.DockState);
                             DockingManager.SetSideInDockedMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
