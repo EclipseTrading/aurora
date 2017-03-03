@@ -1,4 +1,5 @@
-﻿using Aurora.Core.Actions;
+﻿using System.Windows;
+using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Aurora.Core.ViewContainer;
 
@@ -23,6 +24,11 @@ namespace Aurora.Core.Workspace
         public void SetTitle(string title)       
         {
             ViewContainerService.SetTitle(title);
+        }
+
+        public void SetHeader(DataTemplate headerTemplate, object headerContent)
+        {
+            ViewContainerService.SetHeader(headerTemplate, headerContent);
         }
     }
 }

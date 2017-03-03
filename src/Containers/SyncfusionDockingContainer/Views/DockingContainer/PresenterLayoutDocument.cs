@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Aurora.Core.ViewContainer;
 using Aurora.Core.Workspace;
@@ -25,6 +26,11 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             {
                 //attach PresenterLayoutDocument to Presenter
                 viewContainerAware.ViewContainerService = this;
+
+                if (this.ViewContext.Info?.HeaderTemplate != null)
+                {               
+                    SetHeader(this.ViewContext.Info?.HeaderTemplate, this.ViewContext.Info?.HeaderContent);
+                }
             }
         }
 
@@ -37,6 +43,12 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
         public void CloseView()
         {
             DockingManager.GetDockingManager(this).Children.Remove(this);
+        }
+
+        public void SetHeader(DataTemplate headerTemplate, object headerContent)
+        {
+            DockingManager.SetHeader(this, headerContent);
+            DockingManager.SetHeaderTemplate(this, headerTemplate);
         }
 
     }
