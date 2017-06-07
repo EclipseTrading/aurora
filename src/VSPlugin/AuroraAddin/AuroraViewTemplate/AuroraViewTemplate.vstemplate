@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>Aurora.cs</DefaultName>
+    <Name>Aurora View</Name>
+    <Description>MVPVM View, ViewModel, Presenter, Activity and ActivityInfoClasses</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>AuroraViewTemplate.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>System.Xaml</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>WindowsBase</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>PresentationCore</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>PresentationFramework</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>mscorlib</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem SubType="" TargetFileName="Views\$fileinputname$\$fileinputname$.ViewModel.cs" ReplaceParameters="true">TemplateViewModel.cs</ProjectItem>
+    <ProjectItem SubType="" TargetFileName="Views\$fileinputname$\$fileinputname$.View.xaml.cs" ReplaceParameters="true">TemplateView.xaml.cs</ProjectItem>
+    <ProjectItem SubType="" TargetFileName="Views\$fileinputname$\$fileinputname$.View.xaml" ReplaceParameters="true">TemplateView.xaml</ProjectItem>
+    <ProjectItem SubType="" TargetFileName="Views\$fileinputname$\$fileinputname$.Presenter.cs" ReplaceParameters="true">TemplatePresenter.cs</ProjectItem>
+    <ProjectItem SubType="" TargetFileName="Views\$fileinputname$\$fileinputname$.ActivityInfo.cs" ReplaceParameters="true">TemplateActivityInfo.cs</ProjectItem>> 
+  </TemplateContent>
+</VSTemplate>
