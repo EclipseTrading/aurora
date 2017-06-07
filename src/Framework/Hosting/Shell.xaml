@@ -37,7 +37,7 @@
     <controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid>
-                <ToggleButton IsChecked="{Binding ElementName=IconPopup, Path=IsOpen}" Width="20" Height="20" Margin="0,0,0,-3">
+                <ToggleButton AutomationProperties.AutomationId="AutoId_MenuButton" IsChecked="{Binding ElementName=IconPopup, Path=IsOpen}" Width="20" Height="20" Margin="0,0,0,-3">
                     <ToggleButton.Content>
                         <Image Source="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=Icon, Converter={hosting:Passthrough}}"/>
                     </ToggleButton.Content>
