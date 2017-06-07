@@ -12,7 +12,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
     public class DockRegionAdapter : RegionAdapterBase<DockingManager>
     {
         private DockingManager manager;
-        private DispatcherTimer timer = new DispatcherTimer();
+        private readonly DispatcherTimer timer = new DispatcherTimer();
         private bool stateChanged = false;
 
         public DockRegionAdapter(IRegionBehaviorFactory regionBehaviorFactory) : base(regionBehaviorFactory)

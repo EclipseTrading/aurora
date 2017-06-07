@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraAddin", "AuroraAddin\AuroraAddin.csproj", "{630922B5-9221-42A5-91E4-F977FC8E72B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraViewTemplate", "AuroraViewTemplate\AuroraViewTemplate.csproj", "{20A3F563-6E08-41CB-8977-10CEC965D008}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{630922B5-9221-42A5-91E4-F977FC8E72B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630922B5-9221-42A5-91E4-F977FC8E72B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630922B5-9221-42A5-91E4-F977FC8E72B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630922B5-9221-42A5-91E4-F977FC8E72B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A3F563-6E08-41CB-8977-10CEC965D008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A3F563-6E08-41CB-8977-10CEC965D008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A3F563-6E08-41CB-8977-10CEC965D008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20A3F563-6E08-41CB-8977-10CEC965D008}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
