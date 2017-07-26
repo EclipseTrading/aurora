@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Aurora.Core.ViewContainer;
 using Aurora.Core.Workspace;

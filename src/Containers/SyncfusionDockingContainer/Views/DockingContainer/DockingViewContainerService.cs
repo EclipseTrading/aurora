@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Aurora.Core;
@@ -10,7 +12,6 @@ using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 {
-   
     public class DockingViewContainerService : IWorkspaceContainerService
     {
         private readonly IRegionManager regionManager;
@@ -39,14 +40,11 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             var region = regionManager.Regions[DockingContainerRegion.Default];
             var dockingManager = (DockingManager)region.Context;
 
-            dockingManager?.Children.RemoveRange(0, dockingManager.Children.Count);
+            var children = new List<FrameworkElement>(dockingManager?.Children.Cast<FrameworkElement>() ?? new List<FrameworkElement>());
 
-            foreach (Window win in Application.Current.Windows)
+            foreach (var frameworkElement in children)
             {
-                if (win is NativeFloatWindow)
-                {
-                    win.Close();
-                }
+                dockingManager?.ExecuteClose(frameworkElement);
             }
 
             return Task.FromResult(0);
@@ -78,7 +76,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                     var config = new WorkspaceViewConfig(presenterDoc.ViewContext.View.Presenter.GetType(),
                         presenterDoc.Name, presenterDoc.ViewContext.Info.ViewData)
                     {
-                        
                         DockState = DockingState.Float,
                         FloatingLocation = location,
                         Maximized = winState == WindowState.Maximized,
@@ -113,7 +110,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         TabOrderInDocument = TDILayoutPanel.GetTDIIndex(doc),
                         TabOrderInDock = DockedElementTabbedHost.GetTabOrderInDockMode(doc),
                         TabOrderInFloating = DockedElementTabbedHost.GetTabOrderInFloatMode(doc)
-                        
                     };
 
                     layout.WorkspaceViews.Add(config);

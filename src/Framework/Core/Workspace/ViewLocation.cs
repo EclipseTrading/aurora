@@ -1,26 +1,5 @@
 ﻿namespace Aurora.Core.Workspace
 {
-   
-    public enum DockingState
-    {
-        Dock = 0,
-        Float = 1,
-        Hidden = 2,
-        AutoHidden = 3,
-        Document = 4
-    }
-
-
-    public enum DockingSide
-    {
-        Left = 0,
-        Top = 1,
-        Right = 2,
-        Bottom = 3,
-        Tabbed = 4,
-        None = 5
-    }
-
     public class ViewLocation
     {
         public ViewLocation()

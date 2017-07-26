@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Newtonsoft.Json.Linq;
 
 namespace Aurora.Core.Workspace
 {
