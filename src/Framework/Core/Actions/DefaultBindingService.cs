@@ -1,15 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using Aurora.Core.ViewContainer;
-using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.Core.Actions
 {
