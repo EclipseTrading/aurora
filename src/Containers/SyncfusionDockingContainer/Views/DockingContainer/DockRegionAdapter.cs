@@ -122,7 +122,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             DockingManager.SetTargetNameInFloatingMode(doc, doc.ViewLocation.FloatTarget ?? "");
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
                             DockingManager.SetIndexInFloatModeExternally(doc, doc.ViewLocation.DockIndex);
-                            DockingManager.SetNoHeader(doc, false);
+                            DockingManager.SetNoHeader(doc, true);
                             DockingManager.SetDesiredWidthInFloatingMode(doc, doc.ViewLocation.DockWidth);
                             DockingManager.SetDesiredHeightInFloatingMode(doc, doc.ViewLocation.DockHeight);
 
@@ -139,7 +139,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             DockingManager.SetIndexInDockMode(doc, doc.ViewLocation.DockIndex);
                             DockingManager.SetCanFloatMaximize(doc, true);
                             DockingManager.SetNoHeader(doc, false);   
-                        
+
                         }
                         regionTarget.Children.Add(doc);
                         TDILayoutPanel.SetTDIIndex(doc, doc.ViewLocation.TabOrderInDocument);
