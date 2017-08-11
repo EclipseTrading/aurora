@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
@@ -20,9 +18,9 @@ namespace Aurora.Sample.Module
         private readonly IWorkspace currentWorkspace;
 
         private WorkspaceLayout lastSaved;
-        private IActionService actionService;
-        private IActionHandlerService actionHandlerService;
-        private IBindingService bindingService;
+        private readonly IActionService actionService;
+        private readonly IActionHandlerService actionHandlerService;
+        private readonly IBindingService bindingService;
 
         public ModuleBootstrapper(ICommandBarService commandBarService, IWorkspace workspace, IActionService actionService, IActionHandlerService actionHandlerService, IBindingService bindingService)
         {
@@ -95,8 +93,7 @@ namespace Aurora.Sample.Module
             {
                 await currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout();
-                layout.MainWindowRect = new Rect(500, 300, 1200, 800);
+                var layout = new WorkspaceLayout {MainWindowRect = new Rect(500, 300, 1200, 800)};
                 layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
                 {
                     ViewTitle = "Risk and Pnl - Strategy",
@@ -131,7 +128,10 @@ namespace Aurora.Sample.Module
             var restore = new MenuItemCommand("Restore", new DelegateCommand(async () =>
             {
                 await currentWorkspace.CloseAllView();
-                await currentWorkspace.LoadLayout(this.lastSaved);
+                if (this.lastSaved != null)
+                {
+                    await currentWorkspace.LoadLayout(this.lastSaved);
+                }
             }));
 
             var layout3 = new MenuItemCommand("Test Layout", new DelegateCommand(async () =>
@@ -172,7 +172,7 @@ namespace Aurora.Sample.Module
 
             }))
             {
-                IconPath = "pack://application:,,,/Images/new_window.png",
+                IconPath = "pack://application:,,,/Aurora.Sample.Module;component/Images/new_window.png",
                 Description = null
             };
             commandBarService.AddCommand(cmdItem);
@@ -230,11 +230,13 @@ namespace Aurora.Sample.Module
             actionService.RegisterAction(action2);
             bindingService.RegisterBinding(new KeyStroke(Key.Z, true, true), action2); // Ctrl Z
 
-            var nested = new MenuItemCommand("Nested",
+            commandBarService.AddCommand(new DividerItem());
+
+            var nested = new MenuItemCommand("Nested", 
                 new MenuItemCommand("SubItem1",
                     new MenuItemCommand("SubSubItem1"),
                     new MenuItemCommand("SubSubItem2"))
-                { IconPath = "../Image/config.png" },
+                { IconPath = "pack://application:,,,/Aurora.Sample.Module;component/Images/config.png" },
                 new MenuItemCommand("SubItem2",
                     new MenuItemCommand("SubSubItem3"),
                     new MenuItemCommand("SubSubItem4")));

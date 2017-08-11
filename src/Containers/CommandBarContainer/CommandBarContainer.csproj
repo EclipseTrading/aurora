@@ -45,6 +45,9 @@
       <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.3451.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Shared.WPF451.15.3.0.26\lib\net451\Syncfusion.Shared.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -69,6 +72,8 @@
     <Compile Include="DefaultImageConverter.cs" />
     <Compile Include="HasItemsVisibilityConverter.cs" />
     <Compile Include="MenuItemContainerTemplateSelector.cs" />
+    <Compile Include="MenuItemTemplateSelector.cs" />
+    <Compile Include="MenuProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,12 +99,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\limits.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\config.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\default.png" />

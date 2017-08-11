@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Aurora.Core.Workspace;
-using Microsoft.Practices.Prism.Commands;
 using Newtonsoft.Json.Linq;
+using Syncfusion.Windows.Shared;
+using DelegateCommand = Microsoft.Practices.Prism.Commands.DelegateCommand;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
 {
-    public class TestWorkspacePresenter : WorkspaceViewPresenter<TestWorkspaceViewModel>
+    public class TestWorkspacePresenter : WorkspaceViewPresenter<TestWorkspaceViewModel>, IHostWindowManager
     {
         private readonly IWorkspace workspace;
-        private IActionService actionService;
+        private readonly IActionService actionService;
 
         public TestWorkspacePresenter(ViewActivityInfo info, IWorkspace workspace, IActionService actionService, IActionHandlerService actionHandlerService) : base(info, actionHandlerService)
         {
@@ -43,11 +47,26 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 
             var testChildView = await this.AddChildViewAsync(typeof(TestChildPresenter));
             this.ViewModel.TestChildView = testChildView;
+            this.TitleBarSettings.MenuItems.Add(new MenuItemAdv
+            {
+                Header = "Test Menu Item",
+                Icon = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue }
+            });
+            this.TitleBarSettings.TitleBarControls.Add(new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue, Margin = new Thickness(7.5, 0, 7.5, 0)});
+            this.TitleBarSettings.ActiveBackground = new SolidColorBrush(Color.FromArgb(255, 17, 218, 158));
+            this.TitleBarSettings.ActiveForeground = Brushes.White;
+            this.TitleBarSettings.InactiveForeground = Brushes.White;
+            this.TitleBarSettings.InactiveTabForeground = Brushes.Black;
+            this.TitleBarSettings.ActiveIconBackground = this.TitleBarSettings.ActiveBackground;
+            this.TitleBarSettings.InactiveIconBackground = this.TitleBarSettings.ActiveBackground;
+            this.TitleBarSettings.InactiveBackground = this.TitleBarSettings.ActiveBackground;
+            this.TitleBarSettings.ActiveWindowBorder = this.TitleBarSettings.ActiveBackground;
         }
+
 
         private void ToogleOrientation()
         {
-           
+
         }
         private async Task CreateView()
         {
@@ -96,6 +115,12 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
                 return null;
         }
 
+        public void CloseView()
+        {
+            CloseAction?.Invoke();
+        }
 
+        public TitleBarSettings TitleBarSettings { get; } = new TitleBarSettings();
+        public Action CloseAction { get; set; }
     }
 }

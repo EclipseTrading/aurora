@@ -4,136 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views1="clr-namespace:Aurora.CommandBarContainer.Views"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:commandBarContainer="clr-namespace:Aurora.CommandBarContainer"
              xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance views1:CommandBarContainerViewModel}"
              d:DesignHeight="34" d:DesignWidth="300">
-    <UserControl.Resources>
-
-        <SolidColorBrush x:Key="MenuItemArrowBrush" Color="Black" />
-        <SolidColorBrush x:Key="MenuItemBorderBrush" Color="DarkGray" />
-        <SolidColorBrush x:Key="MenuItemBackgroundBrush" Color="White" />
-        <SolidColorBrush x:Key="MenuItemForegroundBrush" Color="Black" />
-        <SolidColorBrush x:Key="MenuItemDisabledForegroundBrush" Color="#888888" />
-        <SolidColorBrush x:Key="MenuItemHighlightBackgroundBrush" Color="#006DB6" />
-        <SolidColorBrush x:Key="MenuItemHighlightForegroundBrush" Color="White" />
-        <SolidColorBrush x:Key="MenuSeparatorBrush" Color="#888888" />
-        <FontFamily x:Key="MenuItemFontFamily">Segoe UI</FontFamily>
-        <system:Double x:Key="MenuItemFontSize">14</system:Double>
-        <FontWeight x:Key="MenuItemFontWeight">Normal</FontWeight>
-
-
-        <Style TargetType="{x:Type Separator}">
-            <Setter Property="Height" Value="1"/>
-            <Setter Property="Margin" Value="30,5,2,5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Separator}">
-                        <Border BorderBrush="{StaticResource MenuSeparatorBrush}" BorderThickness="1"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
-            <Border Name="Border">
-                <Grid Margin="5,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="13"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <ContentPresenter Grid.Column="0" Name="Icon" Margin="5" VerticalAlignment="Center" ContentSource="Icon"/>
-
-                        <StackPanel Grid.Column="1" Margin="5" ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter  ContentSource="Header" RecognizesAccessKey="True" />
-                        </StackPanel>
-                    </Grid>
-
-                    <Path x:Name="SubmenuArrow" Grid.Column="1"
-                          Data="M 0 0 L 0 7 L 4 3.5 Z" Fill="{DynamicResource MenuItemArrowBrush}" Stretch="Fill" Width="6" Height="8"
-                          VerticalAlignment="Center" HorizontalAlignment="Center"
-                          Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items, Converter={commandBarContainer:HasItemsVisibilityConverter}}"
-                          />
-                    <Popup Grid.Column="0" Name="Popup" Placement="Right" IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" 
-                            Focusable="False" PopupAnimation="Fade">
-                        <Border  Name="SubmenuBorder" SnapsToDevicePixels="True"
-                                 Background="{DynamicResource MenuItemBackgroundBrush}"
-                                 BorderBrush="{DynamicResource MenuItemBorderBrush}"
-                                 BorderThickness="1" Margin="0,0,8,8">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="5" Opacity="0.4"/>
-                            </Border.Effect>
-                            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-                                <StackPanel IsItemsHost="True"  KeyboardNavigation.DirectionalNavigation="Cycle" />
-                            </ScrollViewer>
-                        </Border>
-                    </Popup>
-                </Grid>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsSuspendingPopupAnimation" Value="true">
-                    <Setter TargetName="Popup" Property="PopupAnimation" Value="None"/>
-                </Trigger>
-                <Trigger Property="IsHighlighted" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuItemHighlightBackgroundBrush}"/>
-                    <Setter Property="Foreground" Value="{DynamicResource MenuItemHighlightForegroundBrush}" />
-                    <Setter TargetName="SubmenuArrow" Property="Fill" Value="{DynamicResource MenuItemHighlightForegroundBrush}" />
-                    <Setter TargetName="Popup" Property="IsOpen" Value="true" />
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="{DynamicResource MenuItemDisabledForegroundBrush}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style TargetType="{x:Type MenuItem}">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="FontFamily" Value="{DynamicResource MenuItemFontFamily}" />
-            <Setter Property="FontWeight" Value="{DynamicResource MenuItemFontWeight}" />
-            <Setter Property="FontSize" Value="{DynamicResource MenuItemFontSize}" />
-            <Setter Property="Foreground" Value="{DynamicResource MenuItemForegroundBrush}" />
-            <Setter Property="Background" Value="{DynamicResource MenuItemBackgroundBrush}" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}"/>
-        </Style>
-
-        <Image x:Key="MenuItemIcon" Source="{Binding IconPath, Converter={commandBarContainer:DefaultImageConverter}}"  Width="20" Height="20" x:Shared="false"/>
-        <commandBarContainer:MenuItemContainerTemplateSelector x:Key="MenuItemContainerTemplateSelector"/>
-
-        <HierarchicalDataTemplate DataType="{x:Type container:MenuItemCommand}" ItemsSource="{Binding Path=Children}">
-            <MenuItem Header="{Binding Title}" 
-                      Command="{Binding Command}" 
-                      ToolTip="{Binding Description}"
-                      UsesItemContainerTemplate="True"
-                      ItemContainerTemplateSelector="{StaticResource MenuItemContainerTemplateSelector}"
-                      Icon="{StaticResource MenuItemIcon}"/>
-            
-        </HierarchicalDataTemplate>
-        <DataTemplate DataType="{x:Type container:DividerItem}">
-            <Separator/>
-        </DataTemplate>
-    </UserControl.Resources>
-    
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Menu ItemsSource="{Binding Commands}" 
-                  UsesItemContainerTemplate="True"
-                  ItemContainerTemplateSelector="{StaticResource MenuItemContainerTemplateSelector}">
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-            </Menu>
+            <syncfusion:MenuAdv Orientation="Vertical" ItemsSource="{Binding Commands}" syncfusion:SkinStorage.VisualStyle="Metro" Background="White"
+                                ExpandMode="ExpandOnMouseOver">
+                <syncfusion:MenuAdv.ItemTemplateSelector>
+                    <commandBarContainer:MenuItemTemplateSelector>
+                        <commandBarContainer:MenuItemTemplateSelector.MenuItemTemplate>
+                            <HierarchicalDataTemplate DataType="container:MenuItemCommand" ItemsSource="{Binding Path=Children}">
+                                <TextBlock Text="{Binding Path=Title}"/>
+                            </HierarchicalDataTemplate>
+                        </commandBarContainer:MenuItemTemplateSelector.MenuItemTemplate>
+                        <commandBarContainer:MenuItemTemplateSelector.SeparatorTemplate>
+                            <DataTemplate DataType="container:DividerItem">
+                                <Rectangle Fill="LightGray" Height="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}" RadiusY="1" RadiusX="1"/>
+                            </DataTemplate>
+                        </commandBarContainer:MenuItemTemplateSelector.SeparatorTemplate>
+                    </commandBarContainer:MenuItemTemplateSelector>
+                </syncfusion:MenuAdv.ItemTemplateSelector>
+                <syncfusion:MenuAdv.ItemContainerStyle>
+                    <Style TargetType="syncfusion:MenuItemAdv" BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}" 
+                           d:DataContext="{d:DesignInstance container:MenuItemCommand}">
+                        <Setter Property="Command" Value="{Binding Path=Command}"/>
+                        <Setter Property="Icon" Value="{Binding Path=Icon}"/>
+                        <Setter Property="commandBarContainer:MenuProperties.MenuType" Value="{Binding Path=MenuType}"/>
+                        <Style.Triggers>
+                            <Trigger Property="commandBarContainer:MenuProperties.MenuType" Value="Divider">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="syncfusion:MenuItemAdv">
+                                            <Grid HorizontalAlignment="Stretch" Height="7">
+                                                <Rectangle Margin="32,3,5,3" HorizontalAlignment="Stretch" Fill="LightGray"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </syncfusion:MenuAdv.ItemContainerStyle>
+            </syncfusion:MenuAdv>
         </ScrollViewer>
         <Grid.Style>
             <Style TargetType="Grid">
@@ -145,6 +61,5 @@
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-
     </Grid>
 </UserControl>

@@ -3,7 +3,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Interactivity;
 using Syncfusion.Windows.Shared;
 
-namespace Aurora.Hosting
+namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 {
     public class CloseOnAction : Behavior<Popup>
     {

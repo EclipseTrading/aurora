@@ -24,15 +24,18 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
         public async Task<IDisposable> AddViewAsync<TActivityInfo>(ActiveView contentView, TActivityInfo activityInfo) where TActivityInfo : ViewActivityInfo
         {
             var newView = new ViewContext { View = contentView, Info = activityInfo };
-            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => newView);
 
-            return await Task.FromResult(new ActionDisposable(() => {
+            regionManager.RegisterViewWithRegion(DockingContainerRegion.Default, () => newView);
+            var disposable = new ActionDisposable(() =>
+            {
                 if (regionManager.Regions[DockingContainerRegion.Default].Views.Contains(newView))
                 {
                     regionManager.Regions[DockingContainerRegion.Default].Remove(newView);
                     newView = null;
                 }
-            }));
+            });
+            
+            return await Task.FromResult(disposable);
         }
 
         public Task CloseAllView()

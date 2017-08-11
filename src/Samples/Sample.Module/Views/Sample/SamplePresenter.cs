@@ -3,19 +3,17 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Aurora.Core;
 using Aurora.Core.Container;
-using Aurora.Core.ViewContainer;
 using Aurora.Sample.Module.Shared;
 using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
-using IViewContainerService = Aurora.Core.ViewContainer.IViewContainerService;
 using System.Threading.Tasks;
 using Aurora.Core.Actions;
+using Aurora.Core.Activities;
 using Aurora.Sample.Module.Views.Dialog;
 
 namespace Aurora.Sample.Module.Views.Sample
 {
-
-    public class SamplePresenter : ViewPresenter<SampleViewModel, SampleViewActivityInfo>, IViewContainerAware
+    public class SamplePresenter : ViewPresenter<SampleViewModel, SampleViewActivityInfo>, IHostWindowManager
     {
         private readonly SampleViewActivityInfo activityInfo;
         private readonly IActivityService activityService;
@@ -32,17 +30,17 @@ namespace Aurora.Sample.Module.Views.Sample
             this.activityService = activityService;
         }
 
-        public IViewContainerService ViewContainerService { get; set; }
+        public TitleBarSettings TitleBarSettings { get; } = new TitleBarSettings();
 
         protected override async void OnViewModelChanged()
         {
             base.OnViewModelChanged();
 
-            ViewContainerService?.SetTitle("Sample View");
+            TitleBarSettings.HeaderContent = "Sample View";
 
             this.ViewModel.Title = activityInfo.Title;
 
-            this.OnViewModelPropertyChanged(vm => vm.Title, () => ViewContainerService?.SetTitle(ViewModel.Title));
+            this.OnViewModelPropertyChanged(vm => vm.Title, () => TitleBarSettings.HeaderContent = ViewModel.Title);
 
             this.ViewModel.OkCommand =
                 new DelegateCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
@@ -95,5 +93,7 @@ namespace Aurora.Sample.Module.Views.Sample
             this.observableDisposable?.Dispose();
             this.subDisposable?.Dispose();
         }
+
+        public Action CloseAction { get; set; }
     }
 }

@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using Aurora.Core.Workspace;
 using Microsoft.Practices.Prism.Regions;
@@ -8,6 +12,8 @@ using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 {
+
+
 
     public class DockRegionAdapter : RegionAdapterBase<DockingManager>
     {
@@ -20,7 +26,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += OnTimerTick;
             timer.Start();
-           
+
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -59,7 +65,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
         {
             if (e.NewState == DockState.Hidden)
             {
-               this.manager.Children.Remove(sender);
+                this.manager.Children.Remove(sender);
                 var presenterLayoutDocument = sender as PresenterLayoutDocument;
                 if (presenterLayoutDocument != null)
                 {
@@ -90,13 +96,12 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             };
                         }
 
-                        var doc = new PresenterLayoutDocument(item) {Name = item.Info.Id};
-
+                        var doc = new PresenterLayoutDocument(item) { Name = item.Info.Id };
+                        
+                        AuroraProperties.SetTitleBarSettings(doc, doc.TitleBar);
 
                         if (doc.ViewLocation.IsFloating)
                         {
-                            
-                            DockingManager.SetHeader(doc, item.Info?.HeaderContent ?? item.Info?.Title);
                             DockingManager.SetState(doc, DockState.Float);
                             var location = new Rect(doc.ViewLocation.FloatingLeft,
                                 doc.ViewLocation.FloatingTop,
@@ -118,7 +123,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             {
                                 DockingManager.SetFloatWindowState(doc, WindowState.Normal);
                             }
-                            
+
                             DockingManager.SetTargetNameInFloatingMode(doc, doc.ViewLocation.FloatTarget ?? "");
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
                             DockingManager.SetIndexInFloatModeExternally(doc, doc.ViewLocation.DockIndex);
@@ -129,7 +134,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         }
                         else
                         {
-                            DockingManager.SetHeader(doc, item.Info?.HeaderContent ?? item.Info?.Title);
                             DockingManager.SetState(doc, (DockState)doc.ViewLocation.DockState);
                             DockingManager.SetSideInDockedMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
@@ -138,7 +142,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             DockingManager.SetDesiredHeightInDockedMode(doc, doc.ViewLocation.DockHeight);
                             DockingManager.SetIndexInDockMode(doc, doc.ViewLocation.DockIndex);
                             DockingManager.SetCanFloatMaximize(doc, true);
-                            DockingManager.SetNoHeader(doc, false);   
+                            DockingManager.SetNoHeader(doc, false);
 
                         }
                         regionTarget.Children.Add(doc);

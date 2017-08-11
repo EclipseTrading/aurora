@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
@@ -11,7 +12,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         public string Title { get; set; }
     }
 
-    public class CustomPresenter : WorkspaceViewPresenter<CustomViewModel>
+    public class CustomPresenter : WorkspaceViewPresenter<CustomViewModel>, IHostWindowManager
     {
         public CustomPresenter(ViewActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService) : base(viewActivityInfo, actionHandlerService)
         {
@@ -21,12 +22,8 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
         protected override void OnInitialized()
         {
             var headerTemplate = (DataTemplate)this.ContentContext.MainContent.TryFindResource("SampleHeaderTemplate");
-            this.ViewActivityInfo.HeaderTemplate = headerTemplate;
-            this.ViewActivityInfo.HeaderContent = new SampleHeaderContent
-            {
-                Title = this.ViewActivityInfo.Title
-            };
-
+            TitleBarSettings.HeaderContent = this.ViewActivityInfo.Title;
+            TitleBarSettings.HeaderTemplate = headerTemplate;
         }
 
         protected override void OnViewModelChanged()
@@ -34,5 +31,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             this.ViewModel.JsonString = this.ViewActivityInfo.ViewData?.ToString();
         }
 
+        public TitleBarSettings TitleBarSettings { get;  } = new TitleBarSettings();
+        public Action CloseAction { get; set; }
     }
 }

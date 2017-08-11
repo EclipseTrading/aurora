@@ -19,66 +19,66 @@
     </UserControl.Resources>
     <Grid Background="LightBlue">
         <Grid Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <RadioButton Grid.Row="0" GroupName="CreateChoice" Content="Create floating window"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <RadioButton Grid.Row="0" GroupName="CreateChoice" Content="Create floating window"
                              IsChecked="{Binding Path=SelectedWindowType, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Floating, Mode=TwoWay}">
-                </RadioButton>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20, 5">
-                    <Label>Top:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Top}"></TextBox>
-                    <Label>Left:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Left}"></TextBox>
-                    <Label>Width:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Width}"></TextBox>
-                    <Label>Height:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Height}"></TextBox>
+            </RadioButton>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20, 5">
+                <Label>Top:</Label>
+                <TextBox Width="80" Text="{Binding Path=Top}"></TextBox>
+                <Label>Left:</Label>
+                <TextBox Width="80" Text="{Binding Path=Left}"></TextBox>
+                <Label>Width:</Label>
+                <TextBox Width="80" Text="{Binding Path=Width}"></TextBox>
+                <Label>Height:</Label>
+                <TextBox Width="80" Text="{Binding Path=Height}"></TextBox>
 
-                </StackPanel>
+            </StackPanel>
 
-                <RadioButton Grid.Row="2" GroupName="CreateChoice" Content="Create docked window" Margin="0,8,0,0"
+            <RadioButton Grid.Row="2" GroupName="CreateChoice" Content="Create docked window" Margin="0,8,0,0"
                              IsChecked="{Binding Path=SelectedWindowType, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Docked, Mode=TwoWay}"></RadioButton>
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20, 5">
-                    <Label>Group:</Label>
-                    <TextBox Width="80" Text="{Binding Path=GroupIdx}"></TextBox>
-                    <Label>Order:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Order}"></TextBox>
-                    <Label>Width:</Label>
-                    <TextBox Width="80" Text="{Binding Path=DockWidth}"></TextBox>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20, 5">
+                <Label>Group:</Label>
+                <TextBox Width="80" Text="{Binding Path=GroupIdx}"></TextBox>
+                <Label>Order:</Label>
+                <TextBox Width="80" Text="{Binding Path=Order}"></TextBox>
+                <Label>Width:</Label>
+                <TextBox Width="80" Text="{Binding Path=DockWidth}"></TextBox>
             </StackPanel>
 
 
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="20,0,0,0">
-                    <Label >Title:</Label>
-                    <TextBox Width="80" Text="{Binding Path=Title}"></TextBox>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource ViewTypes}}" SelectedItem="{Binding Path=SelectedViewType}"></ComboBox>
-                </StackPanel>
-
-                <ScrollViewer Grid.Row="5">
-                     <TextBox  Margin="20, 5" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=JsonInput}">
-                     </TextBox>
-                </ScrollViewer>
-                
-
-                 <StackPanel Grid.Row="6" Orientation="Horizontal">
-                    <Button  Command="{Binding Path=CreateViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Create View</Button>
-                    <Button  Command="{Binding Path=ToggleOrientationCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Toogle Orientation</Button>
-                    <Button  Command="{Binding Path=CloseViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Close View</Button>
-                    <Button  Command="ApplicationCommands.Paste" HorizontalAlignment="Left" Margin="20,5,0,0">Paste</Button>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="20,0,0,0">
+                <Label >Title:</Label>
+                <TextBox Width="80" Text="{Binding Path=Title}"></TextBox>
+                <ComboBox ItemsSource="{Binding Source={StaticResource ViewTypes}}" SelectedItem="{Binding Path=SelectedViewType}"></ComboBox>
             </StackPanel>
-            
-                <controls:ActiveViewer ActiveView="{Binding Path=TestChildView}" Grid.Row="7"/> 
 
-            </Grid>
+            <ScrollViewer Grid.Row="5">
+                <TextBox  Margin="20, 5" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=JsonInput}">
+                </TextBox>
+            </ScrollViewer>
 
-  
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal">
+                <Button  Command="{Binding Path=CreateViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Create View</Button>
+                <Button  Command="{Binding Path=ToggleOrientationCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Toogle Orientation</Button>
+                <Button  Command="{Binding Path=CloseViewCommand}" HorizontalAlignment="Left" Margin="20,5,0,0">Close View</Button>
+                <Button  Command="ApplicationCommands.Paste" HorizontalAlignment="Left" Margin="20,5,0,0">Paste</Button>
+            </StackPanel>
+
+            <controls:ActiveViewer ActiveView="{Binding Path=TestChildView}" Grid.Row="7"/>
+
+        </Grid>
+
+
     </Grid>
 </UserControl>

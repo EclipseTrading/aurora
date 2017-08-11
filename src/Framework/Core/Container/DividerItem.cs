@@ -2,6 +2,6 @@
 {
     public class DividerItem : CommandBarItem
     {
-        
+        public override MenuType MenuType => MenuType.Divider;
     }
 }
