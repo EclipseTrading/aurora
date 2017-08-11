@@ -11,8 +11,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:ToUpperConverter x:Key="ToUpperConverter" />
 
-    <ControlTemplate x:Key="CleanWindowTemplate"
-                     TargetType="{x:Type Controls:MetroWindow}">
+    <ControlTemplate x:Key="CleanWindowTemplate" TargetType="{x:Type Controls:MetroWindow}">
         <Grid>
             <AdornerDecorator>
                 <Grid Background="{TemplateBinding Background}">
@@ -261,38 +260,25 @@
     <Style TargetType="{x:Type Controls:MetroWindow}"
            x:Key="CleanWindowStyleKey">
 
-        <Setter Property="ShowTitleBar"
-                Value="True" />
-        <Setter Property="MinWidth"
-                Value="400" />
-        <Setter Property="Template"
-                Value="{StaticResource CleanWindowTemplate}" />
-        <Setter Property="TitleForeground"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="OverrideDefaultWindowCommandsBrush"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="WindowMinButtonStyle"
-                Value="{DynamicResource CleanWindowButtonStyle}" />
-        <Setter Property="WindowMaxButtonStyle"
-                Value="{DynamicResource CleanWindowButtonStyle}" />
-        <Setter Property="WindowCloseButtonStyle"
-                Value="{DynamicResource CleanCloseWindowButtonStyle}" />
-
+        <Setter Property="ShowTitleBar" Value="True" />
+        <Setter Property="MinWidth" Value="400" />
+        <Setter Property="Template" Value="{StaticResource CleanWindowTemplate}" />
+        <Setter Property="TitleForeground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="OverrideDefaultWindowCommandsBrush" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="WindowMinButtonStyle" Value="{DynamicResource CleanWindowButtonStyle}" />
+        <Setter Property="WindowMaxButtonStyle" Value="{DynamicResource CleanWindowButtonStyle}" />
+        <Setter Property="WindowCloseButtonStyle" Value="{DynamicResource CleanCloseWindowButtonStyle}" />
     </Style>
 
     <Style x:Key="CleanWindowButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MetroWindowButtonStyle}">
-
         <Style.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="false">
-                <Setter Property="Foreground"
-                        Value="{DynamicResource IdealForegroundDisabledBrush}" />
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource IdealForegroundDisabledBrush}" />
             </Trigger>
-
         </Style.Triggers>
     </Style>
 

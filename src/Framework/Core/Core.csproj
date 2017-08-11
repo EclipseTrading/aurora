@@ -90,6 +90,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ActionEvent.cs" />
+    <Compile Include="Activities\TitleBarSettings.cs" />
     <Compile Include="DefaultPresenterHandlerService.cs" />
     <Compile Include="Actions\ActionParameter.cs" />
     <Compile Include="Actions\DefaultAction.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="DictionaryHelper.cs" />
     <Compile Include="IApplicationWindowViewModel.cs" />
     <Compile Include="IModuleProvider.cs" />
+    <Compile Include="IHostWindowManager.cs" />
     <Compile Include="IViewFactory.cs" />
     <Compile Include="IRelatedTypeResolver.cs" />
     <Compile Include="IViewModel.cs" />
@@ -160,6 +162,7 @@
       <DependentUpon>ContentContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewContainer\ContentContext.cs" />
+    <Compile Include="ViewContainer\IViewContainerService.cs" />
     <Compile Include="ViewFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,8 +170,6 @@
     <Compile Include="Activities\ViewActivity.cs" />
     <Compile Include="RegionViewModel.cs" />
     <Compile Include="TypeOverride.cs" />
-    <Compile Include="ViewContainer\IViewContainerAware.cs" />
-    <Compile Include="ViewContainer\IViewContainerService.cs" />
     <Compile Include="ViewDefinition.cs" />
     <Compile Include="ViewFactoryExtensions.cs" />
     <Compile Include="ViewModelBase.cs" />

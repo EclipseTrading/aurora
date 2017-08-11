@@ -17,7 +17,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <Grid Background="LightGreen">
+    <Grid Background="White">
         <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>

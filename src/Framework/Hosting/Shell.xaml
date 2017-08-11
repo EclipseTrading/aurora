@@ -67,61 +67,47 @@
                     </ToggleButton.Style>
                 </ToggleButton>
                 <Popup x:Name="IconPopup" Placement="Bottom" AllowsTransparency="True" PlacementTarget="{Binding ElementName=ImageIcon}"
-                       Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="-2" HorizontalOffset="2">
+                       Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="-1" HorizontalOffset="1">
                     <i:Interaction.Behaviors>
                         <hosting:CloseOnAction/>
                     </i:Interaction.Behaviors>
-
-                    <Border Margin="0,0,8,8" Background="#006DB6" BorderThickness="0">
-
+                    <Border Margin="0,0,8,8" BorderThickness="0">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5" Opacity="0.4"/>
                         </Border.Effect>
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
-
-
-                            <Rectangle Fill="White" Margin="0" Stroke="DarkGray" StrokeThickness="1" RadiusX="0" RadiusY="0">
-
-                            </Rectangle>
-
-
-                            <Border BorderThickness="1,0,0,0" BorderBrush="DarkGray" Background="White" Margin="0,-3,217,5">
-
-                            </Border>
-
-                            <ContentControl x:Name="PART_Content" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                                            regions:RegionManager.RegionManager="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=(regions:RegionManager.RegionManager)}" 
-                                                            regions:RegionManager.RegionName="{x:Static container:Regions.AppMenuHost}"/>
-
-
-
+                            <ContentControl x:Name="PART_Content" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            regions:RegionManager.RegionManager="{Binding RelativeSource={RelativeSource AncestorType=controls:MetroWindow}, Path=(regions:RegionManager.RegionManager)}" 
+                                            regions:RegionManager.RegionName="{x:Static container:Regions.AppMenuHost}"/>
                         </Grid>
                     </Border>
                 </Popup>
             </Grid>
-
         </DataTemplate>
     </controls:MetroWindow.IconTemplate>
     <Border BorderThickness="1" BorderBrush="LightGray">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.TopHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" regions:RegionManager.RegionName="{x:Static container:Regions.LeftHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static container:Regions.CenterHost}"/>
-        <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static container:Regions.RightHost}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.BottomHost}"/>
+
+            <ContentControl Grid.Row="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.TopHost}"/>
+            <ContentControl Grid.Row="1" Grid.Column="0" regions:RegionManager.RegionName="{x:Static container:Regions.LeftHost}"/>
+            <ContentControl Grid.Row="1" Grid.Column="1" regions:RegionManager.RegionName="{x:Static container:Regions.CenterHost}"/>
+            <ContentControl Grid.Row="1" Grid.Column="2" regions:RegionManager.RegionName="{x:Static container:Regions.RightHost}"/>
+            <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" regions:RegionManager.RegionName="{x:Static container:Regions.BottomHost}"/>
+
+
+
         </Grid>
     </Border>
 </controls:MetroWindow>
