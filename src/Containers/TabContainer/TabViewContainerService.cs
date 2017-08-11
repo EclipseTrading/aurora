@@ -37,14 +37,6 @@ namespace Aurora.TabContainer
                     region.Remove(activeView.View);
                 };
             
-            
-            var containedService = contentView.Presenter as IViewContainerAware;
-            if (containedService != null)
-            {
-                containedService.ViewContainerService = activeView.Presenter;
-            }
-
-
             regionManager.RegisterViewWithRegion(TabContainerRegion.Default, () => activeView.View);
 
             return new ActionDisposable(() => { });
