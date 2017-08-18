@@ -7,10 +7,4 @@ namespace Aurora.Core.Container
         public string Id { get; } = Guid.NewGuid().ToString();
         public abstract MenuType MenuType { get; }
     }
-
-    public enum MenuType
-    {
-        MenuItem,
-        Divider
-    }
 }

@@ -5,15 +5,15 @@ namespace Aurora.SyncfusionDockingContainer
 {
     public class AuroraProperties
     {
-        public static readonly DependencyProperty TitleBarSettingsProperty = DependencyProperty.RegisterAttached("TitleBarSettings", typeof(TitleBarSettings), typeof(AuroraProperties), 
-            new PropertyMetadata(default(TitleBarSettings)));
+        public static readonly DependencyProperty TitleBarSettingsProperty = DependencyProperty.RegisterAttached("TitleBarSettings", typeof(ITitleBarSettings), typeof(AuroraProperties), 
+            new PropertyMetadata(default(ITitleBarSettings)));
 
-        public static TitleBarSettings GetTitleBarSettings(UIElement element)
+        public static ITitleBarSettings GetTitleBarSettings(UIElement element)
         {
-            return (TitleBarSettings) element.GetValue(TitleBarSettingsProperty);
+            return (ITitleBarSettings) element.GetValue(TitleBarSettingsProperty);
         }
 
-        public static void SetTitleBarSettings(UIElement element, TitleBarSettings value)
+        public static void SetTitleBarSettings(UIElement element, ITitleBarSettings value)
         {
             element.SetValue(TitleBarSettingsProperty, value);
         }

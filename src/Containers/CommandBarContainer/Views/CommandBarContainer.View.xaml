@@ -4,52 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views1="clr-namespace:Aurora.CommandBarContainer.Views"
-             xmlns:commandBarContainer="clr-namespace:Aurora.CommandBarContainer"
-             xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance views1:CommandBarContainerViewModel}"
              d:DesignHeight="34" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Aurora.Controls;component/Themes/Generic.xaml"/>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <syncfusion:MenuAdv Orientation="Vertical" ItemsSource="{Binding Commands}" syncfusion:SkinStorage.VisualStyle="Metro" Background="White"
-                                ExpandMode="ExpandOnMouseOver">
-                <syncfusion:MenuAdv.ItemTemplateSelector>
-                    <commandBarContainer:MenuItemTemplateSelector>
-                        <commandBarContainer:MenuItemTemplateSelector.MenuItemTemplate>
-                            <HierarchicalDataTemplate DataType="container:MenuItemCommand" ItemsSource="{Binding Path=Children}">
-                                <TextBlock Text="{Binding Path=Title}"/>
-                            </HierarchicalDataTemplate>
-                        </commandBarContainer:MenuItemTemplateSelector.MenuItemTemplate>
-                        <commandBarContainer:MenuItemTemplateSelector.SeparatorTemplate>
-                            <DataTemplate DataType="container:DividerItem">
-                                <Rectangle Fill="LightGray" Height="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}" RadiusY="1" RadiusX="1"/>
-                            </DataTemplate>
-                        </commandBarContainer:MenuItemTemplateSelector.SeparatorTemplate>
-                    </commandBarContainer:MenuItemTemplateSelector>
-                </syncfusion:MenuAdv.ItemTemplateSelector>
-                <syncfusion:MenuAdv.ItemContainerStyle>
-                    <Style TargetType="syncfusion:MenuItemAdv" BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}" 
-                           d:DataContext="{d:DesignInstance container:MenuItemCommand}">
-                        <Setter Property="Command" Value="{Binding Path=Command}"/>
-                        <Setter Property="Icon" Value="{Binding Path=Icon}"/>
-                        <Setter Property="commandBarContainer:MenuProperties.MenuType" Value="{Binding Path=MenuType}"/>
-                        <Style.Triggers>
-                            <Trigger Property="commandBarContainer:MenuProperties.MenuType" Value="Divider">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="syncfusion:MenuItemAdv">
-                                            <Grid HorizontalAlignment="Stretch" Height="7">
-                                                <Rectangle Margin="32,3,5,3" HorizontalAlignment="Stretch" Fill="LightGray"/>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </syncfusion:MenuAdv.ItemContainerStyle>
-            </syncfusion:MenuAdv>
+            <syncfusion:MenuAdv Style="{StaticResource AuroraMenu}" ItemsSource="{Binding Commands}"/>
         </ScrollViewer>
         <Grid.Style>
             <Style TargetType="Grid">

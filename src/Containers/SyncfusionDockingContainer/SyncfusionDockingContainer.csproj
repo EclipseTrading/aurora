@@ -88,7 +88,7 @@
     <Compile Include="DockingContainerRegion.cs" />
     <Compile Include="Document.ActivityInfo.cs" />
     <Compile Include="LogConverter.cs" />
-    <Compile Include="MenuProperties.cs" />
+    <Compile Include="MinimizeOnClick.cs" />
     <Compile Include="ModuleBootstrapper.cs" />
     <Compile Include="NotConverter.cs" />
     <Compile Include="Passthrough.cs" />
@@ -106,12 +106,36 @@
     <Compile Include="Views\DockingContainer\ViewContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Controls\Controls.csproj">
+      <Project>{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Core\Core.csproj">
       <Project>{5CB0CD8B-104F-4483-9926-0B562F5D3486}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\DockingContainer\DocumentTabItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DockingContainer\CommonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DockingContainer\DockedElementTabStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DockingContainer\NativeWindowStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DockingContainer\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DockingContainer\DockingContainer.View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

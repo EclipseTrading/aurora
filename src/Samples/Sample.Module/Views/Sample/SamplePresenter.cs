@@ -7,6 +7,7 @@ using Aurora.Sample.Module.Shared;
 using Aurora.Sample.Module.Views.ChildView;
 using Microsoft.Practices.Prism.Commands;
 using System.Threading.Tasks;
+using Aurora.Controls;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Aurora.Sample.Module.Views.Dialog;
@@ -30,7 +31,7 @@ namespace Aurora.Sample.Module.Views.Sample
             this.activityService = activityService;
         }
 
-        public TitleBarSettings TitleBarSettings { get; } = new TitleBarSettings();
+        public ITitleBarSettings TitleBarSettings { get; } = new DefaultTitleBarSettings();
 
         protected override async void OnViewModelChanged()
         {

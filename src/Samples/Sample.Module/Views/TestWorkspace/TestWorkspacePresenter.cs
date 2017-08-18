@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Aurora.Controls;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
+using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Newtonsoft.Json.Linq;
-using Syncfusion.Windows.Shared;
 using DelegateCommand = Microsoft.Practices.Prism.Commands.DelegateCommand;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
@@ -47,11 +47,11 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
 
             var testChildView = await this.AddChildViewAsync(typeof(TestChildPresenter));
             this.ViewModel.TestChildView = testChildView;
-            this.TitleBarSettings.MenuItems.Add(new MenuItemAdv
-            {
-                Header = "Test Menu Item",
-                Icon = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue }
-            });
+            this.TitleBarSettings.MenuItems.Add(
+                new MenuItemCommand("Test Menu Item")
+                {
+                    Icon = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue }
+                });
             this.TitleBarSettings.TitleBarControls.Add(new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue, Margin = new Thickness(7.5, 0, 7.5, 0)});
             this.TitleBarSettings.ActiveBackground = new SolidColorBrush(Color.FromArgb(255, 17, 218, 158));
             this.TitleBarSettings.ActiveForeground = Brushes.White;
@@ -120,7 +120,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             CloseAction?.Invoke();
         }
 
-        public TitleBarSettings TitleBarSettings { get; } = new TitleBarSettings();
+        public ITitleBarSettings TitleBarSettings { get; } = new DefaultTitleBarSettings();
         public Action CloseAction { get; set; }
     }
 }
