@@ -1,6 +1,6 @@
 ﻿using Aurora.Core.Container;
-using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
+using Prism.Modularity;
 
 namespace Aurora.TabContainer
 {

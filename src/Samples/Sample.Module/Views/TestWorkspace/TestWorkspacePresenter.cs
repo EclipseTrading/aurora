@@ -10,7 +10,7 @@ using Aurora.Core.Activities;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Newtonsoft.Json.Linq;
-using DelegateCommand = Microsoft.Practices.Prism.Commands.DelegateCommand;
+using Prism.Commands;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
 {

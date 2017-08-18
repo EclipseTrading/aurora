@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Aurora.Core.Container;
-using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
+using Prism.Regions;
 
 namespace Aurora.Core.Activities
 {

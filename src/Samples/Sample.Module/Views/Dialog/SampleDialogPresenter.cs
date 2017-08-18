@@ -1,8 +1,7 @@
 ﻿using Aurora.Core.Dialog;
-using Microsoft.Practices.Prism.Commands;
 using System.Threading.Tasks;
-using Aurora.Core;
 using Aurora.Core.Actions;
+using Prism.Commands;
 
 namespace Aurora.Sample.Module.Views.Dialog
 {

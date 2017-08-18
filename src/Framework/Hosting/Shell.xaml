@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:regions="http://www.codeplex.com/CompositeWPF"
+        xmlns:regions="http://prismlibrary.com/"
         xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:core="clr-namespace:Aurora.Core;assembly=Aurora.Core"

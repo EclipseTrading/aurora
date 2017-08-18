@@ -1,5 +1,5 @@
 ﻿using Aurora.Core.Container;
-using Microsoft.Practices.Prism.Modularity;
+using Prism.Modularity;
 
 
 namespace Aurora.SyncfusionDockingContainer

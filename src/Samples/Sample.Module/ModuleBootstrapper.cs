@@ -6,8 +6,8 @@ using Aurora.Core.Actions;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Aurora.Sample.Module.Views.TestWorkspace;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Modularity;
+using Prism.Commands;
+using Prism.Modularity;
 
 namespace Aurora.Sample.Module
 {

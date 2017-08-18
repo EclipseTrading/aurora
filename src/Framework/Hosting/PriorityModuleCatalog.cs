@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aurora.Core.Container;
-using Microsoft.Practices.Prism.Modularity;
+using Prism.Modularity;
 
 namespace Aurora.Hosting
 {

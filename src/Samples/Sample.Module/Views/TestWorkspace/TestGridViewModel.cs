@@ -1,9 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
 using Aurora.Core;
-using Microsoft.Practices.Prism.Commands;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
 {

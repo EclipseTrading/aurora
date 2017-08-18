@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
 using Aurora.Core;
-using Microsoft.Practices.Prism.Commands;
+using Prism.Commands;
 
 namespace Aurora.Sample.Module.Views.TestWorkspace
 {
