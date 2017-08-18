@@ -9,7 +9,8 @@
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
       <dependency id="Aurora.Core" version="1.0"/>
-      <dependency id="Prism" version="5.0.0" />
+      <dependency id="Prism.Core" version="6.3.0"/>
+      <dependency id="Prism.Wpf" version="6.3.0"/>
     </dependencies>
   </metadata>
   <files>

@@ -8,12 +8,14 @@
     <description>MVPVM Framework Application Host Project</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
-      <dependency id="Aurora.Core" version="1.0"/>
-      <dependency id="Aurora.SyncfusionDockingContainer" version="1.0"/>
-      <dependency id="Aurora.CommandBarContainer" version="1.0"/>
-      <dependency id="MahApps.Metro" version="1.1.2.0" />
-      <dependency id="Prism" version="5.0.0" />
-      <dependency id="Prism.UnityExtensions" version="5.0.1" />
+      <dependency id="CommonServiceLocator" version="1.3"/>
+      <dependency id="MahApps.Metro" version="1.5.0"/>
+      <dependency id="Prism.Core" version="6.3.0"/>
+      <dependency id="Prism.Unity" version="6.3.0"/>
+      <dependency id="Prism.Wpf" version="6.3.0"/>
+      <dependency id="Syncfusion.Shared.WPF451" version="15.3.0.26"/>
+      <dependency id="Syncfusion.Tools.WPF451" version="15.3.0.26"/>
+      <dependency id="Unity" version="4.0.1"/>
     </dependencies>
     <references>
       <reference file="Aurora.Hosting.dll"/>
