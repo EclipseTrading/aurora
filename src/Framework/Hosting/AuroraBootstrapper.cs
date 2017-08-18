@@ -8,11 +8,10 @@ using Aurora.Core.Actions;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
 using Aurora.SyncfusionDockingContainer.Views.DockingContainer;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.Regions;
-using Microsoft.Practices.Prism.UnityExtensions;
-using ContainerControlledLifetimeManager = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 using Microsoft.Practices.Unity;
+using Prism.Modularity;
+using Prism.Regions;
+using Prism.Unity;
 using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.Hosting
@@ -49,6 +48,7 @@ namespace Aurora.Hosting
                     .OfType<ModuleAttribute>()
                     .FirstOrDefault()
                            ?? new ModuleAttribute { ModuleName = type.AssemblyQualifiedName, OnDemand = false };
+                
 
                 catalog.AddModule(attr.ModuleName,
                     type.AssemblyQualifiedName,
@@ -99,15 +99,14 @@ namespace Aurora.Hosting
             this.Container.RegisterInstance<IRelatedTypeResolver<IViewModel>>(compositeResolver);
         }
 
+
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
         {
             var mappings = base.ConfigureRegionAdapterMappings();
             if (mappings == null)
                 return null;
-
-
+            
             mappings.RegisterMapping(typeof(DockingManager), this.Container.Resolve<DockRegionAdapter>());
-
 
             return mappings;
         }

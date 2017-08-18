@@ -3,7 +3,7 @@ using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.ViewContainer;
-using Microsoft.Practices.Prism.Commands;
+using Prism.Commands;
 
 namespace Aurora.TabContainer.Views.Tab
 {

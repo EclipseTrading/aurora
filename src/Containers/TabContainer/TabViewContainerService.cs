@@ -1,12 +1,10 @@
 using System.Threading.Tasks;
-using System.Windows;
 using Aurora.Core;
 using Aurora.Core.Activities;
-using Aurora.Core.ViewContainer;
 using Aurora.TabContainer.Views.Tab;
-using Microsoft.Practices.Prism.Regions;
 using IViewContainerService = Aurora.Core.Container.IViewContainerService;
 using System;
+using Prism.Regions;
 
 namespace Aurora.TabContainer
 {

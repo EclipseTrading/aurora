@@ -1,7 +1,7 @@
 ﻿using Aurora.Core.Activities;
-using Microsoft.Practices.Prism.Commands;
 using System.Threading.Tasks;
 using Aurora.Core.Actions;
+using Prism.Commands;
 
 namespace Aurora.Core.Dialog
 {
@@ -12,11 +12,11 @@ namespace Aurora.Core.Dialog
                                                             
     {
         private TaskCompletionSource<TResult> tcs;
-        public DialogViewPresenter(IActionHandlerService actionHandlerService) : base(new ViewActivityInfo(null), actionHandlerService)
+
+        protected DialogViewPresenter(IActionHandlerService actionHandlerService) : base(new ViewActivityInfo(null), actionHandlerService)
         {
 
         }
-       
 
         public Task<TResult> ShowAsync()
         {
@@ -46,7 +46,5 @@ namespace Aurora.Core.Dialog
         }
 
         protected abstract Task<TResult> CreateResult(bool isCancel);
-
-      
     }
 }

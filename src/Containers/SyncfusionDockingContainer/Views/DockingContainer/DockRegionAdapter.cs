@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Aurora.Core.Workspace;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 {
-
-
-
     public class DockRegionAdapter : RegionAdapterBase<DockingManager>
     {
         private DockingManager manager;
@@ -39,7 +32,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                     win.Close();
                 }
             }
-
         }
 
         private void OnTimerTick(object sender, EventArgs e)

@@ -7,7 +7,7 @@ using Aurora.Core;
 using Aurora.Core.Activities;
 using Aurora.Core.Container;
 using Aurora.Core.Workspace;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 
 namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer

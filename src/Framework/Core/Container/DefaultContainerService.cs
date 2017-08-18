@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 
 namespace Aurora.Core.Container
 {

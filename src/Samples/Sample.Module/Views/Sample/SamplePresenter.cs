@@ -5,7 +5,6 @@ using Aurora.Core;
 using Aurora.Core.Container;
 using Aurora.Sample.Module.Shared;
 using Aurora.Sample.Module.Views.ChildView;
-using Microsoft.Practices.Prism.Commands;
 using System.Threading.Tasks;
 using Aurora.Controls;
 using Aurora.Core.Actions;
@@ -44,20 +43,19 @@ namespace Aurora.Sample.Module.Views.Sample
             this.OnViewModelPropertyChanged(vm => vm.Title, () => TitleBarSettings.HeaderContent = ViewModel.Title);
 
             this.ViewModel.OkCommand =
-                new DelegateCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
+                new ActionCommand(() => ViewModel.Message = string.Format(activityInfo.MessageFormat, ViewModel.Name),
                 () => !string.IsNullOrEmpty(ViewModel.Name));
 
             this.OnViewModelPropertyChanged(vm => vm.Name,
                 () => ViewModel.OkCommand.RaiseCanExecuteChanged());
 
-            this.ViewModel.NewViewCommand = new DelegateCommand(
+            this.ViewModel.NewViewCommand = new ActionCommand(
                 () => activityService.StartActivityAsync(new SampleViewActivityInfo("Sample View", HostLocation.Center, true)
                 {
                     MessageFormat = activityInfo.MessageFormat
-                }),
-                () => true);
+                }));
 
-            this.ViewModel.ShowDialogCommand = new DelegateCommand(async () => await GetDialogResultAsync());
+            this.ViewModel.ShowDialogCommand = new ActionCommand(async () => await GetDialogResultAsync());
 
             var random = new Random();
 

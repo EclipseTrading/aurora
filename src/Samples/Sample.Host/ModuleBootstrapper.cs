@@ -2,7 +2,7 @@ using System.Windows.Controls;
 using Aurora.CommandBarContainer;
 using Aurora.Core.Container;
 using Aurora.SyncfusionDockingContainer;
-using Microsoft.Practices.Prism.Modularity;
+using Prism.Modularity;
 
 namespace Aurora.Sample.Host
 {

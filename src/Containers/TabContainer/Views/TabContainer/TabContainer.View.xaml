@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:regions="http://www.codeplex.com/CompositeWPF"
+             xmlns:regions="http://prismlibrary.com/"
              xmlns:tabHost="clr-namespace:Aurora.TabContainer.Views.TabContainer"
              xmlns:tabHost1="clr-namespace:Aurora.TabContainer"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
