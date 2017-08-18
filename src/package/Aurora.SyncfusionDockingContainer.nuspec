@@ -8,11 +8,13 @@
     <description>Aurora Framework Syncfusion Container for docked views</description>
     <tags>WPF MVPVM MVVM</tags>
     <dependencies>
-      <dependency id="Aurora.Core" version="1.0" />
-      <dependency id="Syncfusion.Shared.WPF451" version="14.3.0.49" />
-      <dependency id="Syncfusion.Tools.WPF451" version="14.3.0.49"  />
-      <dependency id="CommonServiceLocator" version="1.2" />
-      <dependency id="Prism.Composition" version="5.0.0" />
+      <dependency id="CommonServiceLocator" version="1.3"/>
+      <dependency id="MahApps.Metro" version="1.5.0"/>
+      <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      <dependency id="Prism.Core" version="6.3.0"/>
+      <dependency id="Prism.Wpf" version="6.3.0"/>
+      <dependency id="Syncfusion.Shared.WPF451" version="15.3.0.26" />
+      <dependency id="Syncfusion.Tools.WPF451" version="15.3.0.26" />      
     </dependencies>
     <references>
       <reference file="Aurora.SyncfusionDockingContainer.dll"/>

@@ -10,8 +10,8 @@
     <dependencies>
       <dependency id="Aurora.SyncfusionDockingContainer" version="1.0"/>
       <dependency id="Aurora.TabContainer" version="1.0"/>
-	  <dependency id="Aurora.AppHost" version="1.0"/>
-	  <dependency id="Aurora.Controls" version="1.0"/>
+      <dependency id="Aurora.AppHost" version="1.0"/>
+      <dependency id="Aurora.Controls" version="1.0"/>
     </dependencies>
   </metadata>
   <files></files>
