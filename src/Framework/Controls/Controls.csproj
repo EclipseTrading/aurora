@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Syncfusion.Shared.Wpf">
+      <HintPath>..\..\packages\Syncfusion.Shared.WPF451.15.2.0.46\lib\net451\Syncfusion.Shared.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -48,6 +51,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultTitleBarSettings.cs" />
+    <Compile Include="MenuItemTemplateSelector.cs" />
+    <Compile Include="MenuProperties.cs" />
+    <Compile Include="TitleBarIcon.xaml.cs">
+      <DependentUpon>TitleBarIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TitleBarMenu.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -58,6 +68,10 @@
     <Compile Include="ActiveViewer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TitleBarIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sf="http://schemas.syncfusion.com/wpf"
+                    xmlns:sdc="clr-namespace:Aurora.SyncfusionDockingContainer">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Syncfusion.Tools.Wpf;component/framework/dockingmanager/themes/metrostyle.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Syncfusion.Tools.Wpf;component/controls/tabcontrolext/themes/metrostyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style x:Key="TabControlStyle" TargetType="{x:Type sf:TabControlExt}">
+        <Setter Property="TabPanelStyle" Value="{StaticResource MetroTabPanelAdvStyle}"/>
+        <Setter Property="TabPanelBackground" Value="{StaticResource Metro.TabPanelBackgroundBrush}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource Metro.InactiveForeground}"/>
+        <Setter Property="Panel.Background" Value="{StaticResource TabBackground.Office2003}"/>
+        <Setter Property="DragMarkerStyle" Value="{StaticResource MetroDragMarkerStyle}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sf:TabControlExt}">
+                    <Grid Name="TabControlGrid" Background="{DynamicResource MetroPanelBackgroundBrush}" ClipToBounds="false" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="ColumnDefinition0"/>
+                            <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                            <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                        </Grid.RowDefinitions>
+                        <sf:HeaderPanel Name="HeaderPanel" Grid.Column="0" Grid.Row="0" ZIndex="1" Focusable="false" Background="#FF293955" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <sf:TabPanelAdv x:Name="PART_TabPanel" Focusable="false" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{TemplateBinding sf:TabControlExt.TabPanelStyle}">
+                                <sf:TabLayoutPanel x:Name="PART_TabLayoutPanel" AllowDrop="true" Margin="0,0,0,0" IsItemsHost="true" KeyboardNavigation.TabIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </sf:TabPanelAdv>
+                        </sf:HeaderPanel>
+                        <sf:Border3D x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" AllowDrop="true" 
+                                                             Margin="0,0,0,0" CornerRadius="0" 
+                                                             BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DocumentTabControl.SelectedContent).(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorderThickness}"
+                                                             BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DocumentTabControl.SelectedContent).(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorder}"
+                                                             KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local"
+                                                             KeyboardNavigation.DirectionalNavigation="Contained">
+                            <Border x:Name="PART_ContentPanelBorder" CornerRadius="0" Background="{TemplateBinding Control.Background}">
+                                <Border x:Name="PART_ContentPanelInnerBorder" BorderThickness="0" Margin="0" Background="{TemplateBinding Control.Background}" CornerRadius="0">
+                                    <ContentPresenter Name="PART_SelectedContentHost" Content="{TemplateBinding TabControl.SelectedContent}"
+                                                                              AllowDrop="true" ContentTemplate="{TemplateBinding TabControl.SelectedContentTemplate}"
+                                                                              ContentSource="SelectedContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                                              Margin="{TemplateBinding Control.Padding}"
+                                                                              SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                                </Border>
+                            </Border>
+                        </sf:Border3D>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(sf:DocumentTabControl.SelectedContent).(ContentPresenter.IsKeyboardFocusWithin)}" Value="True">
+                            <Setter TargetName="ContentPanel" Property="BorderThickness"
+                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DocumentTabControl.SelectedContent).(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorderThickness}"/>
+                            <Setter TargetName="ContentPanel" Property="BorderBrush"
+                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DocumentTabControl.SelectedContent).(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorder}"/>
+                        </DataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="TabControl.TabStripPlacement" Value="Left"/>
+                                <Condition Property="sf:TabControlExt.RotateTextWhenVertical" Value="true"/>
+                                <Condition Property="FrameworkElement.FlowDirection" Value="RightToLeft"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="HeaderPanel" Property="FrameworkElement.FlowDirection" Value="LeftToRight"/>
+                        </MultiTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsAllTabsClosed, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                <Condition Binding="{Binding Path=(sf:SkinStorage.VisualStyle), RelativeSource={RelativeSource Self}}" Value="Office2003"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_TabPanel" Property="Control.Background" Value="Transparent"/>
+                        </MultiDataTrigger>
+                        <Trigger Property="UIElement.IsEnabled" Value="false">
+                            <Setter Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Property="TextElement.Foreground"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

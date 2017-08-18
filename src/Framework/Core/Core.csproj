@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="ActionEvent.cs" />
     <Compile Include="Activities\TitleBarSettings.cs" />
+    <Compile Include="Container\MenuType.cs" />
     <Compile Include="DefaultPresenterHandlerService.cs" />
     <Compile Include="Actions\ActionParameter.cs" />
     <Compile Include="Actions\DefaultAction.cs" />

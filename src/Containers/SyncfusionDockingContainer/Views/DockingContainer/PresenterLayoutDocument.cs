@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
+using Aurora.Controls;
 using Aurora.Core;
 using Aurora.Core.Activities;
 using Aurora.Core.ViewContainer;
 using Aurora.Core.Workspace;
 using Syncfusion.Windows.Tools.Controls;
-
 
 namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 {
@@ -12,7 +12,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
     {
         public ViewContext ViewContext { get; }
         public ViewLocation ViewLocation { get; }
-        public TitleBarSettings TitleBar { get; }
+        public ITitleBarSettings TitleBar { get; }
 
         public PresenterLayoutDocument(ViewContext viewContext)
         {
@@ -23,7 +23,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             var hostWindowManager = this.ViewContext.View.Presenter as IHostWindowManager;
             var settings = hostWindowManager != null
                      ? hostWindowManager.TitleBarSettings
-                     : new TitleBarSettings();
+                     : new DefaultTitleBarSettings();
             
             if (settings.HeaderContent == null)
             {

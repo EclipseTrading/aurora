@@ -71,9 +71,6 @@
     <Compile Include="CommandBarContainer.ActivityInfo.cs" />
     <Compile Include="DefaultImageConverter.cs" />
     <Compile Include="HasItemsVisibilityConverter.cs" />
-    <Compile Include="MenuItemContainerTemplateSelector.cs" />
-    <Compile Include="MenuItemTemplateSelector.cs" />
-    <Compile Include="MenuProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Controls\Controls.csproj">
+      <Project>{45AC10CA-FF17-4D90-B3F7-1D9C69CBBF30}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Core\Core.csproj">
       <Project>{5CB0CD8B-104F-4483-9926-0B562F5D3486}</Project>
       <Name>Core</Name>

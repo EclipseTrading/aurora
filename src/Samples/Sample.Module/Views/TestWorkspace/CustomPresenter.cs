@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Aurora.Controls;
 using Aurora.Core;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
@@ -31,7 +32,7 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             this.ViewModel.JsonString = this.ViewActivityInfo.ViewData?.ToString();
         }
 
-        public TitleBarSettings TitleBarSettings { get;  } = new TitleBarSettings();
+        public ITitleBarSettings TitleBarSettings { get;  } =  new DefaultTitleBarSettings();
         public Action CloseAction { get; set; }
     }
 }

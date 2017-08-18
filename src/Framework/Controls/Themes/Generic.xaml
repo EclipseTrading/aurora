@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Aurora.Controls">
+    xmlns:local="clr-namespace:Aurora.Controls"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:container="clr-namespace:Aurora.Core.Container;assembly=Aurora.Core" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
     <Style TargetType="{x:Type local:ActiveViewer}">
         <Setter Property="Template">
             <Setter.Value>
@@ -10,5 +13,48 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="MenuItemContainerStyle" TargetType="syncfusion:MenuItemAdv" BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}">
+        <Setter Property="Command" Value="{Binding Path=Command}"/>
+        <Setter Property="Icon" Value="{Binding Path=Icon}"/>
+        <Setter Property="local:MenuProperties.MenuType" Value="{Binding Path=MenuType}"/>
+        <Style.Triggers>
+            <Trigger Property="local:MenuProperties.MenuType" Value="Divider">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="syncfusion:MenuItemAdv">
+                            <Grid HorizontalAlignment="Stretch" Height="7">
+                                <Rectangle Margin="32,3,5,3" HorizontalAlignment="Stretch" Fill="LightGray"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AuroraMenu" TargetType="syncfusion:MenuAdv">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="syncfusion:SkinStorage.VisualStyle" Value="Metro"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="ExpandMode" Value="ExpandOnMouseOver"/>
+        <Setter Property="ItemTemplateSelector">
+            <Setter.Value>
+                <local:MenuItemTemplateSelector>
+                    <local:MenuItemTemplateSelector.MenuItemTemplate>
+                        <HierarchicalDataTemplate DataType="container:MenuItemCommand" ItemsSource="{Binding Path=Children}">
+                            <TextBlock Text="{Binding Path=Title}"/>
+                        </HierarchicalDataTemplate>
+                    </local:MenuItemTemplateSelector.MenuItemTemplate>
+                    <local:MenuItemTemplateSelector.SeparatorTemplate>
+                        <DataTemplate DataType="container:DividerItem">
+                            <Rectangle Fill="LightGray" Height="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}" RadiusY="1" RadiusX="1"/>
+                        </DataTemplate>
+                    </local:MenuItemTemplateSelector.SeparatorTemplate>
+                </local:MenuItemTemplateSelector>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource MenuItemContainerStyle}"/>
     </Style>
 </ResourceDictionary>

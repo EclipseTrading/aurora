@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Aurora.Core.Container;
 
-namespace Aurora.CommandBarContainer
+namespace Aurora.Controls
 {
     public class MenuItemTemplateSelector : DataTemplateSelector
     {

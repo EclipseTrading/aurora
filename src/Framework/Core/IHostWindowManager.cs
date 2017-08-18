@@ -5,7 +5,7 @@ namespace Aurora.Core
 {
     public interface IHostWindowManager
     {
-        TitleBarSettings TitleBarSettings { get; }
+        ITitleBarSettings TitleBarSettings { get; }
         Action CloseAction { get; set; }
     }
 }
