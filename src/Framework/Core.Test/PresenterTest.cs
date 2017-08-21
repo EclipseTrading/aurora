@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
@@ -9,7 +10,7 @@ namespace Aurora.Core.Test
     [TestFixture]
     public class PresenterTest
     {
-        [Test, RequiresSTA]
+        [Test, Apartment(ApartmentState.STA)]
         public async void FactoryWireUpTest()
         {
             var container = new UnityContainer();
