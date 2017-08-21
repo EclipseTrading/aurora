@@ -45,12 +45,11 @@
                             </StackPanel>
                         </Grid>
 
-                        <ContentControl x:Name="Menu" DockPanel.Dock="Left" sf:WindowChrome.IsHitTestVisibleInChrome="True" 
+                        <controls:TitleBarMenu x:Name="Menu" DockPanel.Dock="Left" sf:WindowChrome.IsHitTestVisibleInChrome="True" 
                                             Content="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings), RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"
                                             ContentTemplate="{StaticResource Menu}"
-                                            controls:MenuProperties.IsTab="False"
-                                            controls:MenuProperties.IsActive="False"
-                                            controls:MenuProperties.IsSelected="{Binding Path=IsFocused, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                            IsTab="False"
+                                            IsActive="{Binding Path=IsKeyboardFocusWithin, RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
 
                         <ContentControl Name="contentWrapper" Margin="0, 0, 0, 0"
                                                     VerticalContentAlignment="Center"

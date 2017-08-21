@@ -22,7 +22,8 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ToggleButton">
                                     <Canvas Width="22" Height="22">
-                                        <Rectangle x:Name="IconBg" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="22" Height="22"></Rectangle>
+                                        <Rectangle x:Name="IconBg" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" 
+                                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="22" Height="22"></Rectangle>
                                         <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=ToggleButton}, Path=DataContext.IconContent}"                                                          />
                                     </Canvas>
                                 </ControlTemplate>
@@ -46,11 +47,21 @@
             </Popup>
         </Grid>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsActive)}" Value="True">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsActive)}" Value="True"
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon Active">
                 <Setter TargetName="ToggleButton" Property="Background" Value="{Binding Path=ActiveIconBackground}"/>
                 <Setter TargetName="ToggleButton" Property="Foreground" Value="{Binding Path=ActiveIconForeground}"/>
             </DataTrigger>
-            <MultiDataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsSelected)}" Value="True"
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon Selected">
+                <Setter TargetName="ToggleButton" Property="Background" Value="{Binding Path=ActiveIconBackground}"/>
+                <Setter TargetName="ToggleButton" Property="Foreground" Value="{Binding Path=ActiveIconForeground}"/>
+            </DataTrigger>
+            <MultiDataTrigger
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon Selected (Tab)">
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsTab)}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsSelected)}" Value="True"/>
@@ -58,7 +69,9 @@
                 <Setter TargetName="ToggleButton" Property="Background" Value="{Binding Path=ActiveIconBackground}"/>
                 <Setter TargetName="ToggleButton" Property="Foreground" Value="{Binding Path=ActiveIconForeground}"/>
             </MultiDataTrigger>
-            <MultiDataTrigger>
+            <MultiDataTrigger
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon Not Selected (Tab)">
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsTab)}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsSelected)}" Value="False"/>
@@ -66,7 +79,9 @@
                 <Setter TargetName="ToggleButton" Property="Background" Value="{Binding Path=InactiveTabIconBackground}"/>
                 <Setter TargetName="ToggleButton" Property="Foreground" Value="{Binding Path=InactiveTabForeground}"/>
             </MultiDataTrigger>
-            <MultiDataTrigger>
+            <MultiDataTrigger
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon MouseOver Titlebar (Tab)">
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsTab)}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsMouseOverTitleBar)}" Value="True"/>
@@ -74,7 +89,9 @@
                 <Setter TargetName="ToggleButton" Property="Background" Value="{Binding Path=ActiveIconBackground}"/>
                 <Setter TargetName="ToggleButton" Property="Foreground" Value="{Binding Path=ActiveIconForeground}"/>
             </MultiDataTrigger>
-            <MultiDataTrigger>
+            <MultiDataTrigger
+                         controls:TriggerTracing.TraceEnabled="True"
+                         controls:TriggerTracing.TriggerName="Icon Selected and MouseOver Titlebar (Tab)">
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsTab)}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TitleBarMenu.IsSelected)}" Value="False"/>
