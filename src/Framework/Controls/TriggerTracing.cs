@@ -8,20 +8,6 @@ namespace Aurora.Controls
     // Code from http://www.wpfmentor.com/2009/01/how-to-debug-triggers-using-trigger.html
     // No license specified - this code is trimmed out from Release build anyway so it should be ok using it this way
 
-    // HOWTO: add the following attached property to any trigger and you will see when it is activated/deactivated in the output window
-    //        TriggerTracing.TriggerName="your debug name"
-    //        TriggerTracing.TraceEnabled="True"
-
-    // Example:
-    // <Trigger my:TriggerTracing.TriggerName="BoldWhenMouseIsOver"  
-    //          my:TriggerTracing.TraceEnabled="True"  
-    //          Property="IsMouseOver"  
-    //          Value="True">  
-    //     <Setter Property = "FontWeight" Value="Bold"/>  
-    // </Trigger> 
-    //
-    // As this works on anything that inherits from TriggerBase, it will also work on <MultiTrigger>.
-#if DEBUG
     /// <summary>
     /// Contains attached properties to activate Trigger Tracing on the specified Triggers.
     /// This file alone should be dropped into your app.
@@ -30,11 +16,13 @@ namespace Aurora.Controls
     {
         static TriggerTracing()
         {
+#if DEBUG
             // Initialise WPF Animation tracing and add a TriggerTraceListener
             PresentationTraceSources.Refresh();
             PresentationTraceSources.AnimationSource.Listeners.Clear();
             PresentationTraceSources.AnimationSource.Listeners.Add(new TriggerTraceListener());
             PresentationTraceSources.AnimationSource.Switch.Level = SourceLevels.All;
+#endif
         }
         
         /// <summary>
@@ -95,6 +83,7 @@ namespace Aurora.Controls
 
         private static void OnTraceEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+#if DEBUG
             var triggerBase = d as TriggerBase;
 
             if (triggerBase == null)
@@ -128,6 +117,7 @@ namespace Aurora.Controls
                     }
                 }
             }
+#endif
         }
 
         private enum TriggerTraceStoryboardType
@@ -140,8 +130,8 @@ namespace Aurora.Controls
         /// </summary>
         private class TriggerTraceStoryboard : Storyboard
         {
-            public TriggerTraceStoryboardType StoryboardType { get; private set; }
-            public TriggerBase TriggerBase { get; private set; }
+            public TriggerTraceStoryboardType StoryboardType { get; }
+            public TriggerBase TriggerBase { get; }
 
             public TriggerTraceStoryboard(TriggerBase triggerBase, TriggerTraceStoryboardType storyboardType)
             {
@@ -157,6 +147,7 @@ namespace Aurora.Controls
         {
             public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
             {
+#if DEBUG
                 base.TraceEvent(eventCache, source, eventType, id, format, args);
 
                 if (!format.StartsWith("Storyboard has begun;"))
@@ -169,12 +160,13 @@ namespace Aurora.Controls
 
                 // the element being acted upon
                 var targetElement = args[5];
-                
+
                 var triggerBase = storyboard.TriggerBase;
                 var triggerName = GetTriggerName(storyboard.TriggerBase);
 
                 Debug.WriteLine(
                     $"Element: {targetElement}, {triggerBase.GetType().Name}: {triggerName}: {storyboard.StoryboardType}");
+#endif
             }
 
             public override void Write(string message)
@@ -186,5 +178,5 @@ namespace Aurora.Controls
             }
         }
     }
-#endif
+
 }
