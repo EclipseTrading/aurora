@@ -95,7 +95,7 @@
                                             ContentTemplate="{StaticResource Menu}"
                                             IsTab="False"
                                             IsActive="False"
-                                            IsSelected="{Binding Path=IsFocused, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                            IsSelected="{Binding Path=IsKeyboardFocusWithin, RelativeSource={RelativeSource TemplatedParent}}"/>
 
                     <ContentPresenter Name="PART_ContentPresenter" IsHitTestVisible="true" Margin="0, 0, 0, 0" VerticalAlignment="Center"
                                                   MaxHeight="22"
@@ -305,7 +305,7 @@
                 <Setter TargetName="PART_CloseButton" Value="{Binding Path=(sf:DockingManager.DockingManager).(sf:DockingManager.HeaderForeground), RelativeSource={RelativeSource TemplatedParent}}" Property="Control.Foreground"/>
             </Trigger>
             <DataTrigger Value="True" Binding="{Binding Path=IsTemplateParenKeyboardFocusWithin, RelativeSource={RelativeSource Self}}">
-                <Setter TargetName="Menu" Property="controls:MenuProperties.IsActive" Value="True"/>
+                <Setter TargetName="Menu" Property="IsActive" Value="True"/>
                 <Setter TargetName="PART_ContentPresenter" Value="{Binding  RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).ActiveForeground}" Property="TextBlock.Foreground"/>
                 <Setter TargetName="borderTop" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).ActiveBackground}" Property="Border.Background"/>
                 <Setter TargetName="PART_AwlButton" Value="{Binding Path=(sf:DockingManager.DockingManager).(sf:DockingManager.HeaderForegroundSelected), RelativeSource={RelativeSource TemplatedParent}}" Property="Control.Foreground"/>

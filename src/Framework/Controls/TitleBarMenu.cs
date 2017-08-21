@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Aurora.Controls
@@ -6,11 +9,8 @@ namespace Aurora.Controls
     public class TitleBarMenu : ContentControl
     {
         public static readonly DependencyProperty IsTabProperty = DependencyProperty.Register("IsTab", typeof(bool), typeof(TitleBarMenu), new PropertyMetadata(default(bool)));
-
         public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(TitleBarMenu), new PropertyMetadata(default(bool)));
-
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(TitleBarMenu), new PropertyMetadata(default(bool)));
-
         public static readonly DependencyProperty IsMouseOverTitleBarProperty = DependencyProperty.Register("IsMouseOverTitleBar", typeof(bool), typeof(TitleBarMenu), new PropertyMetadata(default(bool)));
 
         public bool IsTab
