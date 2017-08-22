@@ -32,7 +32,7 @@
                     </Style>
                 </ToggleButton.Style>
             </ToggleButton>
-            <Popup x:Name="IconPopup" Placement="Bottom" AllowsTransparency="True" PlacementTarget="{Binding ElementName=ImageIcon}" Width="250" PopupAnimation="Fade" IsOpen="True" VerticalOffset="-1" HorizontalOffset="1">
+            <Popup x:Name="IconPopup" Placement="Bottom" AllowsTransparency="True" PlacementTarget="{Binding ElementName=ImageIcon}" Width="250" PopupAnimation="Fade" StaysOpen="False" VerticalOffset="-1" HorizontalOffset="1">
                 <i:Interaction.Behaviors>
                     <dockingContainer:CloseOnAction/>
                 </i:Interaction.Behaviors>
