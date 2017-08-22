@@ -11,6 +11,8 @@
     </ResourceDictionary.MergedDictionaries>
     
     <Style x:Key="DocumentTabItemStyle" TargetType="sf:TabItemExt" BasedOn="{StaticResource MetroTabItemExtStyle}">
+        <Setter Property="Header" Value="{Binding  Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderContent, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="HeaderTemplate" Value="{Binding Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderTemplate, RelativeSource={RelativeSource Self}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="sf:TabItemExt">
@@ -19,8 +21,8 @@
                                     BorderThickness="1"
                                     Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Margin}" CornerRadius="0"
                                     ToolTip="{Binding Path=ItemToolTip, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:TabItemExt}}}">
+                        
                         <DockPanel x:Name="PART_DockPanel" LastChildFill="true" Margin="0">
-
                             <Grid DockPanel.Dock="Right">
                                 <Rectangle Fill="{Binding  Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).ButtonAreaBackground, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
@@ -47,12 +49,13 @@
                                                     IsSelected="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}"/>
 
 
-                            <ContentControl x:Name="Content" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderContent}"
-                                                    ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderTemplate}"
-                                                    Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).InactiveTabForeground}"
-                                                    VerticalAlignment="Center"
-                                                    MaxHeight="23"
-                                                    Margin="5,0"/>
+                            <ContentControl x:Name="Content" 
+                                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header}"
+                                            ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HeaderTemplate}"
+                                            Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content.(ContentPresenter.Content).(sdc:AuroraProperties.TitleBarSettings).InactiveTabForeground}"
+                                            VerticalAlignment="Center"
+                                            MaxHeight="23"
+                                            Margin="5,0"/>
 
                             <ContentPresenter x:Name="PART_EditHeader" ContentSource="Header" Visibility="Collapsed"/>
                         </DockPanel>
