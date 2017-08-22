@@ -6,5 +6,6 @@ namespace Aurora.Core.Container
     {
         public string Id { get; } = Guid.NewGuid().ToString();
         public abstract MenuType MenuType { get; }
+        public string Name { get; set; }
     }
 }
