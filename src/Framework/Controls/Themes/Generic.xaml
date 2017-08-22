@@ -19,7 +19,7 @@
            BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}">
         <Setter Property="Command" Value="{Binding Path=Command}"/>
         <Setter Property="Icon" Value="{Binding Path=Icon}"/>
-        <Setter Property="Name" Value="{Binding Path=Name}"/>
+        <Setter Property="AutomationProperties.AutomationId" Value="{Binding Path=Name}"/>
         <Setter Property="local:MenuProperties.MenuType" Value="{Binding Path=MenuType}"/>
         <Style.Triggers>
             <Trigger Property="local:MenuProperties.MenuType" Value="Divider">
@@ -46,7 +46,7 @@
                 <local:MenuItemTemplateSelector>
                     <local:MenuItemTemplateSelector.MenuItemTemplate>
                         <HierarchicalDataTemplate DataType="container:MenuItemCommand" ItemsSource="{Binding Path=Children}">
-                            <TextBlock Text="{Binding Path=Title}"/>
+                            <TextBlock Text="{Binding Path=Title}" AutomationProperties.AutomationId="{Binding Path=Name}"/>
                         </HierarchicalDataTemplate>
                     </local:MenuItemTemplateSelector.MenuItemTemplate>
                     <local:MenuItemTemplateSelector.SeparatorTemplate>
