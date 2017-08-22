@@ -50,7 +50,8 @@ namespace Aurora.Sample.Module.Views.TestWorkspace
             this.TitleBarSettings.MenuItems.Add(
                 new MenuItemCommand("Test Menu Item")
                 {
-                    Icon = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue }
+                    Icon = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue },
+                    Name="TestMenuItem"
                 });
             this.TitleBarSettings.TitleBarControls.Add(new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue, Margin = new Thickness(7.5, 0, 7.5, 0)});
             this.TitleBarSettings.ActiveBackground = new SolidColorBrush(Color.FromArgb(255, 17, 218, 158));
