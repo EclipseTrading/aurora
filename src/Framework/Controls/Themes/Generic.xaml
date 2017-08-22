@@ -15,9 +15,12 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MenuItemContainerStyle" TargetType="syncfusion:MenuItemAdv" BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}">
+    <Style x:Key="MenuItemContainerStyle" TargetType="syncfusion:MenuItemAdv"
+           BasedOn="{StaticResource {x:Type syncfusion:MenuItemAdv}}"
+           d:DataContext="{d:DesignInstance container:CommandBarItem}">
         <Setter Property="Command" Value="{Binding Path=Command}"/>
         <Setter Property="Icon" Value="{Binding Path=Icon}"/>
+        <Setter Property="Name" Value="{Binding Path=Name}"/>
         <Setter Property="local:MenuProperties.MenuType" Value="{Binding Path=MenuType}"/>
         <Style.Triggers>
             <Trigger Property="local:MenuProperties.MenuType" Value="Divider">
