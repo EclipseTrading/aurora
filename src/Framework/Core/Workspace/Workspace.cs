@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aurora.Core.Activities;
 using Aurora.Core.Container;
-using Newtonsoft.Json.Linq;
 using System.Windows;
 
 namespace Aurora.Core.Workspace
@@ -34,10 +33,10 @@ namespace Aurora.Core.Workspace
             await ViewManager.AddViewAsync(activeView, info);
         }
 
-        public async Task CloseAllView()
+        public void CloseAllView()
         {
             var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
-            await service.CloseAllView();
+            service.CloseAllView();
         }
 
         private async Task CreateFloatingViews(IList<WorkspaceViewConfig> source, string dockTarget)
@@ -118,7 +117,6 @@ namespace Aurora.Core.Workspace
 
         public async Task LoadLayout(WorkspaceLayout layout)
         {
-
             //move main window
             Application.Current.MainWindow.Top = layout.MainWindowRect.Top;
             Application.Current.MainWindow.Left = layout.MainWindowRect.Left;
@@ -137,23 +135,22 @@ namespace Aurora.Core.Workspace
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
             }
 
-            await CreateFloatingViews(layout.WorkspaceViews.ToList(), "");
-            await CreateDockedViews(layout.WorkspaceViews.ToList(), "");
+            await CreateFloatingViews(layout.Views.ToList(), "");
+            await CreateDockedViews(layout.Views.ToList(), "");
         }
 
-        public async Task<WorkspaceLayout> GetCurrentLayout()
+        public WorkspaceLayout GetCurrentLayout()
         {
             var service = (IWorkspaceContainerService)ViewManager.GetViewContainerService(HostLocation.Center);
-            var layout = await service.GetCurrentLayout();
-
-
-            layout.MainWindowRect = new Rect(Application.Current.MainWindow.Left,
+            var views = service.GetWorkspaceViews();
+            var rect = new Rect(Application.Current.MainWindow.Left,
                                              Application.Current.MainWindow.Top,
                                              Application.Current.MainWindow.Width,
                                              Application.Current.MainWindow.Height);
-
-            layout.Maximized = Application.Current.MainWindow.WindowState == WindowState.Maximized;
-            layout.Minimized = Application.Current.MainWindow.WindowState == WindowState.Minimized;
+            var layout = new WorkspaceLayout(rect,
+                Application.Current.MainWindow.WindowState == WindowState.Minimized,
+                Application.Current.MainWindow.WindowState == WindowState.Maximized,
+                views);
 
             return layout;
         }

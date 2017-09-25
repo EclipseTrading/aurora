@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using Aurora.Core.Activities;
 
 namespace Aurora.Core.Actions
 {
     public class DefaultAction : IAction
     {
         private readonly IDictionary<string, IActionParameter> parameters;
-        public string Id { get; private set; }
+        public string Id { get; }
 
         public DefaultAction(string id, IEnumerable<IActionParameter> parameters = null)
         {

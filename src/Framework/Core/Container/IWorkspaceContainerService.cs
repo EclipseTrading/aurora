@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Aurora.Core.Workspace;
 
 namespace Aurora.Core.Container
 {
     public interface IWorkspaceContainerService : IViewContainerService
     {
-        Task<WorkspaceLayout> GetCurrentLayout();
-        Task CloseAllView();
+        IReadOnlyList<WorkspaceViewConfig> GetWorkspaceViews();
+        void CloseAllView();
     }
 }

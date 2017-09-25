@@ -10,6 +10,186 @@
         <ResourceDictionary Source="CommonStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
+    <ControlTemplate x:Key="SysTabItemTemplate" TargetType="{x:Type TabItem}">
+        <Grid Name="Transform">
+            <sf:ContextMenuBorder Name="Border" Margin="2" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                <FrameworkElement.ContextMenu>
+                    <sf:CustomContextMenu Name="PART_ContextMenu" Focusable="false"/>
+                </FrameworkElement.ContextMenu>
+                <FrameworkElement.LayoutTransform>
+                    <RotateTransform Angle="0"/>
+                </FrameworkElement.LayoutTransform>
+                <DockPanel LastChildFill="true">
+                    <Border Name="Icon" DockPanel.Dock="Left" Margin="6,3,2,3" Width="16" 
+                            Background="{Binding Path=(TabItem.Content).(sf:DockingManager.Icon), RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header"
+                            Margin="10,3" RecognizesAccessKey="true"
+                            Content="{Binding Path=(TabItem.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderContent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}}"
+                            ContentTemplate="{Binding Path=(TabItem.Content).(sdc:AuroraProperties.TitleBarSettings).HeaderTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}}"/>
+                </DockPanel>
+            </sf:ContextMenuBorder>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger SourceName="Icon" Value="{x:Null}" Property="Border.Background">
+                <Setter TargetName="Icon" Property="UIElement.Visibility" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="UIElement.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Value="{DynamicResource MetroHoverBrush}" Property="Border.Background"/>
+            </Trigger>
+            <Trigger Property="TabItem.TabStripPlacement" Value="Left">
+                <Setter TargetName="Border" Property="FrameworkElement.LayoutTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="90"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="Border" Property="FrameworkElement.Margin" Value="-0.5,-0.5,0.5,0"/>
+                <Setter TargetName="ContentSite" Property="FrameworkElement.Margin" Value="2.5,2.5,2.5,2.5"/>
+                <Setter TargetName="ContentSite" Property="TextBlock.FontFamily" Value="Microsoft Sans Serif"/>
+            </Trigger>
+            <Trigger Property="TabItem.TabStripPlacement" Value="Right">
+                <Setter TargetName="Border" Property="FrameworkElement.LayoutTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="90"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="Border" Property="FrameworkElement.Margin" Value="0.5,-0.5,-0.5,0"/>
+                <Setter TargetName="ContentSite" Property="FrameworkElement.Margin" Value="2.5,2.5,2.5,2.5"/>
+                <Setter TargetName="ContentSite" Property="TextBlock.FontFamily" Value="Microsoft Sans Serif"/>
+            </Trigger>
+            <DataTrigger Value="False"
+                      Binding="{Binding Path=(Border.DataContext).(sf:DockingManager.CanClose), ElementName=Border}">
+                <Setter TargetName="PART_ContextMenu" Property="sf:CustomContextMenu.IsEnabledHiddenMenuItem"
+                   Value="false"/>
+            </DataTrigger>
+            <DataTrigger Value="Float"
+                      Binding="{Binding Path=(Border.DataContext).(sf:DockingManager.State), ElementName=Border}">
+                <Setter TargetName="PART_ContextMenu" Property="sf:CustomContextMenu.IsEnabledAutoHideMenuItem"
+                   Value="false"/>
+            </DataTrigger>
+            <DataTrigger Value="False"
+                      Binding="{Binding Path=(Border.DataContext).(sf:DockingManager.CanFloat), ElementName=Border}">
+                <Setter TargetName="PART_ContextMenu" Property="sf:CustomContextMenu.IsEnabledFloatingMenuItem"
+                   Value="false"/>
+            </DataTrigger>
+            <DataTrigger Value="False"
+                      Binding="{Binding Path=(Border.DataContext).(sf:DockingManager.CanAutoHide), ElementName=Border}">
+                <Setter TargetName="PART_ContextMenu" Property="sf:CustomContextMenu.IsEnabledAutoHideMenuItem"
+                   Value="false"/>
+            </DataTrigger>
+            <DataTrigger Value="False"
+                      Binding="{Binding Path=(Border.DataContext).(sf:DockingManager.CanDocument), ElementName=Border}">
+                <Setter TargetName="PART_ContextMenu" Property="sf:CustomContextMenu.IsEnabledTabbedMenuItem"
+                   Value="false"/>
+            </DataTrigger>
+            <Trigger Property="TabItem.IsSelected" Value="true">
+                <Setter TargetName="ContentSite" Property="Panel.ZIndex" Value="100"/>
+                <Setter TargetName="ContentSite" Value="{DynamicResource MetroHighlightedForegroundBrush}"
+                   Property="TextBlock.Foreground"/>
+                <Setter TargetName="Border" Value="{DynamicResource MetroBrush}" Property="Border.Background"/>
+            </Trigger>
+            <Trigger Property="TabItem.IsSelected" Value="false">
+                <Setter TargetName="Border" Property="Border.BorderBrush" Value="Transparent"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <Style x:Key="SysTabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Header" Value="{Binding Path=(sf:DockingManager.Header)}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MetroForegroundBrush}"/>
+        <Setter Property="sf:DockingManager.ListenTabItemEvents" Value="true"/>
+        <Setter Property="MinWidth" Value="21"/>
+        <Setter Property="MinHeight" Value="21"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Tag" Value="IsInternalTabItem"/>
+        <Setter Property="Template" Value="{StaticResource SysTabItemTemplate}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=IsTouchEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:DockingManager}}}"
+                      Value="True">
+                <Setter Property="FrameworkElement.MinHeight" Value="35"/>
+                <Setter Property="FrameworkElement.MinWidth" Value="35"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SysTabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="ItemContainerStyle" Value="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.TabItemStyle), 
+            RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid Name="Grida" KeyboardNavigation.TabNavigation="Local" ClipToBounds="true">
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="FirstRow"/>
+                            <RowDefinition x:Name="SecondRow" Height="0"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="FirstCol"/>
+                            <ColumnDefinition x:Name="SecondCol" Width="0"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Name="WrapBorder" Grid.Row="1" Grid.Column="0" Margin="0,-1,0,0" Background="{TemplateBinding Control.Background}" BorderBrush="{StaticResource DockingWindowBorderBrush}" BorderThickness="1">
+                            <sf:DirectTabPanel Name="PART_TabPanel" ZIndex="1" IsItemsHost="true" Margin="0,0,4,0" KeyboardNavigation.TabIndex="1" Background="Transparent"/>
+                        </Border>
+                        <Border Name="Border" Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="1" KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="Contained" 
+                                KeyboardNavigation.TabIndex="2">
+                            <ContentPresenter Name="PART_SelectedContentHost" Margin="{TemplateBinding FrameworkElement.Margin}" ContentSource="SelectedContent"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Value="True" Binding="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.IsTouchEnabled), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}">
+                            <Setter Property="Control.FontSize" Value="18"/>
+                        </DataTrigger>
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Top">
+                            <Setter TargetName="FirstRow" Property="RowDefinition.Height" Value="Auto"/>
+                            <Setter TargetName="SecondRow" Property="RowDefinition.Height" Value="*"/>
+                            <Setter TargetName="WrapBorder" Property="Grid.Row" Value="0"/>
+                            <Setter TargetName="Border" Property="Grid.Row" Value="1"/>
+                            <Setter TargetName="WrapBorder" Property="FrameworkElement.Margin" Value="0,0,0,-1"/>
+                            <Setter TargetName="PART_TabPanel" Property="FrameworkElement.Margin" Value="0,0,4,0"/>
+                        </Trigger>
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Bottom">
+                            <Setter TargetName="FirstRow" Property="RowDefinition.Height" Value="*"/>
+                            <Setter TargetName="SecondRow" Property="RowDefinition.Height" Value="Auto"/>
+                        </Trigger>
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Left">
+                            <Setter TargetName="FirstCol" Property="ColumnDefinition.Width" Value="Auto"/>
+                            <Setter TargetName="SecondCol" Property="ColumnDefinition.Width" Value="*"/>
+                            <Setter TargetName="Border" Property="Grid.Column" Value="1"/>
+                            <Setter TargetName="WrapBorder" Property="Grid.Row" Value="0"/>
+                            <Setter TargetName="WrapBorder" Property="FrameworkElement.Margin" Value="0,1,-1.5,0"/>
+                            <Setter TargetName="PART_TabPanel" Property="FrameworkElement.Margin" Value="4,0,0,0"/>
+                        </Trigger>
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Right">
+                            <Setter TargetName="FirstCol" Property="ColumnDefinition.Width" Value="*"/>
+                            <Setter TargetName="SecondCol" Property="ColumnDefinition.Width" Value="Auto"/>
+                            <Setter TargetName="WrapBorder" Property="Grid.Column" Value="1"/>
+                            <Setter TargetName="WrapBorder" Property="Grid.Row" Value="0"/>
+                            <Setter TargetName="WrapBorder" Property="FrameworkElement.Margin" Value="-1.5,1,0,0"/>
+                            <Setter TargetName="PART_TabPanel" Property="FrameworkElement.Margin" Value="0,0,4,0"/>
+                        </Trigger>
+                        <Trigger SourceName="WrapBorder" Property="UIElement.Visibility" Value="Visible">
+                            <Setter TargetName="WrapBorder" 
+                                    Value="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.TabPanelBorderBrush), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}" 
+                                    Property="Border.BorderBrush"/>
+                            <Setter TargetName="WrapBorder" 
+                                    Value="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.TabPanelBorderThickness), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}"
+                                    Property="Border.BorderThickness"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="UIElement.Visibility" Value="Visible">
+                <Setter Property="Control.Background"
+                   Value="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.TabPanelBackground), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
     <ControlTemplate x:Key="DockHeaderPresenterTemplate" TargetType="{x:Type sf:DockHeaderPresenter}">
         <Border x:Name="borderTop" Width="Auto" Height="Auto" BorderThickness="1">
             <FrameworkElement.ContextMenu>
@@ -330,7 +510,7 @@
             </MultiDataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="DockHeaderStyle" TargetType="sf:DockHeaderPresenter">
         <Setter Property="Template" Value="{StaticResource DockHeaderPresenterTemplate}"/>
     </Style>
@@ -342,7 +522,7 @@
                     <Border x:Name="BorderWrap" Width="Auto" SnapsToDevicePixels="true" 
                                     Background="Transparent" 
                                     BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorder}"
-                                    BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorderThickness}"
+                                    BorderThickness="1"
                                     FocusVisualStyle="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.FocusVisualStyle), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}">
                         <DockPanel x:Name="DockPanel" Width="Auto" LastChildFill="true" Focusable="false">
                             <sf:DockHeaderPresenter x:Name="header" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5"
@@ -367,13 +547,8 @@
                             <Setter TargetName="PART_CoverletControl" Property="UIElement.Visibility" Value="Visible"/>
                             <Setter TargetName="HostedElement" Property="UIElement.Visibility" Value="Collapsed"/>
                         </Trigger>
-                        <Trigger SourceName="BorderWrap" Property="UIElement.Visibility" Value="Visible">
-                            <Setter TargetName="BorderWrap" Value="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.ElementBorderThickness), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}" 
-                                            Property="Border.BorderThickness"/>
-                        </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="BorderWrap" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorder}"/>
-                            <Setter TargetName="BorderWrap" Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(sf:DockingManager.InternalDataContext).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorderThickness}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}, Converter={sdc:IsNullConverter}}" Value="False">
                             <Setter TargetName="BorderWrap" Property="BorderThickness" Value="0"/>
@@ -382,6 +557,52 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="sf:DockedElementTabbedHost.ShowTabs" Value="true">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type sf:DockedElementTabbedHost}">
+                            <Border x:Name="BorderWrapForTab" Width="Auto" BorderBrush="{DynamicResource MetroBorderBrush}"
+                                    BorderThickness="1,2,1,0" SnapsToDevicePixels="true" Background="Transparent" Margin="0,0,0,0">
+                                <DockPanel x:Name="DockPanel" Width="Auto" LastChildFill="true">
+                                    <sf:DockHeaderPresenter x:Name="header" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5"
+                                              IsTemplateParenKeyboardFocusWithin="{TemplateBinding UIElement.IsKeyboardFocusWithin}"
+                                              Style="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.DockHeaderStyle), RelativeSource={RelativeSource AncestorType={x:Type sf:DockedElementTabbedHost}}}"/>
+                                    <Grid Margin="-2,0,-2,0">
+                                        <TabControl Name="PART_TabControl"
+                                                    ItemsSource="{TemplateBinding sf:DockedElementTabbedHost.TabChildren}"
+                                                    IsSynchronizedWithCurrentItem="True" Padding="0"
+                                                    Style="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.TabControlStyle), RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TabStripPlacement="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.DockTabAlignment), RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        <Border Name="PART_CoverletControl" Visibility="Collapsed" Background="Transparent"/>
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Value="True"
+                                             Binding="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockingManager.NoHeader), RelativeSource={RelativeSource Self}}">
+                                    <Setter TargetName="header" Property="UIElement.Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Value="True"
+                                             Binding="{Binding Path=(sf:DockedElementTabbedHost.DockingManager).(sf:DockingManager.IsDragging), RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Setter TargetName="PART_CoverletControl" Property="UIElement.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <Trigger Property="sf:DockedElementTabbedHost.MarkAsFrozen" Value="true">
+                                    <Setter TargetName="PART_CoverletControl" Property="UIElement.Visibility" Value="Visible"/>
+                                    <Setter TargetName="PART_TabControl" Property="UIElement.Visibility" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger SourceName="BorderWrapForTab" Property="UIElement.Visibility" Value="Visible">
+                                    <Setter TargetName="BorderWrapForTab" Property="Border.BorderThickness" Value="1"/>
+                                </Trigger>
+                                <Trigger Property="sf:DockedElementTabbedHost.State" Value="Float">
+                                    <Setter TargetName="BorderWrapForTab" Property="Border.BorderThickness" Value="1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 

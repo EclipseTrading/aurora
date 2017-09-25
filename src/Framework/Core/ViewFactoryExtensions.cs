@@ -6,7 +6,7 @@ namespace Aurora.Core
 {
     public static class ViewFactoryExtensions
     {
-        public async static Task<ActiveView<TPresenter>> CreateActiveViewAsync<TPresenter>(this IViewFactory factory, IActivity activity, params object[] parameters)
+        public static async Task<ActiveView<TPresenter>> CreateActiveViewAsync<TPresenter>(this IViewFactory factory, IActivity activity, params object[] parameters)
             where TPresenter : IPresenter
         {
             var view = await factory.CreateActiveViewAsync(activity, typeof(TPresenter), parameters);

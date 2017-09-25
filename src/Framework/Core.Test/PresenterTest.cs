@@ -1,7 +1,7 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using Aurora.Core.Actions;
-using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
 using NUnit.Framework;
 
@@ -11,11 +11,13 @@ namespace Aurora.Core.Test
     public class PresenterTest
     {
         [Test, Apartment(ApartmentState.STA)]
-        public async void FactoryWireUpTest()
+        public async Task FactoryWireUpTest()
         {
             var container = new UnityContainer();
+            container.RegisterType<IActionHandlerService, DefaultActionHandlerService>();
 
-            var factory = new ViewFactory(container, new ViewModelResolver(), new NamingConventionTypeResolver<FrameworkElement>("Presenter", "View"));
+            var factory = new ViewFactory(container, new ViewModelResolver(), 
+                new NamingConventionTypeResolver<FrameworkElement>("Presenter", "View"));
             var activeView = await factory.CreateActiveViewAsync<TestPresenter>();
             var presenter = activeView.Presenter;
 
@@ -31,32 +33,5 @@ namespace Aurora.Core.Test
             Assert.IsTrue(propertySet);
             Assert.AreEqual(presenter.ViewModel.TestProperty, "Test");
         }
-    }
-
-    public class TestPresenter : Presenter<TestViewModel>
-    {
-        public TestPresenter(ActivityInfo viewActivityInfo, IActionHandlerService actionHandlerService) : base(viewActivityInfo, actionHandlerService)
-        {
-        }
-    }
-
-    public class TestViewModel : ViewModelBase
-    {
-        private string testProperty;
-
-        public string TestProperty
-        {
-            get { return testProperty; }
-            set
-            {
-                testProperty = value;
-                this.OnPropertyChanged();
-            }
-        }
-    }
-
-    public class TestView : FrameworkElement
-    {
-
     }
 }

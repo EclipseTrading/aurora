@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Aurora.Core.Actions;
 
 namespace Aurora.Core
@@ -14,7 +13,8 @@ namespace Aurora.Core
             this.parent = parent;
         }
 
-        public bool Execute(ActionEvent evt) {
+        public bool Execute(ActionEvent evt)
+        {
             if (actionHandlers.Count == 0 || evt.Action == null)
             {
                 // No registered handler. Delegate to parent
@@ -36,6 +36,5 @@ namespace Aurora.Core
         {
             actionHandlers[action] = actionHandler;
         }
-
     }
 }
