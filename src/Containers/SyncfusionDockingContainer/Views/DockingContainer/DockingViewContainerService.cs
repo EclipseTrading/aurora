@@ -38,7 +38,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             return await Task.FromResult(disposable);
         }
 
-        public Task CloseAllView()
+        public void CloseAllView()
         {
             var region = regionManager.Regions[DockingContainerRegion.Default];
             var dockingManager = (DockingManager)region.Context;
@@ -49,20 +49,18 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
             {
                 dockingManager?.ExecuteClose(frameworkElement);
             }
-
-            return Task.FromResult(0);
         }
 
-        public async Task<WorkspaceLayout> GetCurrentLayout()
+        public IReadOnlyList<WorkspaceViewConfig> GetWorkspaceViews()
         {
             var region = regionManager.Regions[DockingContainerRegion.Default];
             var dockingManager = (DockingManager)region.Context;
             if (dockingManager == null)
             {
-                return new WorkspaceLayout();
+                return new WorkspaceViewConfig[0];
             }
 
-            var layout = new WorkspaceLayout();
+            var views = new List<WorkspaceViewConfig>();
 
             var count = dockingManager.Children.Count;
             for (var i = 0; i < count; i++)
@@ -95,7 +93,7 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         TabOrderInFloating = DockedElementTabbedHost.GetTabOrderInFloatMode(doc)
                     };
 
-                    layout.WorkspaceViews.Add(config);
+                    views.Add(config);
                 }
                 else
                 {
@@ -115,12 +113,13 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         TabOrderInFloating = DockedElementTabbedHost.GetTabOrderInFloatMode(doc)
                     };
 
-                    layout.WorkspaceViews.Add(config);
+                    views.Add(config);
 
                 }
             }
 
-            return await Task.FromResult(layout);
+
+            return views;
         }
     }
 }

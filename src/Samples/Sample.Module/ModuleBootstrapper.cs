@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -33,101 +34,106 @@ namespace Aurora.Sample.Module
 
         public void Initialize()
         {
-
             var layout1 = new MenuItemCommand("Layout 1", new DelegateCommand(async () =>
             {
-                await currentWorkspace.CloseAllView();
+                currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout { MainWindowRect = new Rect(500, 300, 1200, 800) };
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
-                {
-                    ViewTitle = "Risk and Pnl - Strategy",
-                    DockState = DockingState.Dock,
-                    DockSide = DockingSide.Left,
-                    DockTarget = "",
-                    DockWidth = 450,
-                    DockHeight = 90,
-                    DockIndex = 0
-                });
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view2", null)
-                {
-                    ViewTitle = "view2",
-                    DockState = DockingState.Dock,
-                    DockSide = DockingSide.Bottom,
-                    DockTarget = "view1",
-                    DockWidth = 250,
-                    DockHeight = 90,
-                    DockIndex = 1
-                });
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view3", null)
-                {
-                    ViewTitle = "view3",
-                    DockState = DockingState.Dock,
-                    DockSide = DockingSide.Right,
-                    DockTarget = "",
-                    DockWidth = 250,
-                    DockHeight = 90,
-                    DockIndex = 2
-                });
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view4", null)
-                {
-                    ViewTitle = "view4",
-                    DockState = DockingState.Dock,
-                    DockSide = DockingSide.Bottom,
-                    DockTarget = "",
-                    DockWidth = 250,
-                    DockHeight = 90,
-                    DockIndex = 3
-                });
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(TestWorkspacePresenter), "Floating1", null)
-                {
-                    ViewTitle = "Floating1",
-                    DockState = DockingState.Float,
-                    FloatingLocation = new Rect(1500, 500, 500, 500)
-                });
+                var layout = new WorkspaceLayout(new Rect(500, 300, 1200, 800), false, false,
+                    new List<WorkspaceViewConfig>
+                    {
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
+                        {
+                            ViewTitle = "Risk and Pnl - Strategy",
+                            DockState = DockingState.Dock,
+                            DockSide = DockingSide.Left,
+                            DockTarget = "",
+                            DockWidth = 450,
+                            DockHeight = 90,
+                            DockIndex = 0
+                        },
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "view2", null)
+                        {
+                            ViewTitle = "view2",
+                            DockState = DockingState.Dock,
+                            DockSide = DockingSide.Bottom,
+                            DockTarget = "view1",
+                            DockWidth = 250,
+                            DockHeight = 90,
+                            DockIndex = 1
+                        },
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "view3", null)
+                        {
+                            ViewTitle = "view3",
+                            DockState = DockingState.Dock,
+                            DockSide = DockingSide.Right,
+                            DockTarget = "",
+                            DockWidth = 250,
+                            DockHeight = 90,
+                            DockIndex = 2
+                        },
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "view4", null)
+                        {
+                            ViewTitle = "view4",
+                            DockState = DockingState.Dock,
+                            DockSide = DockingSide.Bottom,
+                            DockTarget = "",
+                            DockWidth = 250,
+                            DockHeight = 90,
+                            DockIndex = 3
+                        },
+                        new WorkspaceViewConfig(typeof(TestWorkspacePresenter), "Floating1", null)
+                        {
+                            ViewTitle = "Floating1",
+                            DockState = DockingState.Float,
+                            FloatingLocation = new Rect(1500, 500, 500, 500)
+                        }
+                    });
 
                 await currentWorkspace.LoadLayout(layout);
             }));
 
             var layout2 = new MenuItemCommand("Layout 2", new DelegateCommand(async () =>
             {
-                await currentWorkspace.CloseAllView();
+                currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout {MainWindowRect = new Rect(500, 300, 1200, 800)};
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
-                {
-                    ViewTitle = "Risk and Pnl - Strategy",
-                    DockState = DockingState.Dock,
-                    DockSide = DockingSide.Left,
-                    DockTarget = "",
-                    DockWidth = 450,
-                    DockHeight = 90,
-                    DockIndex = 0
-                });
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(CustomPresenter), "Floating1", null)
-                {
-                    ViewTitle = "Floating1",
-                    DockState = DockingState.Float,
-                    FloatingLocation = new Rect(1500, 500, 500, 500)
-                });
+                var layout = new WorkspaceLayout(new Rect(500, 300, 1200, 800),
+                    false, false, new List<WorkspaceViewConfig>()
+                    {
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "view1", null)
+                        {
+                            ViewTitle = "Risk and Pnl - Strategy",
+                            DockState = DockingState.Dock,
+                            DockSide = DockingSide.Left,
+                            DockTarget = "",
+                            DockWidth = 450,
+                            DockHeight = 90,
+                            DockIndex = 0
+                        },
+                        new WorkspaceViewConfig(typeof(CustomPresenter), "Floating1", null)
+                        {
+                            ViewTitle = "Floating1",
+                            DockState = DockingState.Float,
+                            FloatingLocation = new Rect(1500, 500, 500, 500)
+                        }
+                    });
 
                 await currentWorkspace.LoadLayout(layout);
             }));
 
-            var closeAll = new MenuItemCommand("Close All", new DelegateCommand(async () =>
+            var closeAll = new MenuItemCommand("Close All", new DelegateCommand(() =>
             {
-                await currentWorkspace.CloseAllView();
+                currentWorkspace.CloseAllView();
             }));
 
-            var capture = new MenuItemCommand("Capture", new DelegateCommand(async () =>
+            var capture = new MenuItemCommand("Capture", new DelegateCommand(() =>
             {
-                this.lastSaved = await currentWorkspace.GetCurrentLayout();
+                this.lastSaved = currentWorkspace.GetCurrentLayout();
 
             }));
 
             var restore = new MenuItemCommand("Restore", new DelegateCommand(async () =>
             {
-                await currentWorkspace.CloseAllView();
+                currentWorkspace.CloseAllView();
                 if (this.lastSaved != null)
                 {
                     await currentWorkspace.LoadLayout(this.lastSaved);
@@ -136,15 +142,18 @@ namespace Aurora.Sample.Module
 
             var layout3 = new MenuItemCommand("Test Layout", new DelegateCommand(async () =>
             {
-                await currentWorkspace.CloseAllView();
+                currentWorkspace.CloseAllView();
 
-                var layout = new WorkspaceLayout {MainWindowRect = new Rect(500, 300, 1200, 800)};
-                layout.WorkspaceViews.Add(new WorkspaceViewConfig(typeof(TestWorkspacePresenter), "Floating1", null)
-                {
-                    ViewTitle = "Floating1",
-                    DockState = DockingState.Float,
-                    FloatingLocation = new Rect(1500, 500, 500, 500)
-                });
+                var layout = new WorkspaceLayout(new Rect(500, 300, 1200, 800), false, false,
+                    new List<WorkspaceViewConfig>
+                    {
+                        new WorkspaceViewConfig(typeof(TestWorkspacePresenter), "Floating1", null)
+                        {
+                            ViewTitle = "Floating1",
+                            DockState = DockingState.Float,
+                            FloatingLocation = new Rect(1500, 500, 500, 500)
+                        }
+                    });
 
                 await currentWorkspace.LoadLayout(layout);
             }));
@@ -159,18 +168,18 @@ namespace Aurora.Sample.Module
             commandBarService.AddCommand(workspaces);
 
 
-            var cmdItem =  new MenuItemCommand("New View", new DelegateCommand(async () =>
-            {
-                var location = new ViewLocation
-                {
-                    DockState = DockingState.Document
-                };
-                await this.currentWorkspace.CreateView(typeof(TestWorkspacePresenter),
-                        "id_" + Guid.NewGuid().ToString("N").ToUpper(),
-                        "Define new Layout", null,
-                        location);
+            var cmdItem = new MenuItemCommand("New View", new DelegateCommand(async () =>
+           {
+               var location = new ViewLocation
+               {
+                   DockState = DockingState.Document
+               };
+               await this.currentWorkspace.CreateView(typeof(TestWorkspacePresenter),
+                       "id_" + Guid.NewGuid().ToString("N").ToUpper(),
+                       "Define new Layout", null,
+                       location);
 
-            }))
+           }))
             {
                 IconPath = "pack://application:,,,/Aurora.Sample.Module;component/Images/new_window.png",
                 Description = null
@@ -232,7 +241,7 @@ namespace Aurora.Sample.Module
 
             commandBarService.AddCommand(new DividerItem());
 
-            var nested = new MenuItemCommand("Nested", 
+            var nested = new MenuItemCommand("Nested",
                 new MenuItemCommand("SubItem1",
                     new MenuItemCommand("SubSubItem1"),
                     new MenuItemCommand("SubSubItem2"))

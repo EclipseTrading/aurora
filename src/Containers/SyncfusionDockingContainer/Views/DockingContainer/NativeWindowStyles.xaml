@@ -41,7 +41,7 @@
                                                 Command="sf:NativeFloatWindow.MaximizeCommand"	
                                                 Template="{Binding Path=(sf:NativeFloatWindow.DockingManager).(sf:DockingManager.MaximizeButtonTemplate),RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
                                 <ToggleButton Name="button" Focusable="False" sf:WindowChrome.IsHitTestVisibleInChrome="True" Margin="2,2,0,0" Padding="0" 
-												Command="sf:NativeFloatWindow.CloseCommand"	Template="{Binding Path=(sf:NativeFloatWindow.DockingManager).(sf:DockingManager.CloseButtonTemplate),RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
+                                              Command="sf:NativeFloatWindow.CloseCommand" Template="{Binding Path=(sf:NativeFloatWindow.DockingManager).(sf:DockingManager.CloseButtonTemplate),RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
                             </StackPanel>
                         </Grid>
 
@@ -123,8 +123,10 @@
                     <AdornerDecorator>
                         <DockPanel Focusable="False" LastChildFill="True" Name="MainPanel">
                             <Border Name="FloatWindowOutBorder"  Focusable="False"
-                                        BorderBrush="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorder, RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"
-                                        BorderThickness="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorderThickness, RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"  >
+                                        BorderBrush="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorder, 
+                                RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"
+                                        BorderThickness="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).InactiveWindowBorderThickness, 
+                                RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"  >
 
                                 <Grid Focusable="False">
                                     <Grid.RowDefinitions>
@@ -147,9 +149,11 @@
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="MainPanel" Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="FloatWindowOutBorder" Property="BorderBrush" 
-                                        Value="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorder, RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
+                                        Value="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorder, 
+                                RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
                             <Setter TargetName="FloatWindowOutBorder" Property="BorderThickness" 
-                                        Value="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorderThickness, RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
+                                        Value="{Binding Path=(sf:DockingManager.InternalDataContext).(sf:DockedElementTabbedHost.HostedElement).(sdc:AuroraProperties.TitleBarSettings).ActiveWindowBorderThickness, 
+                                RelativeSource={RelativeSource AncestorType=sf:NativeFloatWindow}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

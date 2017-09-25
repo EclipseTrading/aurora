@@ -30,6 +30,8 @@
                 NativeWindowStyle="{StaticResource CustomNativeFloatWindowStyle}"
                 DockHeaderStyle="{StaticResource DockHeaderStyle}"
                 DockedElementTabbedHostStyle="{StaticResource DockedElementTabHostStyle}"
+                TabControlStyle="{StaticResource SysTabControlStyle}"
+                TabItemStyle="{StaticResource SysTabItemStyle}"
                 DocumentTabItemStyle="{StaticResource DocumentTabItemStyle}"
                 DocumentTabControlStyle="{StaticResource TabControlStyle}"
                 sf:SkinStorage.VisualStyle="Metro"/>

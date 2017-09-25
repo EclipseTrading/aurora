@@ -7,14 +7,21 @@ namespace Aurora.Core.Workspace
     {
         public WorkspaceLayout()
         {
-            this.WorkspaceViews = new List<WorkspaceViewConfig>();
+            this.Views = new List<WorkspaceViewConfig>();
             this.MainWindowRect = new Rect(0, 0, 800, 600);
         }
 
-        public List<WorkspaceViewConfig> WorkspaceViews { get; }
-        public Rect MainWindowRect { get; set; }
-        public bool Minimized { get; set; }
-        public bool Maximized { get; set; }
-        public string Name { get; set; }
+        public WorkspaceLayout(Rect mainWindowRect, bool minimized, bool maximized, IReadOnlyList<WorkspaceViewConfig> views)
+        {
+            MainWindowRect = mainWindowRect;
+            Minimized = minimized;
+            Maximized = maximized;
+            this.Views = views;
+        }
+
+        public IReadOnlyList<WorkspaceViewConfig> Views { get; }
+        public Rect MainWindowRect { get; }
+        public bool Minimized { get; }
+        public bool Maximized { get; }
     }
 }

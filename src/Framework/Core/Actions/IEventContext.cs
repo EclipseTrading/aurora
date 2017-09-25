@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using Aurora.Core.Activities;
+﻿using System.Windows;
 
 namespace Aurora.Core.Actions
 {

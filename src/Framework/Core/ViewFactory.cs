@@ -5,7 +5,6 @@ using System.Windows;
 using Aurora.Core.Actions;
 using Aurora.Core.Activities;
 using Microsoft.Practices.Unity;
-using Aurora.Core.Dialog;
 using Aurora.Core.ViewContainer;
 
 namespace Aurora.Core
@@ -39,6 +38,7 @@ namespace Aurora.Core
                         new DependencyOverride(typeOverride.Type, typeOverride.Value) :
                         new DependencyOverride(p.GetType(), p));
                 }).ToList();
+            
 
             var handlerService = new DefaultPresenterActionHandlerService(parentHandlerService ?? container.Resolve<IActionHandlerService>());
             overrideList.Add(new DependencyOverride(typeof(IActionHandlerService), handlerService));
@@ -54,17 +54,20 @@ namespace Aurora.Core
 
             var viewModel = (IViewModel)container.Resolve(viewModelType, overrides);
 
-            ActiveView result = null;
-            if (presenter is IViewPresenter)
+            ActiveView result;
+            var viewPresenter = presenter as IViewPresenter;
+            if (viewPresenter != null)
             {
                 var contentContainer = new ContentContainer();
             
                 view.DataContext = viewModel;
-                var contentContext = new ContentContext();
-                contentContext.MainContent = view;
-                
+                var contentContext = new ContentContext
+                {
+                    MainContent = view
+                };
+
                 contentContainer.DataContext = contentContext;
-                ((IViewPresenter)presenter).ContentContext = contentContext;
+                viewPresenter.ContentContext = contentContext;
                 await presenter.InitializeAsync(viewModel);
                 result = new ActiveView(presenter, viewModel, contentContainer, activity);
             }
@@ -77,6 +80,5 @@ namespace Aurora.Core
 
             return result;
         }
-
     }
 }
