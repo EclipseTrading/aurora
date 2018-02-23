@@ -7,7 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/Syncfusion.Tools.Wpf;component/framework/dockingmanager/themes/metrostyle.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Syncfusion.Tools.Wpf;component/controls/tabcontrolext/themes/metrostyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
+   
     <Style x:Key="TabControlStyle" TargetType="{x:Type sf:TabControlExt}">
         <Setter Property="TabPanelStyle" Value="{StaticResource MetroTabPanelAdvStyle}"/>
         <Setter Property="TabPanelBackground" Value="{StaticResource Metro.TabPanelBackgroundBrush}"/>
@@ -29,7 +29,11 @@
                         </Grid.RowDefinitions>
                         <sf:HeaderPanel Name="HeaderPanel" Grid.Column="0" Grid.Row="0" ZIndex="1" Focusable="false" Background="#FF293955" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <sf:TabPanelAdv x:Name="PART_TabPanel" Focusable="false" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{TemplateBinding sf:TabControlExt.TabPanelStyle}">
-                                <sf:TabLayoutPanel x:Name="PART_TabLayoutPanel" AllowDrop="true" Margin="0,0,0,0" IsItemsHost="true" KeyboardNavigation.TabIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <sf:TabScrollViewer x:Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Hidden"
+                                                       VerticalScrollBarVisibility="Hidden">
+                                    <sf:TabLayoutPanel x:Name="PART_TabLayoutPanel" AllowDrop="true" Margin="0" IsItemsHost="true"
+                                                          KeyboardNavigation.TabIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                </sf:TabScrollViewer>
                             </sf:TabPanelAdv>
                         </sf:HeaderPanel>
                         <sf:Border3D x:Name="ContentPanel" Grid.Column="0" Grid.Row="1" AllowDrop="true" 
