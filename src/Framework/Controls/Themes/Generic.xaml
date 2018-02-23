@@ -9,7 +9,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ActiveViewer}">
-                    <ContentControl Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveView.View}" />
+                    <ContentControl Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveView.View}" IsTabStop="False"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

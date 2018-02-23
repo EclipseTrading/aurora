@@ -95,11 +95,6 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                         if (doc.ViewLocation.IsFloating)
                         {
                             DockingManager.SetState(doc, DockState.Float);
-                            var location = new Rect(doc.ViewLocation.FloatingLeft,
-                                doc.ViewLocation.FloatingTop,
-                                doc.ViewLocation.FloatingWidth,
-                                doc.ViewLocation.FloatingHeight);
-                            DockingManager.SetFloatingWindowRect(doc, location);
                             DockingManager.SetSideInDockedMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetSideInFloatMode(doc, (DockSide)doc.ViewLocation.DockSide);
                             DockingManager.SetCanFloatMaximize(doc, true);
@@ -120,9 +115,9 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
                             DockingManager.SetTargetNameInDockedMode(doc, doc.ViewLocation.DockTarget ?? "");
                             DockingManager.SetIndexInFloatModeExternally(doc, doc.ViewLocation.DockIndex);
                             DockingManager.SetNoHeader(doc, true);
-                            DockingManager.SetDesiredWidthInFloatingMode(doc, doc.ViewLocation.DockWidth);
-                            DockingManager.SetDesiredHeightInFloatingMode(doc, doc.ViewLocation.DockHeight);
 
+                            DockingManager.SetDesiredWidthInFloatingMode(doc, doc.ViewLocation.FloatingWidth);
+                            DockingManager.SetDesiredHeightInFloatingMode(doc, doc.ViewLocation.FloatingHeight);
                         }
                         else
                         {
@@ -138,6 +133,18 @@ namespace Aurora.SyncfusionDockingContainer.Views.DockingContainer
 
                         }
                         regionTarget.Children.Add(doc);
+                        if (doc.ViewLocation.IsFloating)
+                        {
+                            // If location is set before adding the view to docking manager, 
+                            // the window width is capped at 1390 on a 1600x2560 portrait 
+                            // monitor for unknown reason.
+                            var loc = new Rect(doc.ViewLocation.FloatingLeft,
+                                doc.ViewLocation.FloatingTop,
+                                doc.ViewLocation.FloatingWidth,
+                                doc.ViewLocation.FloatingHeight);
+                            DockingManager.SetFloatingWindowRect(doc, loc);
+                        }
+
                         TDILayoutPanel.SetTDIIndex(doc, doc.ViewLocation.TabOrderInDocument);
                         DockedElementTabbedHost.SetTabOrderInFloatMode(doc, doc.ViewLocation.TabOrderInFloating);
                         DockedElementTabbedHost.SetTabOrderInDockMode(doc, doc.ViewLocation.TabOrderInDock);
